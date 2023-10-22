@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace potapanjePodmornica
 {
-    public partial class Form1 : Form
+    public partial class frmPotop : Form
     {
-        public Form1()
+        public frmPotop()
         {
             InitializeComponent();
+        }
+
+        private void btnStartProg_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
