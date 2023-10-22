@@ -87,7 +87,7 @@
             // btnSpreman
             // 
             this.btnSpreman.Font = new System.Drawing.Font("Georgia", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSpreman.Location = new System.Drawing.Point(261, 416);
+            this.btnSpreman.Location = new System.Drawing.Point(236, 416);
             this.btnSpreman.Name = "btnSpreman";
             this.btnSpreman.Size = new System.Drawing.Size(97, 31);
             this.btnSpreman.TabIndex = 4;
