@@ -47,6 +47,9 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pbxProtivnik = new System.Windows.Forms.PictureBox();
             this.pbxJa = new System.Windows.Forms.PictureBox();
+            this.lblIspisPobednik = new System.Windows.Forms.Label();
+            this.btnIzlaz = new System.Windows.Forms.Button();
+            this.btnIgrajOpet = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbxAvion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbx3a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbx2c)).BeginInit();
@@ -252,11 +255,43 @@
             this.pbxJa.TabIndex = 1;
             this.pbxJa.TabStop = false;
             // 
+            // lblIspisPobednik
+            // 
+            this.lblIspisPobednik.AutoSize = true;
+            this.lblIspisPobednik.Font = new System.Drawing.Font("Georgia", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIspisPobednik.Location = new System.Drawing.Point(375, 153);
+            this.lblIspisPobednik.Name = "lblIspisPobednik";
+            this.lblIspisPobednik.Size = new System.Drawing.Size(84, 31);
+            this.lblIspisPobednik.TabIndex = 25;
+            this.lblIspisPobednik.Text = "label1";
+            // 
+            // btnIzlaz
+            // 
+            this.btnIzlaz.Location = new System.Drawing.Point(416, 190);
+            this.btnIzlaz.Name = "btnIzlaz";
+            this.btnIzlaz.Size = new System.Drawing.Size(75, 23);
+            this.btnIzlaz.TabIndex = 26;
+            this.btnIzlaz.Text = "IZLAZ";
+            this.btnIzlaz.UseVisualStyleBackColor = true;
+            // 
+            // btnIgrajOpet
+            // 
+            this.btnIgrajOpet.Font = new System.Drawing.Font("Georgia", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnIgrajOpet.Location = new System.Drawing.Point(298, 190);
+            this.btnIgrajOpet.Name = "btnIgrajOpet";
+            this.btnIgrajOpet.Size = new System.Drawing.Size(92, 23);
+            this.btnIgrajOpet.TabIndex = 27;
+            this.btnIgrajOpet.Text = "IGRAJ OPET";
+            this.btnIgrajOpet.UseVisualStyleBackColor = true;
+            // 
             // frmPotop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnIgrajOpet);
+            this.Controls.Add(this.btnIzlaz);
+            this.Controls.Add(this.lblIspisPobednik);
             this.Controls.Add(this.pbxAvion);
             this.Controls.Add(this.lblIgrac2);
             this.Controls.Add(this.lblIgrac1);
@@ -317,6 +352,9 @@
         private System.Windows.Forms.Label lblIgrac1;
         private System.Windows.Forms.Label lblIgrac2;
         private System.Windows.Forms.PictureBox pbxAvion;
+        private System.Windows.Forms.Label lblIspisPobednik;
+        private System.Windows.Forms.Button btnIzlaz;
+        private System.Windows.Forms.Button btnIgrajOpet;
     }
 }
 

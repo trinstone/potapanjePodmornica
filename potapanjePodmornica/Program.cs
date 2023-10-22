@@ -16,8 +16,7 @@ namespace potapanjePodmornica
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
-            int y = 9,r=4;
+            Application.Run(new frmPotop());
         }
     }
 }
