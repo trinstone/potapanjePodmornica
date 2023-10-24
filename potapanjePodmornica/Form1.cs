@@ -109,6 +109,7 @@ namespace potapanjePodmornica
             UnosPozicija(true);
             btnStartProg.Enabled = false;
             btnStartProg.Visible = false;
+            this.BackgroundImage = null;
         }
 
         private void btnSpreman_Click(object sender, EventArgs e)
