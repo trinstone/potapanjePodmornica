@@ -13,8 +13,10 @@ namespace potapanjePodmornica
     public partial class frmPotop : Form
     {
         static int sirinaPolja;
+        bool prviNaPotezu = true;
         int[,] tablaPrvog = new int[10, 10];
         int[,] tablaDrugog = new int[10, 10];
+        (int, int,string)[] pozicijeBrodovaZaPostavljanje = new (int, int,string)[10];
         public frmPotop()
         {
             InitializeComponent();
@@ -137,11 +139,32 @@ namespace potapanjePodmornica
             btnStartProg.Enabled = false;
             btnStartProg.Visible = false;
             this.BackgroundImage = null;
+            int poslednjeSlovo = 100, brVrste = 1;
+            for (int i = 0,k = 97; i < pozicijeBrodovaZaPostavljanje.Length && k<=poslednjeSlovo; i++,k++)
+            {
+                string imeBroda = brVrste + Convert.ToString(Convert.ToChar(k));
+                PictureBox a = (PictureBox)this.Controls.Find("pbx" + imeBroda, true)[0];
+                pozicijeBrodovaZaPostavljanje[i] = (a.Top, a.Left,"pbx"+imeBroda);
+                if(k == poslednjeSlovo) { k = 96; poslednjeSlovo--; brVrste++; }  
+            }
         }
-
         private void btnSpreman_Click(object sender, EventArgs e)
         {
-
+            if(prviNaPotezu)
+            {
+                prviNaPotezu = false;
+                lblIgrac1.Enabled = false;
+                lblIgrac1.Visible = false;
+                lblIgrac2.Enabled = true;
+                lblIgrac2.Visible = true;
+                pbxJa.Refresh();
+                for (int i = 0; i < pozicijeBrodovaZaPostavljanje.Length; i++)
+                {
+                    PictureBox a = (PictureBox)this.Controls.Find(pozicijeBrodovaZaPostavljanje[i].Item3,true)[0];
+                    a.Top = pozicijeBrodovaZaPostavljanje[i].Item1;
+                    a.Left = pozicijeBrodovaZaPostavljanje[i].Item2;
+                }
+            }
         }
 
         private void frmPotop_Load(object sender, EventArgs e)
