@@ -144,7 +144,7 @@ namespace potapanjePodmornica
             {
                 string imeBroda = brVrste + Convert.ToString(Convert.ToChar(k));
                 PictureBox a = (PictureBox)this.Controls.Find("pbx" + imeBroda, true)[0];
-                pozicijeBrodovaZaPostavljanje[i] = (a.Top, a.Left,"pbx"+imeBroda);
+                pozicijeBrodovaZaPostavljanje[i] = (a.Left, a.Top,"pbx"+imeBroda);
                 if(k == poslednjeSlovo) { k = 96; poslednjeSlovo--; brVrste++; }  
             }
         }
@@ -178,14 +178,18 @@ namespace potapanjePodmornica
                 for (int i = 0; i < pozicijeBrodovaZaPostavljanje.Length; i++)
                 {
                     PictureBox a = (PictureBox)this.Controls.Find(pozicijeBrodovaZaPostavljanje[i].Item3,true)[0];
-                    a.Top = pozicijeBrodovaZaPostavljanje[i].Item1;
-                    a.Left = pozicijeBrodovaZaPostavljanje[i].Item2;
+                    a.Left = pozicijeBrodovaZaPostavljanje[i].Item1;
+                    a.Top = pozicijeBrodovaZaPostavljanje[i].Item2;
                 }
                 //zapamti pozicije prvog
             }
             /*
-             else ispisi obe tabele
+             else ispisi obe tabele i pokreni igru
              */
+        }
+        private void VelicinaLokacijaSvega()
+        {
+
         }
 
         private void frmPotop_Load(object sender, EventArgs e)
