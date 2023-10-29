@@ -255,6 +255,7 @@
             this.pbxJa.Size = new System.Drawing.Size(360, 360);
             this.pbxJa.TabIndex = 1;
             this.pbxJa.TabStop = false;
+            this.pbxJa.Paint += new System.Windows.Forms.PaintEventHandler(this.pbxJa_Paint);
             // 
             // lblIspisPobednik
             // 

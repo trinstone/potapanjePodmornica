@@ -21,7 +21,7 @@ namespace potapanjePodmornica
         {
             InitializeComponent();
         }
-        //0 - prazno, 1 - pogodjeno prazno, 2 - brod, 3 - pogodjen brog
+        //0 - prazno, 1 - pogodjeno prazno, 2 - brod, 3 - pogodjen brod
         //pictureBox1.BackgroundImage.RotateFlip(RotateFlipType.Rotate90FlipXY);
         //pictureBox1.Refresh();
         //imena brodova: 1a,1b,1c,1d,2a,2b,2c,3a,3b,4a
@@ -148,6 +148,23 @@ namespace potapanjePodmornica
                 if(k == poslednjeSlovo) { k = 96; poslednjeSlovo--; brVrste++; }  
             }
         }
+        private void IscrtajTablu(PictureBox tabla, PaintEventArgs e)
+        { 
+            sirinaPolja = tabla.Width / 11;
+            //e.Graphics.DrawString(tekst, new Font("Arial", 12),Brushes.Green, new Point(x, y));
+            for (int i = 1; i < 11; i++)
+            {
+                e.Graphics.DrawString(Convert.ToString(i), new Font("Georgia", 12), Brushes.Blue, new Point(sirinaPolja*i+5, 5));
+                e.Graphics.DrawString(Convert.ToString((char)(64+i)), new Font("Georgia", 12), Brushes.Blue, new Point(5, sirinaPolja * i + 5));
+            }
+            Pen olovka = new Pen(Color.Blue, (float)(tabla.Width * 0.01 + 1));
+            for (int i = 0; i < 11; i++)
+            {
+                e.Graphics.DrawLine(olovka,(i+1)*sirinaPolja, sirinaPolja, (i + 1) * sirinaPolja,sirinaPolja*11);
+                e.Graphics.DrawLine( olovka, sirinaPolja, (i + 1) * sirinaPolja, sirinaPolja * 11, (i + 1) * sirinaPolja);
+            }
+
+        }
         private void btnSpreman_Click(object sender, EventArgs e)
         {
             if(prviNaPotezu)
@@ -164,12 +181,21 @@ namespace potapanjePodmornica
                     a.Top = pozicijeBrodovaZaPostavljanje[i].Item1;
                     a.Left = pozicijeBrodovaZaPostavljanje[i].Item2;
                 }
+                //zapamti pozicije prvog
             }
+            /*
+             else ispisi obe tabele
+             */
         }
 
         private void frmPotop_Load(object sender, EventArgs e)
         {
             UnosPozicija(false);
+        }
+
+        private void pbxJa_Paint(object sender, PaintEventArgs e)
+        {
+            IscrtajTablu(pbxJa, e);
         }
     }
 }
