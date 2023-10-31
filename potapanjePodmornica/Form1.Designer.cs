@@ -86,6 +86,7 @@
             this.btnRestartPozicije.TabIndex = 3;
             this.btnRestartPozicije.Text = "OBRIŠI SVE";
             this.btnRestartPozicije.UseVisualStyleBackColor = true;
+            this.btnRestartPozicije.Click += new System.EventHandler(this.btnRestartPozicije_Click);
             // 
             // btnSpreman
             // 
@@ -275,6 +276,7 @@
             this.btnIzlaz.TabIndex = 26;
             this.btnIzlaz.Text = "IZLAZ";
             this.btnIzlaz.UseVisualStyleBackColor = true;
+            this.btnIzlaz.Click += new System.EventHandler(this.btnIzlaz_Click);
             // 
             // btnIgrajOpet
             // 

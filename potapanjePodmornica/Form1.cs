@@ -175,17 +175,21 @@ namespace potapanjePodmornica
                 lblIgrac2.Enabled = true;
                 lblIgrac2.Visible = true;
                 pbxJa.Refresh();
-                for (int i = 0; i < pozicijeBrodovaZaPostavljanje.Length; i++)
-                {
-                    PictureBox a = (PictureBox)this.Controls.Find(pozicijeBrodovaZaPostavljanje[i].Item3,true)[0];
-                    a.Left = pozicijeBrodovaZaPostavljanje[i].Item1;
-                    a.Top = pozicijeBrodovaZaPostavljanje[i].Item2;
-                }
+                PostaviNaPocetnePozicije();
                 //zapamti pozicije prvog
             }
             /*
              else ispisi obe tabele i pokreni igru
              */
+        }
+        private void PostaviNaPocetnePozicije()
+        {
+            for (int i = 0; i < pozicijeBrodovaZaPostavljanje.Length; i++)
+            {
+                PictureBox a = (PictureBox)this.Controls.Find(pozicijeBrodovaZaPostavljanje[i].Item3, true)[0];
+                a.Left = pozicijeBrodovaZaPostavljanje[i].Item1;
+                a.Top = pozicijeBrodovaZaPostavljanje[i].Item2;
+            }
         }
         private void VelicinaLokacijaSvega()
         {
@@ -200,6 +204,16 @@ namespace potapanjePodmornica
         private void pbxJa_Paint(object sender, PaintEventArgs e)
         {
             IscrtajTablu(pbxJa, e);
+        }
+
+        private void btnRestartPozicije_Click(object sender, EventArgs e)
+        {
+            PostaviNaPocetnePozicije();
+        }
+
+        private void btnIzlaz_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Application.Exit();
         }
     }
 }
