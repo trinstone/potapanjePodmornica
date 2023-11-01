@@ -320,6 +320,7 @@
             this.Name = "frmPotop";
             this.Text = "Potapanje podmornica";
             this.Load += new System.EventHandler(this.frmPotop_Load);
+            this.SizeChanged += new System.EventHandler(this.frmPotop_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.pbxAvion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbx3a)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbx2c)).EndInit();

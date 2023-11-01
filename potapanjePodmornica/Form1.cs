@@ -20,6 +20,9 @@ namespace potapanjePodmornica
         public frmPotop()
         {
             InitializeComponent();
+            Rectangle intersection = Rectangle.Intersect(pbxProtivnik.Bounds, pbxAvion.Bounds);
+            Region region = new Region(intersection);
+            pbxAvion.Region = region;
         }
         //0 - prazno, 1 - pogodjeno prazno, 2 - brod, 3 - pogodjen brod
         //pictureBox1.BackgroundImage.RotateFlip(RotateFlipType.Rotate90FlipXY);
@@ -193,7 +196,12 @@ namespace potapanjePodmornica
         }
         private void VelicinaLokacijaSvega()
         {
-
+            /*
+            pbxJa.Top = this.Height/10;
+            pbxJa.Left = this.Width/68;
+            pbxJa.Width = this.Width / 2;
+            pbxJa.Height = pbxJa.Width;
+            */
         }
 
         private void frmPotop_Load(object sender, EventArgs e)
@@ -214,6 +222,11 @@ namespace potapanjePodmornica
         private void btnIzlaz_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.Application.Exit();
+        }
+
+        private void frmPotop_SizeChanged(object sender, EventArgs e)
+        {
+            VelicinaLokacijaSvega();
         }
     }
 }
