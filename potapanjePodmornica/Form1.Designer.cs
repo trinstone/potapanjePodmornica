@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnStartProg = new System.Windows.Forms.Button();
             this.btnRestartPozicije = new System.Windows.Forms.Button();
             this.btnSpreman = new System.Windows.Forms.Button();
@@ -50,6 +51,7 @@
             this.lblIspisPobednik = new System.Windows.Forms.Label();
             this.btnIzlaz = new System.Windows.Forms.Button();
             this.btnIgrajOpet = new System.Windows.Forms.Button();
+            this.tajmer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbxAvion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbx3a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbx2c)).BeginInit();
@@ -108,6 +110,7 @@
             this.btnHelp.TabIndex = 21;
             this.btnHelp.Text = "POMOĆ";
             this.btnHelp.UseVisualStyleBackColor = true;
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
             // lblIgrac1
             // 
@@ -247,6 +250,7 @@
             this.pbxProtivnik.Size = new System.Drawing.Size(360, 360);
             this.pbxProtivnik.TabIndex = 2;
             this.pbxProtivnik.TabStop = false;
+            this.pbxProtivnik.Paint += new System.Windows.Forms.PaintEventHandler(this.pbxProtivnik_Paint);
             // 
             // pbxJa
             // 
@@ -287,6 +291,10 @@
             this.btnIgrajOpet.TabIndex = 27;
             this.btnIgrajOpet.Text = "IGRAJ OPET";
             this.btnIgrajOpet.UseVisualStyleBackColor = true;
+            // 
+            // tajmer
+            // 
+            this.tajmer.Tick += new System.EventHandler(this.tajmer_Tick);
             // 
             // frmPotop
             // 
@@ -363,6 +371,7 @@
         private System.Windows.Forms.Label lblIspisPobednik;
         private System.Windows.Forms.Button btnIzlaz;
         private System.Windows.Forms.Button btnIgrajOpet;
+        private System.Windows.Forms.Timer tajmer;
     }
 }
 

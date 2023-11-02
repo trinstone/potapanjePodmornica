@@ -19,10 +19,10 @@ namespace potapanjePodmornica
         (int, int,string)[] pozicijeBrodovaZaPostavljanje = new (int, int,string)[10];
         public frmPotop()
         {
-            InitializeComponent();
+            InitializeComponent();/*
             Rectangle intersection = Rectangle.Intersect(pbxProtivnik.Bounds, pbxAvion.Bounds);
             Region region = new Region(intersection);
-            pbxAvion.Region = region;
+            pbxAvion.Region = region;*/
         }
         //0 - prazno, 1 - pogodjeno prazno, 2 - brod, 3 - pogodjen brod
         //pictureBox1.BackgroundImage.RotateFlip(RotateFlipType.Rotate90FlipXY);
@@ -181,9 +181,21 @@ namespace potapanjePodmornica
                 PostaviNaPocetnePozicije();
                 //zapamti pozicije prvog
             }
-            /*
-             else ispisi obe tabele i pokreni igru
-             */
+            
+             else
+             {
+                prviNaPotezu = true;
+                lblIgrac1.Enabled = true;
+                lblIgrac1.Visible = true;
+                btnSpreman.Visible = false;
+                btnSpreman.Enabled = false;
+                pbxProtivnik.Visible = true;
+                pbxProtivnik.Enabled = true;
+                pbxJa.Refresh();
+                pbxProtivnik.Refresh();
+                KretanjeAviona(5, 2, false);
+             }
+
         }
         private void PostaviNaPocetnePozicije()
         {
@@ -202,6 +214,15 @@ namespace potapanjePodmornica
             pbxJa.Width = this.Width / 2;
             pbxJa.Height = pbxJa.Width;
             */
+        }
+
+        private void KretanjeAviona(int x, int y, bool JelBrod)
+        {
+            pbxAvion.Top = sirinaPolja * (1 + y) + pbxProtivnik.Top;
+            pbxAvion.Left = pbxProtivnik.Left - pbxAvion.Width;
+            pbxAvion.Visible = true;
+            pbxAvion.Enabled = true;
+            tajmer.Start();
         }
 
         private void frmPotop_Load(object sender, EventArgs e)
@@ -227,6 +248,29 @@ namespace potapanjePodmornica
         private void frmPotop_SizeChanged(object sender, EventArgs e)
         {
             VelicinaLokacijaSvega();
+        }
+
+        private void tajmer_Tick(object sender, EventArgs e)
+        {
+            if (pbxAvion.Left < pbxProtivnik.Right)
+            {
+                pbxAvion.Left += 10;
+            }
+            else
+            {
+                pbxAvion.Visible = false;
+                pbxAvion.Enabled = false;
+            }
+        }
+
+        private void pbxProtivnik_Paint(object sender, PaintEventArgs e)
+        {
+            IscrtajTablu(pbxProtivnik, e);
+        }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("");
         }
     }
 }
