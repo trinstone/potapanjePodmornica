@@ -142,14 +142,7 @@ namespace potapanjePodmornica
             btnStartProg.Enabled = false;
             btnStartProg.Visible = false;
             this.BackgroundImage = null;
-            int poslednjeSlovo = 100, brVrste = 1;
-            for (int i = 0,k = 97; i < pozicijeBrodovaZaPostavljanje.Length && k<=poslednjeSlovo; i++,k++)
-            {
-                string imeBroda = brVrste + Convert.ToString(Convert.ToChar(k));
-                PictureBox a = (PictureBox)this.Controls.Find("pbx" + imeBroda, true)[0];
-                pozicijeBrodovaZaPostavljanje[i] = (a.Left, a.Top,"pbx"+imeBroda);
-                if(k == poslednjeSlovo) { k = 96; poslednjeSlovo--; brVrste++; }  
-            }
+            UpisiPocetnePozicije();
         }
         private void IscrtajTablu(PictureBox tabla, PaintEventArgs e)
         { 
@@ -193,9 +186,20 @@ namespace potapanjePodmornica
                 pbxProtivnik.Enabled = true;
                 pbxJa.Refresh();
                 pbxProtivnik.Refresh();
-                KretanjeAviona(5, 2, false);
+                //KretanjeAviona(5, 2, false);
              }
 
+        }
+        private void UpisiPocetnePozicije()
+        {
+            int poslednjeSlovo = 100, brVrste = 1;
+            for (int i = 0, k = 97; i < pozicijeBrodovaZaPostavljanje.Length && k <= poslednjeSlovo; i++, k++)
+            {
+                string imeBroda = brVrste + Convert.ToString(Convert.ToChar(k));
+                PictureBox a = (PictureBox)this.Controls.Find("pbx" + imeBroda, true)[0];
+                pozicijeBrodovaZaPostavljanje[i] = (a.Left, a.Top, "pbx" + imeBroda);
+                if (k == poslednjeSlovo) { k = 96; poslednjeSlovo--; brVrste++; }
+            }
         }
         private void PostaviNaPocetnePozicije()
         {
@@ -206,16 +210,6 @@ namespace potapanjePodmornica
                 a.Top = pozicijeBrodovaZaPostavljanje[i].Item2;
             }
         }
-        private void VelicinaLokacijaSvega()
-        {
-            /*
-            pbxJa.Top = this.Height/10;
-            pbxJa.Left = this.Width/68;
-            pbxJa.Width = this.Width / 2;
-            pbxJa.Height = pbxJa.Width;
-            */
-        }
-
         private void KretanjeAviona(int x, int y, bool JelBrod)
         {
             pbxAvion.Top = sirinaPolja * (1 + y) + pbxProtivnik.Top;
@@ -227,6 +221,7 @@ namespace potapanjePodmornica
 
         private void frmPotop_Load(object sender, EventArgs e)
         {
+            VelicinaLokacijaSvega();
             UnosPozicija(false);
         }
 
@@ -248,6 +243,8 @@ namespace potapanjePodmornica
         private void frmPotop_SizeChanged(object sender, EventArgs e)
         {
             VelicinaLokacijaSvega();
+            this.Refresh();
+            UpisiPocetnePozicije();
         }
 
         private void tajmer_Tick(object sender, EventArgs e)
@@ -271,6 +268,70 @@ namespace potapanjePodmornica
         private void btnHelp_Click(object sender, EventArgs e)
         {
             MessageBox.Show("");
+        }
+        private void VelicinaLokacijaSvega()
+        {
+            //jaTabla
+            pbxJa.Left = (int)(0.01 * this.Width);
+            pbxJa.Top = (int)(0.1 * this.Height);
+            pbxJa.Width = (int)(0.73 * this.Height);
+            pbxJa.Height = (int)(0.73 * this.Height);
+            //protivnikTabla
+            pbxProtivnik.Left = (int)(0.51 * this.Width);
+            pbxProtivnik.Top = (int)(0.1 * this.Height);
+            pbxProtivnik.Width = (int)(0.73 * this.Height);
+            pbxProtivnik.Height = (int)(0.73 * this.Height);
+            sirinaPolja = pbxJa.Width / 11;
+            //3a
+            pbx3a.Left = (int)(0.67 * this.Width);
+            pbx3a.Top = (int)(0.14 * this.Height);
+            pbx3a.Width = (int)(3 * sirinaPolja - 5);
+            pbx3a.Height = (int)(sirinaPolja - 3);
+            //3b
+            pbx3b.Left = (int)(0.82 * this.Width);
+            pbx3b.Top = (int)(0.14 * this.Height);
+            pbx3b.Width = (int)(3 * sirinaPolja - 5);
+            pbx3b.Height = (int)(sirinaPolja - 3);
+            //1c
+            pbx1c.Left = (int)(0.67 * this.Width);
+            pbx1c.Top = (int)(0.31 * this.Height);
+            pbx1c.Width = (int)(sirinaPolja - 5);
+            pbx1c.Height = (int)(sirinaPolja - 3);
+            //1d
+            pbx1d.Left = (int)(0.74 * this.Width);
+            pbx1d.Top = (int)(0.31 * this.Height);
+            pbx1d.Width = (int)(sirinaPolja - 5);
+            pbx1d.Height = (int)(sirinaPolja - 3);
+            //2a
+            pbx2a.Left = (int)(0.83 * this.Width);
+            pbx2a.Top = (int)(0.31 * this.Height);
+            pbx2a.Width = (int)(2 * sirinaPolja - 5);
+            pbx2a.Height = (int)(sirinaPolja - 3);
+            //4a
+            pbx4a.Left = (int)(0.64 * this.Width);
+            pbx4a.Top = (int)(0.47 * this.Height);
+            pbx4a.Width = (int)(4 * sirinaPolja - 5);
+            pbx4a.Height = (int)(sirinaPolja - 3);
+            //2b
+            pbx2b.Left = (int)(0.83 * this.Width);
+            pbx2b.Top = (int)(0.47 * this.Height);
+            pbx2b.Width = (int)(2 * sirinaPolja - 5);
+            pbx2b.Height = (int)(sirinaPolja - 3);
+            //1a
+            pbx1a.Left = (int)(0.64 * this.Width);
+            pbx1a.Top = (int)(0.65 * this.Height);
+            pbx1a.Width = (int)(sirinaPolja - 5);
+            pbx1a.Height = (int)(sirinaPolja - 3);
+            //1b
+            pbx1b.Left = (int)(0.74 * this.Width);
+            pbx1b.Top = (int)(0.65 * this.Height);
+            pbx1b.Width = (int)(sirinaPolja - 5);
+            pbx1b.Height = (int)(sirinaPolja - 3);
+            //2c
+            pbx2c.Left = (int)(0.83 * this.Width);
+            pbx2c.Top = (int)(0.65 * this.Height);
+            pbx2c.Width = (int)(2 * sirinaPolja - 5);
+            pbx2c.Height = (int)(sirinaPolja - 3);
         }
     }
 }
