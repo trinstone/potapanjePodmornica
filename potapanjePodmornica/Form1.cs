@@ -168,9 +168,9 @@ namespace potapanjePodmornica
                 //e.Graphics.DrawLine(olovka, (i + 1) * sirinaPolja, sirinaPolja*y, (i + 1) * sirinaPolja, sirinaPolja * (y+1));
                 //e.Graphics.DrawLine(olovka, sirinaPolja*(1 + x + (i + 1)/3), (y + 1) * sirinaPolja, sirinaPolja * (1 + y + (i + 1) / 3), (x + 1) * sirinaPolja);
             }
-            for (int i = 1; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
-                e.Graphics.DrawLine(olovka, (y + 1) * sirinaPolja, sirinaPolja * (1 + y + (i + 1) / 3), sirinaPolja * (1 + x + (i + 1) / 3), (y + 2) * sirinaPolja);
+                e.Graphics.DrawLine(olovka, (y + 1) * sirinaPolja, sirinaPolja * (1 + y)+sirinaPolja* (i + 1) / 3, sirinaPolja * (1 + y) + sirinaPolja * (i + 1) / 3, (y + 2) * sirinaPolja);
             }
             for (int i = 0; i <= sirinaPolja; i += 10)
             {
