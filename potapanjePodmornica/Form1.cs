@@ -16,7 +16,7 @@ namespace potapanjePodmornica
         bool prviNaPotezu = true;
         int[,] tablaPrvog = new int[10, 10];
         int[,] tablaDrugog = new int[10, 10];
-        (int, int,string)[] pozicijeBrodovaZaPostavljanje = new (int, int,string)[10];
+        (int, int, string)[] pozicijeBrodovaZaPostavljanje = new (int, int, string)[10];
         public frmPotop()
         {
             InitializeComponent();/*
@@ -28,7 +28,7 @@ namespace potapanjePodmornica
         //pictureBox1.BackgroundImage.RotateFlip(RotateFlipType.Rotate90FlipXY);
         //pictureBox1.Refresh();
         //imena brodova: 1a,1b,1c,1d,2a,2b,2c,3a,3b,4a
-        static bool MozeDaSePostaviBrod(int x, int y, int duzina, bool horizontalno, int[,]tabela)
+        static bool MozeDaSePostaviBrod(int x, int y, int duzina, bool horizontalno, int[,] tabela)
         {
             if (horizontalno)
             {
@@ -134,7 +134,7 @@ namespace potapanjePodmornica
             btnIgrajOpet.Enabled = false;
             btnIgrajOpet.Visible = false;
             btnIzlaz.Enabled = false;
-            btnIzlaz.Visible = false; 
+            btnIzlaz.Visible = false;
         }
         private void btnStartProg_Click(object sender, EventArgs e)
         {
@@ -145,21 +145,34 @@ namespace potapanjePodmornica
             UpisiPocetnePozicije();
         }
         private void IscrtajTablu(PictureBox tabla, PaintEventArgs e)
-        { 
+        {
             sirinaPolja = tabla.Width / 11;
             //e.Graphics.DrawString(tekst, new Font("Arial", 12),Brushes.Green, new Point(x, y));
             for (int i = 1; i < 11; i++)
             {
-                e.Graphics.DrawString(Convert.ToString(i), new Font("Georgia", 12), Brushes.Blue, new Point(sirinaPolja*i+5, 5));
-                e.Graphics.DrawString(Convert.ToString((char)(64+i)), new Font("Georgia", 12), Brushes.Blue, new Point(5, sirinaPolja * i + 5));
+                e.Graphics.DrawString(Convert.ToString(i), new Font("Georgia", 12), Brushes.Blue, new Point(sirinaPolja * i + 5, 5));
+                e.Graphics.DrawString(Convert.ToString((char)(64 + i)), new Font("Georgia", 12), Brushes.Blue, new Point(5, sirinaPolja * i + 5));
             }
             Pen olovka = new Pen(Color.Blue, (float)(tabla.Width * 0.01 + 1));
             for (int i = 0; i < 11; i++)
             {
-                e.Graphics.DrawLine(olovka,(i+1)*sirinaPolja, sirinaPolja, (i + 1) * sirinaPolja,sirinaPolja*11);
-                e.Graphics.DrawLine( olovka, sirinaPolja, (i + 1) * sirinaPolja, sirinaPolja * 11, (i + 1) * sirinaPolja);
+                e.Graphics.DrawLine(olovka, (i + 1) * sirinaPolja, sirinaPolja, (i + 1) * sirinaPolja, sirinaPolja * 11);
+                e.Graphics.DrawLine(olovka, sirinaPolja, (i + 1) * sirinaPolja, sirinaPolja * 11, (i + 1) * sirinaPolja);
             }
-
+        }
+        private void PogodakPrazno(PictureBox tabla, PaintEventArgs e, int x, int y)
+        {
+            Pen olovka = new Pen(Color.Blue, (float)(tabla.Width * 0.005 + 1));
+            for (int i = 0; i < 2; i++)
+            {
+                e.Graphics.DrawLine(olovka, (i + 1) * sirinaPolja + x, y * sirinaPolja, y * sirinaPolja, (i + 1) * sirinaPolja + x);
+                e.Graphics.DrawLine(olovka, sirinaPolja, (i + 1) * sirinaPolja, sirinaPolja * 11, (i + 1) * sirinaPolja);
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                e.Graphics.DrawLine(olovka, (i + 1) * sirinaPolja, sirinaPolja, (i + 1) * sirinaPolja, sirinaPolja * 11);
+                e.Graphics.DrawLine(olovka, sirinaPolja, (i + 1) * sirinaPolja, sirinaPolja * 11, (i + 1) * sirinaPolja);
+            }
         }
         private void btnSpreman_Click(object sender, EventArgs e)
         {
