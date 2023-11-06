@@ -163,18 +163,13 @@ namespace potapanjePodmornica
         private void PogodakPrazno(PictureBox tabla, PaintEventArgs e, int x, int y)
         {
             Pen olovka = new Pen(Color.Blue, (float)(tabla.Width * 0.005 + 1));
-            for (int i = 0; i < 3; i++)
+            e.Graphics.DrawLine(olovka, sirinaPolja * (1 + x), sirinaPolja * y, (y + 1) * sirinaPolja, (y + 1) * sirinaPolja);//glavna dijagonala
+            double dodaj = 1;
+            for (int i = 1; i < 5; i++)
             {
-                //e.Graphics.DrawLine(olovka, (i + 1) * sirinaPolja, sirinaPolja*y, (i + 1) * sirinaPolja, sirinaPolja * (y+1));
-                //e.Graphics.DrawLine(olovka, sirinaPolja*(1 + x + (i + 1)/3), (y + 1) * sirinaPolja, sirinaPolja * (1 + y + (i + 1) / 3), (x + 1) * sirinaPolja);
-            }
-            for (int i = 0; i < 3; i++)
-            {
-                e.Graphics.DrawLine(olovka, (y + 1) * sirinaPolja, sirinaPolja * (1 + y)+sirinaPolja* (i + 1) / 3, sirinaPolja * (1 + y) + sirinaPolja * (i + 1) / 3, (y + 2) * sirinaPolja);
-            }
-            for (int i = 0; i <= sirinaPolja; i += 10)
-            {
-                //e.Graphics.DrawLine(olovka, sirinaPolja*(i+1+y), sirinaPolja*(1+y), i + sirinaPolja, sirinaPolja);
+                e.Graphics.DrawLine(olovka, sirinaPolja * (1 + x) - (int)(sirinaPolja / dodaj), sirinaPolja * y, (y + 1) * sirinaPolja, (y + 1) * sirinaPolja - (int)(sirinaPolja / dodaj));
+                //e.Graphics.DrawLine(olovka, sirinaPolja * (1 + x) + (int)(sirinaPolja / dodaj), sirinaPolja * y, (y + 1) * sirinaPolja, (y + 1) * sirinaPolja + (int)(sirinaPolja / dodaj));
+                dodaj += 0.5;
             }
         }
         private void btnSpreman_Click(object sender, EventArgs e)
@@ -394,5 +389,7 @@ namespace potapanjePodmornica
             pbxAvion.Width = (int)(1.2*sirinaPolja);
             pbxAvion.Height = (int)(sirinaPolja-3);
         }
+
+        
     }
 }
