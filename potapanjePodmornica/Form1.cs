@@ -14,9 +14,12 @@ namespace potapanjePodmornica
     {
         static int sirinaPolja;
         bool prviNaPotezu = true;
-        int[,] tablaPrvog = new int[10, 10];
-        int[,] tablaDrugog = new int[10, 10];
+        (int, string)[,] tablaPrvog = new (int, string)[10, 10];
+        (int, string)[,] tablaDrugog = new (int, string)[10, 10];
         (int, int, string)[] pozicijeBrodovaZaPostavljanje = new (int, int, string)[10];
+        bool pomeranjeBroda = false;
+        int pozX;
+        int pozY;
         public frmPotop()
         {
             InitializeComponent();/*
@@ -28,7 +31,7 @@ namespace potapanjePodmornica
         //pictureBox1.BackgroundImage.RotateFlip(RotateFlipType.Rotate90FlipXY);
         //pictureBox1.Refresh();
         //imena brodova: 1a,1b,1c,1d,2a,2b,2c,3a,3b,4a
-        static bool MozeDaSePostaviBrod(int x, int y, int duzina, bool horizontalno, int[,] tabela)
+        static bool MozeDaSePostaviBrod(int x, int y, int duzina, bool horizontalno, (int, string)[,] tabela)
         {
             if (horizontalno)
             {
@@ -36,28 +39,28 @@ namespace potapanjePodmornica
                 if (krajX > 9) return false;
                 for (int i = x; i <= krajX; i++)
                 {
-                    if (tabela[y, i] != 0) return false;
+                    if (tabela[y, i].Item1 != 0) return false;
                 }
                 if (y != 0)
                 {
                     for (int i = x; i <= krajX; i++)
                     {
-                        if (tabela[y - 1, i] != 0) return false;
+                        if (tabela[y - 1, i].Item1 != 0) return false;
                     }
                 }
                 if (y != 9)
                 {
                     for (int i = x; i <= krajX; i++)
                     {
-                        if (tabela[y + 1, i] != 0) return false;
+                        if (tabela[y + 1, i].Item1 != 0) return false;
                     }
                 }
-                if (x != 0 && tabela[y, x - 1] != 0) return false;
-                if (krajX != 9 && tabela[y, krajX + 1] != 0) return false;
-                if (x != 0 && y != 0 && tabela[y - 1, x - 1] != 0) return false;
-                if (krajX != 9 && y != 0 && tabela[y - 1, krajX + 1] != 0) return false;
-                if (x != 0 && y != 9 && tabela[y + 1, x - 1] != 0) return false;
-                if (krajX != 9 && y != 9 && tabela[y + 1, krajX + 1] != 0) return false;
+                if (x != 0 && tabela[y, x - 1].Item1 != 0) return false;
+                if (krajX != 9 && tabela[y, krajX + 1].Item1 != 0) return false;
+                if (x != 0 && y != 0 && tabela[y - 1, x - 1].Item1 != 0) return false;
+                if (krajX != 9 && y != 0 && tabela[y - 1, krajX + 1].Item1 != 0) return false;
+                if (x != 0 && y != 9 && tabela[y + 1, x - 1].Item1 != 0) return false;
+                if (krajX != 9 && y != 9 && tabela[y + 1, krajX + 1].Item1 != 0) return false;
                 return true;
 
             }
@@ -67,28 +70,28 @@ namespace potapanjePodmornica
                 if (krajY > 9) return false;
                 for (int i = y; i <= krajY; i++)
                 {
-                    if (tabela[i, x] != 0) return false;
+                    if (tabela[i, x].Item1 != 0) return false;
                 }
                 if (x != 0)
                 {
                     for (int i = y; i <= krajY; i++)
                     {
-                        if (tabela[i, x - 1] != 0) return false;
+                        if (tabela[i, x - 1].Item1 != 0) return false;
                     }
                 }
                 if (x != 9)
                 {
                     for (int i = y; i <= krajY; i++)
                     {
-                        if (tabela[i, x + 1] != 0) return false;
+                        if (tabela[i, x + 1].Item1 != 0) return false;
                     }
                 }
-                if (y != 0 && tabela[y - 1, x] != 0) return false;
-                if (krajY != 9 && tabela[krajY + 1, x] != 0) return false;
-                if (y != 0 && x != 0 && tabela[y - 1, x - 1] != 0) return false;
-                if (krajY != 9 && x != 0 && tabela[krajY + 1, x - 1] != 0) return false;
-                if (y != 0 && x != 9 && tabela[y - 1, x + 1] != 0) return false;
-                if (krajY != 9 && x != 9 && tabela[krajY + 1, x + 1] != 0) return false;
+                if (y != 0 && tabela[y - 1, x].Item1 != 0) return false;
+                if (krajY != 9 && tabela[krajY + 1, x].Item1 != 0) return false;
+                if (y != 0 && x != 0 && tabela[y - 1, x - 1].Item1 != 0) return false;
+                if (krajY != 9 && x != 0 && tabela[krajY + 1, x - 1].Item1 != 0) return false;
+                if (y != 0 && x != 9 && tabela[y - 1, x + 1].Item1 != 0) return false;
+                if (krajY != 9 && x != 9 && tabela[krajY + 1, x + 1].Item1 != 0) return false;
                 return true;
             }
         }
@@ -383,10 +386,75 @@ namespace potapanjePodmornica
             //avion
             pbxAvion.Top = sirinaPolja * 5 + pbxProtivnik.Top;
             pbxAvion.Left = pbxProtivnik.Left - pbxAvion.Width;
-            pbxAvion.Width = (int)(1.2*sirinaPolja);
-            pbxAvion.Height = (int)(sirinaPolja-3);
+            pbxAvion.Width = (int)(1.2 * sirinaPolja);
+            pbxAvion.Height = (int)(sirinaPolja - 3);
         }
 
-        
+        private void pbx4a_MouseDown(object sender, MouseEventArgs e)
+        {
+            pomeranjeBroda = true;
+            pozX = e.X;
+            pozY = e.Y;
+        }
+
+        private void pbx4a_MouseUp(object sender, MouseEventArgs e)
+        {
+            pomeranjeBroda = false;
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if (prviNaPotezu && tablaPrvog[i, j].Item2 == "4a") tablaPrvog[i, j] = (0, null);
+                    else if (tablaDrugog[i, j].Item2 == "4a") tablaDrugog[i, j] = (0, null);
+                }
+            }
+            if (pbx4a.Right <= pbxJa.Left + sirinaPolja || pbx4a.Left >= pbxJa.Right || pbx4a.Top >= pbxJa.Bottom || pbx4a.Bottom <= pbxJa.Top + sirinaPolja) 
+            {
+                pbx4a.Left = pozicijeBrodovaZaPostavljanje[9].Item1;
+                pbx4a.Top = pozicijeBrodovaZaPostavljanje[9].Item2;
+            }
+            int x = 9, y = 9;
+            for (int i = 1; i <= 9; i++)
+            {
+                if (pbx4a.Top <= pbxJa.Top + sirinaPolja * i + sirinaPolja / 2)
+                {
+                    y = i - 1;
+                    break;
+                }
+            }
+            for (int i = 1; i <= 9; i++)
+            {
+                if (pbx4a.Left <= pbxJa.Left + sirinaPolja * i + sirinaPolja / 2) 
+                {
+                    x = i - 1;
+                    break;
+                }
+            }
+            if (MozeDaSePostaviBrod(x, y, 4, true, prviNaPotezu ? tablaPrvog : tablaDrugog))
+            {
+                pbx4a.Left = pbxJa.Left + (x + 1) * sirinaPolja;
+                pbx4a.Top = pbxJa.Top + (y + 1) * sirinaPolja;
+                for (int i = 0; i < 4; i++)
+                {
+                    if (prviNaPotezu) tablaPrvog[y, x + i] = (2, "4a");
+                    else tablaDrugog[y, x + i] = (2, "4a");
+                }
+            }
+            else
+            {
+                pbx4a.Left = pozicijeBrodovaZaPostavljanje[9].Item1;
+                pbx4a.Top = pozicijeBrodovaZaPostavljanje[9].Item2;
+            }
+        }
+
+        private void pbx4a_MouseMove(object sender, MouseEventArgs e)
+        {
+            Control c = sender as Control;
+            if (pomeranjeBroda && c != null)
+            {
+                c.Top = e.Y + c.Top - pozY;
+                c.Left = e.X + c.Left - pozX;
+            }
+        }
     }
 }
