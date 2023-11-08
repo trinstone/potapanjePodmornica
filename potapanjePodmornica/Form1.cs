@@ -163,13 +163,10 @@ namespace potapanjePodmornica
         private void PogodakPrazno(PictureBox tabla, PaintEventArgs e, int x, int y)
         {
             Pen olovka = new Pen(Color.Blue, (float)(tabla.Width * 0.005 + 1));
-            e.Graphics.DrawLine(olovka, sirinaPolja * (1 + x), sirinaPolja * y, (y + 1) * sirinaPolja, (y + 1) * sirinaPolja);//glavna dijagonala
-            double dodaj = 1;
-            for (int i = 1; i < 5; i++)
+            for (int i = 1; i <= 5; i++)
             {
-                e.Graphics.DrawLine(olovka, sirinaPolja * (1 + x) - (int)(sirinaPolja / dodaj), sirinaPolja * y, (y + 1) * sirinaPolja, (y + 1) * sirinaPolja - (int)(sirinaPolja / dodaj));
-                //e.Graphics.DrawLine(olovka, sirinaPolja * (1 + x) + (int)(sirinaPolja / dodaj), sirinaPolja * y, (y + 1) * sirinaPolja, (y + 1) * sirinaPolja + (int)(sirinaPolja / dodaj));
-                dodaj += 0.5;
+                e.Graphics.DrawLine(olovka, sirinaPolja * x + (int)Math.Round(sirinaPolja / 5.0 * i, 0), sirinaPolja * y, x * sirinaPolja, y * sirinaPolja + (int)Math.Round(sirinaPolja / 5.0 * i, 0));
+                e.Graphics.DrawLine(olovka, sirinaPolja * x + (int)Math.Round(sirinaPolja / 5.0 * i, 0), sirinaPolja * (y + 1), (x + 1) * sirinaPolja, y * sirinaPolja + (int)Math.Round(sirinaPolja / 5.0 * i, 0));
             }
         }
         private void btnSpreman_Click(object sender, EventArgs e)
