@@ -179,7 +179,6 @@ namespace potapanjePodmornica
             {
                 if (prviNaPotezu)
                 {
-                    prviNaPotezu = false;
                     lblIgrac1.Enabled = false;
                     lblIgrac1.Visible = false;
                     lblIgrac2.Enabled = true;
@@ -192,6 +191,7 @@ namespace potapanjePodmornica
                         pozicijeBrodovaPrvog[i].Item2 = a.Top;
                     }
                     PostaviBrodoveNaPozicije(true);
+                    prviNaPotezu = false;
                 }
 
                 else
@@ -249,7 +249,7 @@ namespace potapanjePodmornica
                     PictureBox a = (PictureBox)this.Controls.Find("pbx" + naziviBrodova[i], true)[0];
                     a.Left = pozicijeBrodovaZaPostavljanje[i].Item1;
                     a.Top = pozicijeBrodovaZaPostavljanje[i].Item2;
-                    if (!pozicijeBrodovaPrvog[i].Item3)
+                    if ((prviNaPotezu && !pozicijeBrodovaPrvog[i].Item3) || (!prviNaPotezu && !pozicijeBrodovaDrugog[i].Item3)) 
                     {
                         a.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipXY);
                         a.Refresh();
@@ -599,7 +599,7 @@ namespace potapanjePodmornica
             {
                 int x = (brod.Left - pbxJa.Left) / sirinaPolja - 1;
                 int y = (brod.Top - pbxJa.Top) / sirinaPolja - 1;
-                if (MozeDaSePostaviBrod(x, y, 4, prviNaPotezu ? !pozicijeBrodovaPrvog[broj].Item3 : !pozicijeBrodovaDrugog[broj].Item3, prviNaPotezu ? tablaPrvog : tablaDrugog, naziviBrodova[broj]))
+                if (MozeDaSePostaviBrod(x, y, int.Parse(naziviBrodova[broj][0].ToString()), prviNaPotezu ? !pozicijeBrodovaPrvog[broj].Item3 : !pozicijeBrodovaDrugog[broj].Item3, prviNaPotezu ? tablaPrvog : tablaDrugog, naziviBrodova[broj]))
                 {
                     if ((prviNaPotezu && pozicijeBrodovaPrvog[broj].Item3) || (!prviNaPotezu && pozicijeBrodovaDrugog[broj].Item3)) brod.BackgroundImage.RotateFlip(RotateFlipType.Rotate90FlipXY);
                     else brod.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipXY);
@@ -608,7 +608,7 @@ namespace potapanjePodmornica
                     brod.Width = brod.Height;
                     brod.Height = a;
                     if (prviNaPotezu) pozicijeBrodovaPrvog[broj].Item3 = !pozicijeBrodovaPrvog[broj].Item3;
-                    else pozicijeBrodovaDrugog[broj].Item3 = !pozicijeBrodovaDrugog[9].Item3;
+                    else pozicijeBrodovaDrugog[broj].Item3 = !pozicijeBrodovaDrugog[broj].Item3;
                 }
             }
         }
