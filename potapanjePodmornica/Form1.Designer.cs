@@ -159,6 +159,9 @@
             this.pbx3a.Size = new System.Drawing.Size(133, 62);
             this.pbx3a.TabIndex = 20;
             this.pbx3a.TabStop = false;
+            this.pbx3a.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbx3a_MouseDown);
+            this.pbx3a.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbx3a_MouseMove);
+            this.pbx3a.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbx3a_MouseUp);
             // 
             // pbx2c
             // 
@@ -170,6 +173,9 @@
             this.pbx2c.Size = new System.Drawing.Size(133, 62);
             this.pbx2c.TabIndex = 19;
             this.pbx2c.TabStop = false;
+            this.pbx2c.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbx2c_MouseDown);
+            this.pbx2c.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbx2c_MouseMove);
+            this.pbx2c.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbx2c_MouseUp);
             // 
             // pbx2b
             // 
@@ -181,6 +187,9 @@
             this.pbx2b.Size = new System.Drawing.Size(133, 62);
             this.pbx2b.TabIndex = 18;
             this.pbx2b.TabStop = false;
+            this.pbx2b.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbx2b_MouseDown);
+            this.pbx2b.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbx2b_MouseMove);
+            this.pbx2b.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbx2b_MouseUp);
             // 
             // pbx1b
             // 
@@ -192,6 +201,9 @@
             this.pbx1b.Size = new System.Drawing.Size(59, 47);
             this.pbx1b.TabIndex = 17;
             this.pbx1b.TabStop = false;
+            this.pbx1b.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbx1b_MouseDown);
+            this.pbx1b.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbx1b_MouseMove);
+            this.pbx1b.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbx1b_MouseUp);
             // 
             // pbx1d
             // 
@@ -203,6 +215,9 @@
             this.pbx1d.Size = new System.Drawing.Size(59, 47);
             this.pbx1d.TabIndex = 16;
             this.pbx1d.TabStop = false;
+            this.pbx1d.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbx1d_MouseDown);
+            this.pbx1d.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbx1d_MouseMove);
+            this.pbx1d.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbx1d_MouseUp);
             // 
             // pbx1c
             // 
@@ -214,6 +229,9 @@
             this.pbx1c.Size = new System.Drawing.Size(59, 47);
             this.pbx1c.TabIndex = 15;
             this.pbx1c.TabStop = false;
+            this.pbx1c.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbx1c_MouseDown);
+            this.pbx1c.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbx1c_MouseMove);
+            this.pbx1c.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbx1c_MouseUp);
             // 
             // pbx1a
             // 
@@ -225,6 +243,9 @@
             this.pbx1a.Size = new System.Drawing.Size(59, 47);
             this.pbx1a.TabIndex = 14;
             this.pbx1a.TabStop = false;
+            this.pbx1a.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbx1a_MouseDown);
+            this.pbx1a.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbx1a_MouseMove);
+            this.pbx1a.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbx1a_MouseUp);
             // 
             // pbx2a
             // 
@@ -236,6 +257,9 @@
             this.pbx2a.Size = new System.Drawing.Size(133, 62);
             this.pbx2a.TabIndex = 10;
             this.pbx2a.TabStop = false;
+            this.pbx2a.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbx2a_MouseDown);
+            this.pbx2a.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbx2a_MouseMove);
+            this.pbx2a.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbx2a_MouseUp);
             // 
             // pbx3b
             // 
@@ -247,6 +271,9 @@
             this.pbx3b.Size = new System.Drawing.Size(133, 62);
             this.pbx3b.TabIndex = 7;
             this.pbx3b.TabStop = false;
+            this.pbx3b.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbx3b_MouseDown);
+            this.pbx3b.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbx3b_MouseMove);
+            this.pbx3b.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbx3b_MouseUp);
             // 
             // pbx4a
             // 
