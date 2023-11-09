@@ -249,15 +249,13 @@ namespace potapanjePodmornica
                     PictureBox a = (PictureBox)this.Controls.Find("pbx" + naziviBrodova[i], true)[0];
                     a.Left = pozicijeBrodovaZaPostavljanje[i].Item1;
                     a.Top = pozicijeBrodovaZaPostavljanje[i].Item2;
-                    if ((prviNaPotezu && !pozicijeBrodovaPrvog[i].Item3) || (!prviNaPotezu && !pozicijeBrodovaDrugog[i].Item3))
+                    if (!pozicijeBrodovaPrvog[i].Item3)
                     {
                         a.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipXY);
                         a.Refresh();
                         int b = a.Width;
                         a.Width = a.Height;
                         a.Height = b;
-                        if (prviNaPotezu) pozicijeBrodovaPrvog[i].Item3 = true;
-                        else pozicijeBrodovaDrugog[i].Item3 = true;
                     }
                 }
             }
@@ -351,6 +349,8 @@ namespace potapanjePodmornica
                     if (prviNaPotezu) tablaPrvog[i, j] = (0, null);
                     else tablaDrugog[i, j] = (0, null);
                 }
+                if (prviNaPotezu) pozicijeBrodovaPrvog[i].Item3 = true;
+                else pozicijeBrodovaDrugog[i].Item3 = true;
             }
         }
 
@@ -593,6 +593,25 @@ namespace potapanjePodmornica
             pozX = e.X;
             pozY = e.Y;
         }
+        private void RotirajBrod(PictureBox brod, int broj)
+        {
+            if (brod.Left != pozicijeBrodovaZaPostavljanje[broj].Item1)
+            {
+                int x = (brod.Left - pbxJa.Left) / sirinaPolja - 1;
+                int y = (brod.Top - pbxJa.Top) / sirinaPolja - 1;
+                if (MozeDaSePostaviBrod(x, y, 4, prviNaPotezu ? !pozicijeBrodovaPrvog[broj].Item3 : !pozicijeBrodovaDrugog[broj].Item3, prviNaPotezu ? tablaPrvog : tablaDrugog, naziviBrodova[broj]))
+                {
+                    if ((prviNaPotezu && pozicijeBrodovaPrvog[broj].Item3) || (!prviNaPotezu && pozicijeBrodovaDrugog[broj].Item3)) brod.BackgroundImage.RotateFlip(RotateFlipType.Rotate90FlipXY);
+                    else brod.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipXY);
+                    brod.Refresh();
+                    int a = brod.Width;
+                    brod.Width = brod.Height;
+                    brod.Height = a;
+                    if (prviNaPotezu) pozicijeBrodovaPrvog[broj].Item3 = !pozicijeBrodovaPrvog[broj].Item3;
+                    else pozicijeBrodovaDrugog[broj].Item3 = !pozicijeBrodovaDrugog[9].Item3;
+                }
+            }
+        }
         private void pbx4a_MouseDown(object sender, MouseEventArgs e)
         {
             SpustiMis(e);
@@ -744,23 +763,52 @@ namespace potapanjePodmornica
 
         private void pbx4a_DoubleClick(object sender, EventArgs e)
         {
-            if (pbx4a.Left != pozicijeBrodovaZaPostavljanje[9].Item1) 
-            {
-                int x = (pbx4a.Left - pbxJa.Left) / sirinaPolja - 1;
-                int y = (pbx4a.Top - pbxJa.Top) / sirinaPolja - 1;
-                if (MozeDaSePostaviBrod(x, y, 4, prviNaPotezu ? !pozicijeBrodovaPrvog[9].Item3 : !pozicijeBrodovaDrugog[9].Item3, prviNaPotezu ? tablaPrvog : tablaDrugog, "4a")) 
-                {
-                    if ((prviNaPotezu && pozicijeBrodovaPrvog[9].Item3) || (!prviNaPotezu && pozicijeBrodovaDrugog[9].Item3)) pbx4a.BackgroundImage.RotateFlip(RotateFlipType.Rotate90FlipXY);
-                    else pbx4a.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipXY);
-                    pbx4a.Refresh();
-                    int a = pbx4a.Width;
-                    pbx4a.Width = pbx4a.Height;
-                    pbx4a.Height = a;
-                    if (prviNaPotezu) pozicijeBrodovaPrvog[9].Item3 = !pozicijeBrodovaPrvog[9].Item3;
-                    else pozicijeBrodovaDrugog[9].Item3 = !pozicijeBrodovaDrugog[9].Item3;
-                }
-            }
+            RotirajBrod(pbx4a, 9);
+        }
 
+        private void pbx3a_DoubleClick(object sender, EventArgs e)
+        {
+            RotirajBrod(pbx3a, 7);
+        }
+
+        private void pbx3b_DoubleClick(object sender, EventArgs e)
+        {
+            RotirajBrod(pbx3b, 8);
+        }
+
+        private void pbx2a_DoubleClick(object sender, EventArgs e)
+        {
+            RotirajBrod(pbx2a, 4);
+        }
+
+        private void pbx2b_DoubleClick(object sender, EventArgs e)
+        {
+            RotirajBrod(pbx2b, 5);
+        }
+
+        private void pbx2c_DoubleClick(object sender, EventArgs e)
+        {
+            RotirajBrod(pbx2c, 6);
+        }
+
+        private void pbx1a_DoubleClick(object sender, EventArgs e)
+        {
+            RotirajBrod(pbx1a, 0);
+        }
+
+        private void pbx1b_DoubleClick(object sender, EventArgs e)
+        {
+            RotirajBrod(pbx1b, 1);
+        }
+
+        private void pbx1c_DoubleClick(object sender, EventArgs e)
+        {
+            RotirajBrod(pbx1c, 2);
+        }
+
+        private void pbx1d_DoubleClick(object sender, EventArgs e)
+        {
+            RotirajBrod(pbx1d, 3);
         }
     }
 }
