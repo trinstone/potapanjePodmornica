@@ -285,6 +285,7 @@
             this.pbx4a.Size = new System.Drawing.Size(172, 63);
             this.pbx4a.TabIndex = 5;
             this.pbx4a.TabStop = false;
+            this.pbx4a.DoubleClick += new System.EventHandler(this.pbx4a_DoubleClick);
             this.pbx4a.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbx4a_MouseDown);
             this.pbx4a.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbx4a_MouseMove);
             this.pbx4a.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbx4a_MouseUp);
