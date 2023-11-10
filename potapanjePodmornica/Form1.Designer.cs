@@ -309,6 +309,7 @@
             this.pbxProtivnik.TabIndex = 2;
             this.pbxProtivnik.TabStop = false;
             this.pbxProtivnik.Paint += new System.Windows.Forms.PaintEventHandler(this.pbxProtivnik_Paint);
+            this.pbxProtivnik.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbxProtivnik_MouseClick);
             // 
             // pbxJa
             // 
@@ -356,6 +357,7 @@
             // 
             // tajmer
             // 
+            this.tajmer.Interval = 50;
             this.tajmer.Tick += new System.EventHandler(this.tajmer_Tick);
             // 
             // frmPotop

@@ -21,6 +21,7 @@ namespace potapanjePodmornica
         (int, int, bool)[] pozicijeBrodovaPrvog = new (int, int, bool)[10];
         (int, int, bool)[] pozicijeBrodovaDrugog = new (int, int, bool)[10];
         bool pomeranjeBroda = false;
+        bool namestanjeBrodova = false;
         int pozX;
         int pozY;
         public frmPotop()
@@ -30,7 +31,7 @@ namespace potapanjePodmornica
             Region region = new Region(intersection);
             pbxAvion.Region = region;*/
         }
-        //0 - prazno, 1 - pogodjeno prazno, 2 - brod, 3 - pogodjen brod
+        //0 - prazno, 1 - pogodjeno prazno, 2 - brod, 3 - pogodjen brod, 5 - pogodjen ceo brod?
         //imena brodova: 1a,1b,1c,1d,2a,2b,2c,3a,3b,4a
         private bool MozeDaSePostaviBrod(int x, int y, int duzina, bool horizontalno, (int, string)[,] tabela, string ime)
         {
@@ -96,6 +97,52 @@ namespace potapanjePodmornica
                 return true;
             }
         }
+        private void PogodjenCeoBrod((int, string)[,] tabla, string ime, bool horizontalno)
+        {
+            int x = 0, y = 0;
+            bool nadjeno = false;
+            for (int i = 0; i < 10 && !nadjeno; i++)
+            {
+                for (int j = 0; j < 10 && !nadjeno; j++)
+                {
+                    if (tabla[i, j].Item2 == ime)
+                    {
+                        x = j;
+                        y = i;
+                        nadjeno = true;
+                    }
+                }
+            }
+            int duzina = int.Parse(ime[0].ToString());
+            if (horizontalno)
+            {
+                for (int k = 0; k < duzina; k++)
+                {
+                    if (tabla[y, x + k].Item1 != 3) nadjeno = false;
+                }
+                if (nadjeno)
+                {
+                    for (int k = 0; k < duzina; k++)
+                    {
+                        tabla[y, x + k].Item1 = 5;
+                    }
+                }
+            }
+            else
+            {
+                for (int k = 0; k < duzina; k++)
+                {
+                    if (tabla[y + k, x].Item1 != 3) nadjeno = false;
+                }
+                if (nadjeno)
+                {
+                    for (int k = 0; k < duzina; k++)
+                    {
+                        tabla[y + k, x].Item1 = 5;
+                    }
+                }
+            }
+        }
         private void UnosPozicija(bool postoji)
         {
             pbx1a.Enabled = postoji;
@@ -146,9 +193,10 @@ namespace potapanjePodmornica
             btnStartProg.Enabled = false;
             btnStartProg.Visible = false;
             this.BackgroundImage = null;
+            namestanjeBrodova = true;
             UpisiPocetnePozicije();
         }
-        private void IscrtajTablu(PictureBox tabla, PaintEventArgs e)
+        private void IscrtajTablu(PictureBox tabla, PaintEventArgs e, (int, string)[,] igrac)
         {
             sirinaPolja = tabla.Width / 11;
             //e.Graphics.DrawString(tekst, new Font("Arial", 12),Brushes.Green, new Point(x, y));
@@ -163,6 +211,15 @@ namespace potapanjePodmornica
                 e.Graphics.DrawLine(olovka, (i + 1) * sirinaPolja, sirinaPolja, (i + 1) * sirinaPolja, sirinaPolja * 11);
                 e.Graphics.DrawLine(olovka, sirinaPolja, (i + 1) * sirinaPolja, sirinaPolja * 11, (i + 1) * sirinaPolja);
             }
+            for (int i = 1; i < 11; i++)
+            {
+                for (int j = 1; j < 11; j++)
+                {
+                    if (igrac[i - 1, j - 1].Item1 == 1) PogodakPrazno(tabla, e, j, i);
+                    else if (igrac[i - 1, j - 1].Item1 == 3) PogodakBrod(tabla, e, j, i);
+                    else if (igrac[i - 1, j - 1].Item1 == 5) PogodakCeoBrod(tabla, e, j, i);
+                }
+            }
         }
         private void PogodakPrazno(PictureBox tabla, PaintEventArgs e, int x, int y)
         {
@@ -173,10 +230,21 @@ namespace potapanjePodmornica
                 e.Graphics.DrawLine(olovka, sirinaPolja * x + (int)Math.Round(sirinaPolja / 5.0 * i, 0), sirinaPolja * (y + 1), (x + 1) * sirinaPolja, y * sirinaPolja + (int)Math.Round(sirinaPolja / 5.0 * i, 0));
             }
         }
+        private void PogodakBrod(PictureBox tabla, PaintEventArgs e, int x, int y)
+        {
+            Pen olovka = new Pen(Color.Red, (float)(tabla.Width * 0.005 + 1));
+            e.Graphics.DrawLine(olovka, sirinaPolja * x + 2, sirinaPolja * y + 2, (x + 1) * sirinaPolja - 2, (y + 1) * sirinaPolja - 2);
+            e.Graphics.DrawLine(olovka, sirinaPolja * x + 2, sirinaPolja * (y + 1) - 2, (x + 1) * sirinaPolja - 2, y * sirinaPolja + 2);
+        }
+        private void PogodakCeoBrod(PictureBox tabla, PaintEventArgs e, int x, int y)
+        {
+            Brush cetkica = new SolidBrush(Color.Red);
+            e.Graphics.FillRectangle(cetkica, sirinaPolja * x + 2, sirinaPolja * y + 2, sirinaPolja - 4, sirinaPolja - 4);
+        }
         private void btnSpreman_Click(object sender, EventArgs e)
         {
-            if (SviPostavljeni())
-            {
+            /*if (SviPostavljeni())
+            {*/
                 if (prviNaPotezu)
                 {
                     lblIgrac1.Enabled = false;
@@ -216,12 +284,13 @@ namespace potapanjePodmornica
                         pozicijeBrodovaDrugog[i].Item2 = a.Top;
                     }
                     PostaviBrodoveNaPozicije(false);
+                    namestanjeBrodova = false;
                 }
-            }
+            /*}
             else
             {
                 MessageBox.Show("Neophodno je postaviti sve brodove na tablu");
-            }
+            }*/
         }
         private bool SviPostavljeni()
         {
@@ -313,9 +382,9 @@ namespace potapanjePodmornica
                 }
             }
         }
-        private void KretanjeAviona(int x, int y, bool JelBrod)
+        private void KretanjeAviona(int x, int y)
         {
-            pbxAvion.Top = sirinaPolja * (1 + y) + pbxProtivnik.Top;
+            pbxAvion.Top = sirinaPolja * (1 + y) + pbxProtivnik.Top + 2;
             pbxAvion.Left = pbxProtivnik.Left - pbxAvion.Width;
             pbxAvion.Visible = true;
             pbxAvion.Enabled = true;
@@ -335,8 +404,10 @@ namespace potapanjePodmornica
 
         private void pbxJa_Paint(object sender, PaintEventArgs e)
         {
-            IscrtajTablu(pbxJa, e);
+            IscrtajTablu(pbxJa, e, prviNaPotezu ? tablaPrvog : tablaDrugog);
             PogodakPrazno(pbxJa, e, 3, 2);
+            PogodakBrod(pbxJa, e, 4, 2);
+            PogodakCeoBrod(pbxJa, e, 5, 2);
         }
 
         private void btnRestartPozicije_Click(object sender, EventArgs e)
@@ -370,18 +441,20 @@ namespace potapanjePodmornica
         {
             if (pbxAvion.Left < pbxProtivnik.Right)
             {
-                pbxAvion.Left += 10;
+                pbxAvion.Left += sirinaPolja;
             }
             else
             {
                 pbxAvion.Visible = false;
                 pbxAvion.Enabled = false;
+                tajmer.Stop();
+                pbxProtivnik.Refresh();
             }
         }
 
         private void pbxProtivnik_Paint(object sender, PaintEventArgs e)
         {
-            IscrtajTablu(pbxProtivnik, e);
+            IscrtajTablu(pbxProtivnik, e, prviNaPotezu ? tablaDrugog : tablaPrvog);
         }
 
         private void btnHelp_Click(object sender, EventArgs e)
@@ -614,201 +687,240 @@ namespace potapanjePodmornica
         }
         private void pbx4a_MouseDown(object sender, MouseEventArgs e)
         {
-            SpustiMis(e);
+            if (namestanjeBrodova) SpustiMis(e);
         }
         private void pbx4a_MouseUp(object sender, MouseEventArgs e)
         {
-            PostaviBrod(pbx4a, 9);
+            if (namestanjeBrodova) PostaviBrod(pbx4a, 9);
         }
         
         private void pbx4a_MouseMove(object sender, MouseEventArgs e)
         {
-            PomeriMis(sender, e);
+            if (namestanjeBrodova) PomeriMis(sender, e);
         }
 
         private void pbx3a_MouseDown(object sender, MouseEventArgs e)
         {
-            SpustiMis(e);
+            if (namestanjeBrodova) SpustiMis(e);
         }
 
         private void pbx3a_MouseMove(object sender, MouseEventArgs e)
         {
-            PomeriMis(sender, e);
+            if (namestanjeBrodova) PomeriMis(sender, e);
         }
 
         private void pbx3a_MouseUp(object sender, MouseEventArgs e)
         {
-            PostaviBrod(pbx3a, 7);
+            if (namestanjeBrodova) PostaviBrod(pbx3a, 7);
         }
 
         private void pbx3b_MouseDown(object sender, MouseEventArgs e)
         {
-            SpustiMis(e);
+            if (namestanjeBrodova) SpustiMis(e);
         }
 
         private void pbx3b_MouseMove(object sender, MouseEventArgs e)
         {
-            PomeriMis(sender, e);
+            if (namestanjeBrodova) PomeriMis(sender, e);
         }
 
         private void pbx3b_MouseUp(object sender, MouseEventArgs e)
         {
-            PostaviBrod(pbx3b, 8);
+            if (namestanjeBrodova) PostaviBrod(pbx3b, 8);
         }
 
         private void pbx2a_MouseDown(object sender, MouseEventArgs e)
         {
-            SpustiMis(e);
+            if (namestanjeBrodova) SpustiMis(e);
         }
 
         private void pbx2a_MouseMove(object sender, MouseEventArgs e)
         {
-            PomeriMis(sender, e);
+            if (namestanjeBrodova) PomeriMis(sender, e);
         }
 
         private void pbx2a_MouseUp(object sender, MouseEventArgs e)
         {
-            PostaviBrod(pbx2a, 4);
+            if (namestanjeBrodova) PostaviBrod(pbx2a, 4);
         }
 
         private void pbx2b_MouseDown(object sender, MouseEventArgs e)
         {
-            SpustiMis(e);
+            if (namestanjeBrodova) SpustiMis(e);
         }
 
         private void pbx2b_MouseMove(object sender, MouseEventArgs e)
         {
-            PomeriMis(sender, e);
+            if (namestanjeBrodova) PomeriMis(sender, e);
         }
 
         private void pbx2b_MouseUp(object sender, MouseEventArgs e)
         {
-            PostaviBrod(pbx2b, 5);
+            if (namestanjeBrodova) PostaviBrod(pbx2b, 5);
         }
 
         private void pbx2c_MouseDown(object sender, MouseEventArgs e)
         {
-            SpustiMis(e);
+            if (namestanjeBrodova) SpustiMis(e);
         }
 
         private void pbx2c_MouseMove(object sender, MouseEventArgs e)
         {
-            PomeriMis(sender, e);
+            if (namestanjeBrodova) PomeriMis(sender, e);
         }
 
         private void pbx2c_MouseUp(object sender, MouseEventArgs e)
         {
-            PostaviBrod(pbx2c, 6);
+            if (namestanjeBrodova) PostaviBrod(pbx2c, 6);
         }
 
         private void pbx1a_MouseDown(object sender, MouseEventArgs e)
         {
-            SpustiMis(e);
+            if (namestanjeBrodova) SpustiMis(e);
         }
 
         private void pbx1a_MouseMove(object sender, MouseEventArgs e)
         {
-            PomeriMis(sender, e);
+            if (namestanjeBrodova) PomeriMis(sender, e);
         }
 
         private void pbx1a_MouseUp(object sender, MouseEventArgs e)
         {
-            PostaviBrod(pbx1a, 0);
+            if (namestanjeBrodova) PostaviBrod(pbx1a, 0);
         }
 
         private void pbx1b_MouseDown(object sender, MouseEventArgs e)
         {
-            SpustiMis(e);
+            if (namestanjeBrodova) SpustiMis(e);
         }
 
         private void pbx1b_MouseMove(object sender, MouseEventArgs e)
         {
-            PomeriMis(sender, e);
+            if (namestanjeBrodova) PomeriMis(sender, e);
         }
 
         private void pbx1b_MouseUp(object sender, MouseEventArgs e)
         {
-            PostaviBrod(pbx1b, 1);
+            if (namestanjeBrodova) PostaviBrod(pbx1b, 1);
         }
 
         private void pbx1c_MouseDown(object sender, MouseEventArgs e)
         {
-            SpustiMis(e);
+            if (namestanjeBrodova) SpustiMis(e);
         }
 
         private void pbx1c_MouseMove(object sender, MouseEventArgs e)
         {
-            PomeriMis(sender, e);
+            if (namestanjeBrodova) PomeriMis(sender, e);
         }
 
         private void pbx1c_MouseUp(object sender, MouseEventArgs e)
         {
-            PostaviBrod(pbx1c, 2);
+            if (namestanjeBrodova) PostaviBrod(pbx1c, 2);
         }
 
         private void pbx1d_MouseDown(object sender, MouseEventArgs e)
         {
-            SpustiMis(e);
+            if (namestanjeBrodova) SpustiMis(e);
         }
 
         private void pbx1d_MouseMove(object sender, MouseEventArgs e)
         {
-            PomeriMis(sender, e);
+            if (namestanjeBrodova) PomeriMis(sender, e);
         }
 
         private void pbx1d_MouseUp(object sender, MouseEventArgs e)
         {
-            PostaviBrod(pbx1d, 3);
+            if (namestanjeBrodova) PostaviBrod(pbx1d, 3);
         }
 
         private void pbx4a_DoubleClick(object sender, EventArgs e)
         {
-            RotirajBrod(pbx4a, 9);
+            if (namestanjeBrodova) RotirajBrod(pbx4a, 9);
         }
 
         private void pbx3a_DoubleClick(object sender, EventArgs e)
         {
-            RotirajBrod(pbx3a, 7);
+            if (namestanjeBrodova) RotirajBrod(pbx3a, 7);
         }
 
         private void pbx3b_DoubleClick(object sender, EventArgs e)
         {
-            RotirajBrod(pbx3b, 8);
+            if (namestanjeBrodova) RotirajBrod(pbx3b, 8);
         }
 
         private void pbx2a_DoubleClick(object sender, EventArgs e)
         {
-            RotirajBrod(pbx2a, 4);
+            if (namestanjeBrodova) RotirajBrod(pbx2a, 4);
         }
 
         private void pbx2b_DoubleClick(object sender, EventArgs e)
         {
-            RotirajBrod(pbx2b, 5);
+            if (namestanjeBrodova) RotirajBrod(pbx2b, 5);
         }
 
         private void pbx2c_DoubleClick(object sender, EventArgs e)
         {
-            RotirajBrod(pbx2c, 6);
+            if (namestanjeBrodova) RotirajBrod(pbx2c, 6);
         }
 
         private void pbx1a_DoubleClick(object sender, EventArgs e)
         {
-            RotirajBrod(pbx1a, 0);
+            if (namestanjeBrodova) RotirajBrod(pbx1a, 0);
         }
 
         private void pbx1b_DoubleClick(object sender, EventArgs e)
         {
-            RotirajBrod(pbx1b, 1);
+            if (namestanjeBrodova) RotirajBrod(pbx1b, 1);
         }
 
         private void pbx1c_DoubleClick(object sender, EventArgs e)
         {
-            RotirajBrod(pbx1c, 2);
+            if (namestanjeBrodova) RotirajBrod(pbx1c, 2);
         }
 
         private void pbx1d_DoubleClick(object sender, EventArgs e)
         {
-            RotirajBrod(pbx1d, 3);
+            if (namestanjeBrodova) RotirajBrod(pbx1d, 3);
+        }
+
+        private void pbxProtivnik_MouseClick(object sender, MouseEventArgs e)
+        {
+            int x = e.X / sirinaPolja - 1;
+            int y = e.Y / sirinaPolja - 1;
+            if (!prviNaPotezu)
+            {
+                if (tablaPrvog[y, x].Item1 % 2 == 0) tablaPrvog[y, x].Item1++;
+                if (tablaPrvog[y, x].Item1 == 3)
+                {
+                    int broj = tablaPrvog[y, x].Item2[1] - 96;
+                    switch (int.Parse(tablaPrvog[y, x].Item2[0].ToString()))
+                    {
+                        case 2: broj += 3; break;
+                        case 3: broj += 6; break;
+                        case 4: broj += 8; break;
+                        default: break;
+                    }
+                    PogodjenCeoBrod(tablaPrvog, tablaPrvog[y, x].Item2, pozicijeBrodovaPrvog[broj].Item3);
+                }
+            }
+            else
+            {
+                if (tablaDrugog[y, x].Item1 % 2 == 0) tablaDrugog[y, x].Item1++;
+                if (tablaDrugog[y, x].Item1 == 3)
+                {
+                    int broj = tablaDrugog[y, x].Item2[1] - 96;
+                    switch(int.Parse(tablaDrugog[y, x].Item2[0].ToString()))
+                    {
+                        case 2: broj += 3; break;
+                        case 3: broj += 6; break;
+                        case 4: broj += 8; break;
+                        default: break;
+                    }
+                    PogodjenCeoBrod(tablaDrugog, tablaDrugog[y, x].Item2, pozicijeBrodovaDrugog[broj].Item3);
+                }
+            }
+            KretanjeAviona(x, y);
         }
     }
 }
