@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace potapanjePodmornica
 {
@@ -22,6 +23,7 @@ namespace potapanjePodmornica
         (int, int, bool)[] pozicijeBrodovaDrugog = new (int, int, bool)[10];
         bool pomeranjeBroda = false;
         bool namestanjeBrodova = false;
+        bool sledeci;
         int pozX;
         int pozY;
         public frmPotop()
@@ -143,6 +145,17 @@ namespace potapanjePodmornica
                 }
             }
         }
+        private bool KrajIgre((int, string)[,] tabla)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if (tabla[i, j].Item2 != null && tabla[i, j].Item1 != 5) return false;
+                }
+            }
+            return true;
+        }
         private void UnosPozicija(bool postoji)
         {
             pbx1a.Enabled = postoji;
@@ -173,6 +186,7 @@ namespace potapanjePodmornica
             btnSpreman.Visible = postoji;
             btnRestartPozicije.Enabled = postoji;
             btnRestartPozicije.Visible = postoji;
+            lblIgrac1.Enabled = postoji;
             lblIgrac1.Visible = postoji;
             pbxAvion.Enabled = false;
             pbxAvion.Visible = false;
@@ -186,6 +200,8 @@ namespace potapanjePodmornica
             btnIgrajOpet.Visible = false;
             btnIzlaz.Enabled = false;
             btnIzlaz.Visible = false;
+            lblSledeci.Enabled = false;
+            lblSledeci.Visible = false;
         }
         private void btnStartProg_Click(object sender, EventArgs e)
         {
@@ -243,8 +259,8 @@ namespace potapanjePodmornica
         }
         private void btnSpreman_Click(object sender, EventArgs e)
         {
-            /*if (SviPostavljeni())
-            {*/
+            //if (SviPostavljeni())
+            //{
                 if (prviNaPotezu)
                 {
                     lblIgrac1.Enabled = false;
@@ -286,12 +302,12 @@ namespace potapanjePodmornica
                     PostaviBrodoveNaPozicije(false);
                     namestanjeBrodova = false;
                 }
-            /*}
-            else
-            {
-                MessageBox.Show("Neophodno je postaviti sve brodove na tablu");
-            }*/
-        }
+        //}
+        //    else
+        //    {
+        //        MessageBox.Show("Neophodno je postaviti sve brodove na tablu");
+        //    }
+}
         private bool SviPostavljeni()
         {
             for (int i = 0; i < 10; i++)
@@ -388,7 +404,7 @@ namespace potapanjePodmornica
             pbxAvion.Left = pbxProtivnik.Left - pbxAvion.Width;
             pbxAvion.Visible = true;
             pbxAvion.Enabled = true;
-            tajmer.Start();
+            tajmerAviona.Start();
         }
 
         private void frmPotop_Load(object sender, EventArgs e)
@@ -405,9 +421,6 @@ namespace potapanjePodmornica
         private void pbxJa_Paint(object sender, PaintEventArgs e)
         {
             IscrtajTablu(pbxJa, e, prviNaPotezu ? tablaPrvog : tablaDrugog);
-            PogodakPrazno(pbxJa, e, 3, 2);
-            PogodakBrod(pbxJa, e, 4, 2);
-            PogodakCeoBrod(pbxJa, e, 5, 2);
         }
 
         private void btnRestartPozicije_Click(object sender, EventArgs e)
@@ -427,7 +440,8 @@ namespace potapanjePodmornica
 
         private void btnIzlaz_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.Application.Exit();
+            //System.Windows.Forms.Application.Exit();
+            Close();
         }
 
         private void frmPotop_SizeChanged(object sender, EventArgs e)
@@ -447,8 +461,9 @@ namespace potapanjePodmornica
             {
                 pbxAvion.Visible = false;
                 pbxAvion.Enabled = false;
-                tajmer.Stop();
+                tajmerAviona.Stop();
                 pbxProtivnik.Refresh();
+                if (sledeci) SledeciIgrac();
             }
         }
 
@@ -545,9 +560,9 @@ namespace potapanjePodmornica
             //lblIgrac2
             lblIgrac2.Left = (int)(0.44 * this.Width);
             lblIgrac2.Top = (int)(0.02 * this.Height);
-            //lblPobednik
-            lblIspisPobednik.Left = (int)(0.46 * this.Width);
-            lblIspisPobednik.Top = (int)(0.31 * this.Height);
+            //lblSledeci
+            lblSledeci.Left = (int)(this.Width / 2 - lblSledeci.Width / 2);
+            lblSledeci.Top = (int)(this.Height / 2 - lblSledeci.Height / 2);
             //btnStart
             btnStartProg.Left = (int)(0.41 * this.Width);
             btnStartProg.Top = (int)(0.39 * this.Height);
@@ -884,8 +899,53 @@ namespace potapanjePodmornica
             if (namestanjeBrodova) RotirajBrod(pbx1d, 3);
         }
 
+        private void SledeciIgrac()
+        {
+            Stopwatch tajmer = new Stopwatch();
+            tajmer.Start();
+            while (tajmer.Elapsed.Seconds < 1) ;
+            prviNaPotezu = !prviNaPotezu;
+            lblIgrac1.Enabled = prviNaPotezu;
+            lblIgrac1.Visible = prviNaPotezu;
+            lblIgrac2.Enabled = !prviNaPotezu;
+            lblIgrac2.Visible = !prviNaPotezu;
+            pbxJa.Visible = false;
+            pbxJa.Enabled = false;
+            pbxProtivnik.Enabled = false;
+            pbxProtivnik.Visible = false;
+            btnHelp.Enabled = false;
+            btnHelp.Visible = false;
+            lblSledeci.Enabled = true;
+            lblSledeci.Visible = true;
+            for (int i = 0; i < 10; i++)
+            {
+                PictureBox a = (PictureBox)this.Controls.Find("pbx" + naziviBrodova[i], true)[0];
+                a.Visible = false;
+                a.Enabled = false;
+            }
+            while (tajmer.Elapsed.Seconds < 6) ;
+            for (int i = 0; i < 10; i++)
+            {
+                PictureBox a = (PictureBox)this.Controls.Find("pbx" + naziviBrodova[i], true)[0];
+                a.Visible = true;
+                a.Enabled = true;
+            }
+            pbxJa.Visible = true;
+            pbxJa.Enabled = true;
+            pbxProtivnik.Enabled = true;
+            pbxProtivnik.Visible = true;
+            btnHelp.Enabled = true;
+            btnHelp.Visible = true;
+            lblSledeci.Enabled = false;
+            lblSledeci.Visible = false;
+            pbxJa.Refresh();
+            pbxProtivnik.Refresh();
+            PostaviBrodoveNaPozicije(false);
+            tajmer.Stop();
+        }
         private void pbxProtivnik_MouseClick(object sender, MouseEventArgs e)
         {
+            sledeci = true;
             int x = e.X / sirinaPolja - 1;
             int y = e.Y / sirinaPolja - 1;
             if (!prviNaPotezu)
@@ -902,6 +962,7 @@ namespace potapanjePodmornica
                         default: break;
                     }
                     PogodjenCeoBrod(tablaPrvog, tablaPrvog[y, x].Item2, pozicijeBrodovaPrvog[broj].Item3);
+                    sledeci = false;
                 }
             }
             else
@@ -918,9 +979,58 @@ namespace potapanjePodmornica
                         default: break;
                     }
                     PogodjenCeoBrod(tablaDrugog, tablaDrugog[y, x].Item2, pozicijeBrodovaDrugog[broj].Item3);
+                    sledeci = false;
                 }
             }
+            if (KrajIgre(prviNaPotezu ? tablaDrugog : tablaPrvog))
+            {
+                lblIspisPobednik.Visible = true;
+                lblIspisPobednik.Enabled = true;
+                lblIspisPobednik.Text = prviNaPotezu ? "Prvi igrac je pobedio" : "Drugi igrac je pobedio";
+                lblIspisPobednik.ForeColor = Color.Black;
+                lblIspisPobednik.Left = (int)(this.Width / 2 - lblIspisPobednik.Width / 2);
+                lblIspisPobednik.Top = (int)(0.31 * this.Height);
+                btnIzlaz.Enabled = true;
+                btnIzlaz.Visible = true;
+                btnIgrajOpet.Enabled = true;
+                btnIgrajOpet.Visible = true;
+                sledeci = false;
+            }
             KretanjeAviona(x, y);
+        }
+
+        private void btnIgrajOpet_Click(object sender, EventArgs e)
+        {
+            namestanjeBrodova = true;
+            prviNaPotezu = true;
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    tablaPrvog[i, j] = (0, null);
+                    tablaDrugog[i, j] = (0, null);
+                }
+                pozicijeBrodovaPrvog[i] = (0, 0, true);
+                pozicijeBrodovaDrugog[i] = (0, 0, true);
+            }
+            pbxJa.Refresh();
+            pbxProtivnik.Enabled = false;
+            pbxProtivnik.Visible = false;
+            PostaviBrodoveNaPozicije(true);
+            btnSpreman.Enabled = true;
+            btnSpreman.Visible = true;
+            btnRestartPozicije.Enabled = true;
+            btnRestartPozicije.Visible = true;
+            lblIgrac1.Enabled = true;
+            lblIgrac1.Visible = true;
+            lblIgrac2.Enabled = false;
+            lblIgrac2.Visible = false;
+            btnIzlaz.Enabled = false;
+            btnIzlaz.Visible = false;
+            btnIgrajOpet.Enabled = false;
+            btnIgrajOpet.Visible = false;
+            lblIspisPobednik.Visible = false;
+            lblIspisPobednik.Enabled = false;
         }
     }
 }

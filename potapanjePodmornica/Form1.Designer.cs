@@ -51,7 +51,8 @@
             this.lblIspisPobednik = new System.Windows.Forms.Label();
             this.btnIzlaz = new System.Windows.Forms.Button();
             this.btnIgrajOpet = new System.Windows.Forms.Button();
-            this.tajmer = new System.Windows.Forms.Timer(this.components);
+            this.tajmerAviona = new System.Windows.Forms.Timer(this.components);
+            this.lblSledeci = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbxAvion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbx3a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbx2c)).BeginInit();
@@ -326,12 +327,12 @@
             // 
             this.lblIspisPobednik.AutoSize = true;
             this.lblIspisPobednik.Font = new System.Drawing.Font("Georgia", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIspisPobednik.ForeColor = System.Drawing.Color.Black;
             this.lblIspisPobednik.Location = new System.Drawing.Point(500, 188);
             this.lblIspisPobednik.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblIspisPobednik.Name = "lblIspisPobednik";
-            this.lblIspisPobednik.Size = new System.Drawing.Size(104, 39);
+            this.lblIspisPobednik.Size = new System.Drawing.Size(0, 39);
             this.lblIspisPobednik.TabIndex = 25;
-            this.lblIspisPobednik.Text = "label1";
             // 
             // btnIzlaz
             // 
@@ -354,11 +355,24 @@
             this.btnIgrajOpet.TabIndex = 27;
             this.btnIgrajOpet.Text = "IGRAJ OPET";
             this.btnIgrajOpet.UseVisualStyleBackColor = true;
+            this.btnIgrajOpet.Click += new System.EventHandler(this.btnIgrajOpet_Click);
             // 
-            // tajmer
+            // tajmerAviona
             // 
-            this.tajmer.Interval = 50;
-            this.tajmer.Tick += new System.EventHandler(this.tajmer_Tick);
+            this.tajmerAviona.Interval = 50;
+            this.tajmerAviona.Tick += new System.EventHandler(this.tajmer_Tick);
+            // 
+            // lblSledeci
+            // 
+            this.lblSledeci.AutoSize = true;
+            this.lblSledeci.Font = new System.Drawing.Font("Georgia", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSledeci.ForeColor = System.Drawing.Color.Black;
+            this.lblSledeci.Location = new System.Drawing.Point(440, 241);
+            this.lblSledeci.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSledeci.Name = "lblSledeci";
+            this.lblSledeci.Size = new System.Drawing.Size(204, 39);
+            this.lblSledeci.TabIndex = 28;
+            this.lblSledeci.Text = "Sledeci igrac";
             // 
             // frmPotop
             // 
@@ -367,9 +381,10 @@
             this.BackgroundImage = global::potapanjePodmornica.Properties.Resources.pozadina;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.Controls.Add(this.lblSledeci);
+            this.Controls.Add(this.lblIspisPobednik);
             this.Controls.Add(this.btnIgrajOpet);
             this.Controls.Add(this.btnIzlaz);
-            this.Controls.Add(this.lblIspisPobednik);
             this.Controls.Add(this.pbxAvion);
             this.Controls.Add(this.lblIgrac2);
             this.Controls.Add(this.lblIgrac1);
@@ -436,7 +451,8 @@
         private System.Windows.Forms.Label lblIspisPobednik;
         private System.Windows.Forms.Button btnIzlaz;
         private System.Windows.Forms.Button btnIgrajOpet;
-        private System.Windows.Forms.Timer tajmer;
+        private System.Windows.Forms.Timer tajmerAviona;
+        private System.Windows.Forms.Label lblSledeci;
     }
 }
 
