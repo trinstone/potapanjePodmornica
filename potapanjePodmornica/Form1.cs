@@ -130,6 +130,26 @@ namespace potapanjePodmornica
                     {
                         tabla[y, x + k].Item1 = 5;
                     }
+                    if (y != 0)
+                    {
+                        for (int k = 0; k < duzina; k++)
+                        {
+                            tabla[y - 1, x + k].Item1 = 1;
+                        }
+                    }
+                    if (y != 9)
+                    {
+                        for (int k = 0; k < duzina; k++)
+                        {
+                            tabla[y + 1, x + k].Item1 = 1;
+                        }
+                    }
+                    if (x != 0) tabla[y, x - 1].Item1 = 1;
+                    if (x + duzina <= 9) tabla[y, x + duzina].Item1 = 1;
+                    if (x != 0 && y != 0) tabla[y - 1, x - 1].Item1 = 1;
+                    if (x + duzina <= 9 && y != 0) tabla[y - 1, x + duzina].Item1 = 1;
+                    if (x != 0 && y != 9) tabla[y + 1, x - 1].Item1 = 1;
+                    if (x + duzina <= 9 && y != 9) tabla[y + 1, x + duzina].Item1 = 1;
                 }
             }
             else
@@ -144,6 +164,26 @@ namespace potapanjePodmornica
                     {
                         tabla[y + k, x].Item1 = 5;
                     }
+                    if (x != 0)
+                    {
+                        for (int k = 0; k < duzina; k++)
+                        {
+                            tabla[y + k, x - 1].Item1 = 1;
+                        }
+                    }
+                    if (x != 9)
+                    {
+                        for (int k = 0; k < duzina; k++)
+                        {
+                            tabla[y + k, x + 1].Item1 = 1;
+                        }
+                    }
+                    if (y != 0) tabla[y - 1, x].Item1 = 1;
+                    if (y + duzina <= 9) tabla[y + duzina, x].Item1 = 1;
+                    if (y != 0 && x != 0) tabla[y - 1, x - 1].Item1 = 1;
+                    if (y + duzina <= 9 && x != 0) tabla[y + duzina, x - 1].Item1 = 1;
+                    if (y != 0 && x != 9) tabla[y - 1, x + 1].Item1 = 1;
+                    if (y + duzina <= 9 && x != 9) tabla[y + duzina, x + 1].Item1 = 1;
                 }
             }
         }
