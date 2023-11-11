@@ -90,7 +90,7 @@
             this.btnRestartPozicije.Name = "btnRestartPozicije";
             this.btnRestartPozicije.Size = new System.Drawing.Size(129, 38);
             this.btnRestartPozicije.TabIndex = 3;
-            this.btnRestartPozicije.Text = "OBRIŠI SVE";
+            this.btnRestartPozicije.Text = "NAMESTI PONOVO";
             this.btnRestartPozicije.UseVisualStyleBackColor = true;
             this.btnRestartPozicije.Click += new System.EventHandler(this.btnRestartPozicije_Click);
             // 

@@ -447,7 +447,7 @@ namespace potapanjePodmornica
 
         private void btnHelp_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("");
+            MessageBox.Show("Igra se na tabli veličine 10x10. Kolone su označene slovima abecede A-J, dok su vrste označene brojevima 1-10. Pre nego što počne igra, svaki igrač postavi brodove na svojoj tabli. Postoje četiri broda duzine 1, tri broda duzine 2, dva broda duzine 3 i jedan brod duzine 4. Brodovi se postavljaju tako sto se mišem prevuku na tablu i tako da se nijedna dva ne dodiruju ni dijagonalno. Svaki od njih može biti postavljen horizontalno ili vertikalno. Brodovi se rotiraju tako što se postave na tablu i onda dvokliknu i tada se rotiraju tako da im gornji/levi kraj ostane na istom mestu. Igra kreće kada oba igrača završe sa postavljanjem svojih brodova. Svaki igrač, kada je njegov red, gađa jedno od protivničkih polja tako što klikne na jedno od polja na desnoj tabli. Ako ne pogodi ništa to polje će biti šrafirano plavo, a u suprotnom na njemu će se ispisati crveno X i gađaće opet. U slučaju da je igrač pogodio ceo brod polja na kojima se taj brod nalazio će cela biti obojena u crveno. Igrač na levoj table može da vidi svoje brodove i sva polja koja je protivnik gađao, označena istim simbolima. Igra se završava kada jedan igrač pogodi sve protivnikove brodove i on tada postaje pobednik.", "Pravila");
         }
         private void VelicinaLokacijaSvega()
         {
@@ -798,7 +798,7 @@ namespace potapanjePodmornica
                 }
             }
         }
-        private void IscrtajNaBrodu(PictureBox brod, PaintEventArgs e, int broj, (int, string)[,] tabla)
+        private void IscrtajNaBrodu(PaintEventArgs e, int broj, (int, string)[,] tabla)
         {
             int x = 0, y = 0;
             bool kraj = false;
@@ -1036,52 +1036,52 @@ namespace potapanjePodmornica
 
         private void pbx4a_Paint(object sender, PaintEventArgs e)
         {
-            if (!namestanjeBrodova) IscrtajNaBrodu(pbx4a, e, 9, prviNaPotezu ? tablaPrvog : tablaDrugog);
+            if (!namestanjeBrodova) IscrtajNaBrodu(e, 9, prviNaPotezu ? tablaPrvog : tablaDrugog);
         }
 
         private void pbx3a_Paint(object sender, PaintEventArgs e)
         {
-            if (!namestanjeBrodova) IscrtajNaBrodu(pbx3a, e, 7, prviNaPotezu ? tablaPrvog : tablaDrugog);
+            if (!namestanjeBrodova) IscrtajNaBrodu( e, 7, prviNaPotezu ? tablaPrvog : tablaDrugog);
         }
 
         private void pbx3b_Paint(object sender, PaintEventArgs e)
         {
-            if (!namestanjeBrodova) IscrtajNaBrodu(pbx3b, e, 8, prviNaPotezu ? tablaPrvog : tablaDrugog);
+            if (!namestanjeBrodova) IscrtajNaBrodu(e, 8, prviNaPotezu ? tablaPrvog : tablaDrugog);
         }
 
         private void pbx2c_Paint(object sender, PaintEventArgs e)
         {
-            if (!namestanjeBrodova) IscrtajNaBrodu(pbx2c, e, 6, prviNaPotezu ? tablaPrvog : tablaDrugog);
+            if (!namestanjeBrodova) IscrtajNaBrodu(e, 6, prviNaPotezu ? tablaPrvog : tablaDrugog);
         }
 
         private void pbx2b_Paint(object sender, PaintEventArgs e)
         {
-            if (!namestanjeBrodova) IscrtajNaBrodu(pbx2b, e, 5, prviNaPotezu ? tablaPrvog : tablaDrugog);
+            if (!namestanjeBrodova) IscrtajNaBrodu(e, 5, prviNaPotezu ? tablaPrvog : tablaDrugog);
         }
 
         private void pbx2a_Paint(object sender, PaintEventArgs e)
         {
-            if (!namestanjeBrodova) IscrtajNaBrodu(pbx2a, e, 4, prviNaPotezu ? tablaPrvog : tablaDrugog);
+            if (!namestanjeBrodova) IscrtajNaBrodu(e, 4, prviNaPotezu ? tablaPrvog : tablaDrugog);
         }
 
         private void pbx1d_Paint(object sender, PaintEventArgs e)
         {
-            if (!namestanjeBrodova) IscrtajNaBrodu(pbx1d, e, 3, prviNaPotezu ? tablaPrvog : tablaDrugog);
+            if (!namestanjeBrodova) IscrtajNaBrodu(e, 3, prviNaPotezu ? tablaPrvog : tablaDrugog);
         }
 
         private void pbx1c_Paint(object sender, PaintEventArgs e)
         {
-            if (!namestanjeBrodova) IscrtajNaBrodu(pbx1c, e, 2, prviNaPotezu ? tablaPrvog : tablaDrugog);
+            if (!namestanjeBrodova) IscrtajNaBrodu(e, 2, prviNaPotezu ? tablaPrvog : tablaDrugog);
         }
 
         private void pbx1b_Paint(object sender, PaintEventArgs e)
         {
-            if (!namestanjeBrodova) IscrtajNaBrodu(pbx1b, e, 1, prviNaPotezu ? tablaPrvog : tablaDrugog);
+            if (!namestanjeBrodova) IscrtajNaBrodu(e, 1, prviNaPotezu ? tablaPrvog : tablaDrugog);
         }
 
         private void pbx1a_Paint(object sender, PaintEventArgs e)
         {
-            if (!namestanjeBrodova) IscrtajNaBrodu(pbx1a, e, 0, prviNaPotezu ? tablaPrvog : tablaDrugog);
+            if (!namestanjeBrodova) IscrtajNaBrodu(e, 0, prviNaPotezu ? tablaPrvog : tablaDrugog);
         }
 
         private void SledeciIgrac()
