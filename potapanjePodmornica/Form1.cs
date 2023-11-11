@@ -24,6 +24,7 @@ namespace potapanjePodmornica
         bool pomeranjeBroda = false;
         bool namestanjeBrodova = false;
         bool sledeci;
+        int brSek;
         int pozX;
         int pozY;
         public frmPotop()
@@ -232,8 +233,8 @@ namespace potapanjePodmornica
                 for (int j = 1; j < 11; j++)
                 {
                     if (igrac[i - 1, j - 1].Item1 == 1) PogodakPrazno(tabla, e, j, i);
-                    else if (igrac[i - 1, j - 1].Item1 == 3) PogodakBrod(tabla, e, j, i);
-                    else if (igrac[i - 1, j - 1].Item1 == 5) PogodakCeoBrod(tabla, e, j, i);
+                    else if (igrac[i - 1, j - 1].Item1 == 3) PogodakBrod(tabla, e, j, i, 0);
+                    else if (igrac[i - 1, j - 1].Item1 == 5) PogodakCeoBrod(e, j, i, 2);
                 }
             }
         }
@@ -246,28 +247,27 @@ namespace potapanjePodmornica
                 e.Graphics.DrawLine(olovka, sirinaPolja * x + (int)Math.Round(sirinaPolja / 5.0 * i, 0), sirinaPolja * (y + 1), (x + 1) * sirinaPolja, y * sirinaPolja + (int)Math.Round(sirinaPolja / 5.0 * i, 0));
             }
         }
-        private void PogodakBrod(PictureBox tabla, PaintEventArgs e, int x, int y)
+        private void PogodakBrod(PictureBox tabla, PaintEventArgs e, int x, int y, int smanjenje)
         {
             Pen olovka = new Pen(Color.Red, (float)(tabla.Width * 0.005 + 1));
-            e.Graphics.DrawLine(olovka, sirinaPolja * x + 2, sirinaPolja * y + 2, (x + 1) * sirinaPolja - 2, (y + 1) * sirinaPolja - 2);
-            e.Graphics.DrawLine(olovka, sirinaPolja * x + 2, sirinaPolja * (y + 1) - 2, (x + 1) * sirinaPolja - 2, y * sirinaPolja + 2);
+            e.Graphics.DrawLine(olovka, sirinaPolja * x + (smanjenje + 1) * 2, sirinaPolja * y + (smanjenje + 1) * 2, (x + 1) * sirinaPolja + (smanjenje - 1) * 2, (y + 1) * sirinaPolja + (smanjenje - 1) * 2);
+            e.Graphics.DrawLine(olovka, sirinaPolja * x + (smanjenje + 1) * 2, sirinaPolja * (y + 1) + (smanjenje - 1) * 2, (x + 1) * sirinaPolja + (smanjenje - 1) * 2, y * sirinaPolja + (smanjenje + 1) * 2);
         }
-        private void PogodakCeoBrod(PictureBox tabla, PaintEventArgs e, int x, int y)
+        private void PogodakCeoBrod(PaintEventArgs e, int x, int y, int smanjenje)
         {
             Brush cetkica = new SolidBrush(Color.Red);
-            e.Graphics.FillRectangle(cetkica, sirinaPolja * x + 2, sirinaPolja * y + 2, sirinaPolja - 4, sirinaPolja - 4);
+            e.Graphics.FillRectangle(cetkica, sirinaPolja * x + smanjenje, sirinaPolja * y + smanjenje, sirinaPolja - 4, sirinaPolja - 4);
         }
         private void btnSpreman_Click(object sender, EventArgs e)
         {
-            //if (SviPostavljeni())
-            //{
+            if (SviPostavljeni())
+            {
                 if (prviNaPotezu)
                 {
                     lblIgrac1.Enabled = false;
                     lblIgrac1.Visible = false;
                     lblIgrac2.Enabled = true;
                     lblIgrac2.Visible = true;
-                    pbxJa.Refresh();
                     for (int i = 0; i < 10; i++)
                     {
                         PictureBox a = (PictureBox)this.Controls.Find("pbx" + naziviBrodova[i], true)[0];
@@ -291,7 +291,6 @@ namespace potapanjePodmornica
                     btnRestartPozicije.Enabled = false;
                     pbxProtivnik.Visible = true;
                     pbxProtivnik.Enabled = true;
-                    pbxJa.Refresh();
                     pbxProtivnik.Refresh();
                     for (int i = 0; i < 10; i++)
                     {
@@ -302,11 +301,11 @@ namespace potapanjePodmornica
                     PostaviBrodoveNaPozicije(false);
                     namestanjeBrodova = false;
                 }
-        //}
-        //    else
-        //    {
-        //        MessageBox.Show("Neophodno je postaviti sve brodove na tablu");
-        //    }
+        }
+            else
+            {
+                MessageBox.Show("Neophodno je postaviti sve brodove na tablu");
+            }
 }
         private bool SviPostavljeni()
         {
@@ -338,9 +337,7 @@ namespace potapanjePodmornica
                     {
                         a.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipXY);
                         a.Refresh();
-                        int b = a.Width;
-                        a.Width = a.Height;
-                        a.Height = b;
+                        (a.Height, a.Width) = (a.Width, a.Height);
                     }
                 }
             }
@@ -357,17 +354,13 @@ namespace potapanjePodmornica
                         {
                             a.BackgroundImage.RotateFlip(RotateFlipType.Rotate90FlipXY);
                             a.Refresh();
-                            int b = a.Width;
-                            a.Width = a.Height;
-                            a.Height = b;
+                            (a.Height, a.Width) = (a.Width, a.Height);
                         }
                         else if(!pozicijeBrodovaDrugog[i].Item3 && pozicijeBrodovaPrvog[i].Item3)
                         {
                             a.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipXY);
                             a.Refresh();
-                            int b = a.Width;
-                            a.Width = a.Height;
-                            a.Height = b;
+                            (a.Height, a.Width) = (a.Width, a.Height);
                         }
                     }
                 }
@@ -382,23 +375,19 @@ namespace potapanjePodmornica
                         {
                             a.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipXY);
                             a.Refresh();
-                            int b = a.Width;
-                            a.Width = a.Height;
-                            a.Height = b;
+                            (a.Height, a.Width) = (a.Width, a.Height);
                         }
                         else if (!pozicijeBrodovaDrugog[i].Item3 && pozicijeBrodovaPrvog[i].Item3)
                         {
                             a.BackgroundImage.RotateFlip(RotateFlipType.Rotate90FlipXY);
                             a.Refresh();
-                            int b = a.Width;
-                            a.Width = a.Height;
-                            a.Height = b;
+                            (a.Height, a.Width) = (a.Width, a.Height);
                         }
                     }
                 }
             }
         }
-        private void KretanjeAviona(int x, int y)
+        private void KretanjeAviona(int y)
         {
             pbxAvion.Top = sirinaPolja * (1 + y) + pbxProtivnik.Top + 2;
             pbxAvion.Left = pbxProtivnik.Left - pbxAvion.Width;
@@ -441,7 +430,7 @@ namespace potapanjePodmornica
         private void btnIzlaz_Click(object sender, EventArgs e)
         {
             //System.Windows.Forms.Application.Exit();
-            Close();
+            this.Close();
         }
 
         private void frmPotop_SizeChanged(object sender, EventArgs e)
@@ -603,9 +592,7 @@ namespace potapanjePodmornica
                 {
                     brod.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipXY);
                     brod.Refresh();
-                    int a = brod.Width;
-                    brod.Width = brod.Height;
-                    brod.Height = a;
+                    (brod.Height, brod.Width) = (brod.Width, brod.Height);
                     if (prviNaPotezu) pozicijeBrodovaPrvog[broj].Item3 = true;
                     else pozicijeBrodovaDrugog[broj].Item3 = true;
                 }
@@ -658,9 +645,7 @@ namespace potapanjePodmornica
                 {
                     brod.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipXY);
                     brod.Refresh();
-                    int a = brod.Width;
-                    brod.Width = pbx4a.Height;
-                    brod.Height = a;
+                    (brod.Height, brod.Width) = (brod.Width, brod.Height);
                     if (prviNaPotezu) pozicijeBrodovaPrvog[broj].Item3 = true;
                     else pozicijeBrodovaDrugog[broj].Item3 = true;
                 }
@@ -668,8 +653,7 @@ namespace potapanjePodmornica
         }
         private void PomeriMis(object sender, MouseEventArgs e)
         {
-            Control c = sender as Control;
-            if (pomeranjeBroda && c != null)
+            if (pomeranjeBroda && sender is Control c)
             {
                 c.Top = e.Y + c.Top - pozY;
                 c.Left = e.X + c.Left - pozX;
@@ -692,11 +676,46 @@ namespace potapanjePodmornica
                     if ((prviNaPotezu && pozicijeBrodovaPrvog[broj].Item3) || (!prviNaPotezu && pozicijeBrodovaDrugog[broj].Item3)) brod.BackgroundImage.RotateFlip(RotateFlipType.Rotate90FlipXY);
                     else brod.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipXY);
                     brod.Refresh();
-                    int a = brod.Width;
-                    brod.Width = brod.Height;
-                    brod.Height = a;
+                    (brod.Height, brod.Width) = (brod.Width, brod.Height);
                     if (prviNaPotezu) pozicijeBrodovaPrvog[broj].Item3 = !pozicijeBrodovaPrvog[broj].Item3;
                     else pozicijeBrodovaDrugog[broj].Item3 = !pozicijeBrodovaDrugog[broj].Item3;
+                }
+            }
+        }
+        private void IscrtajNaBrodu(PictureBox brod, PaintEventArgs e, int broj, (int, string)[,] tabla)
+        {
+            int x = 0, y = 0;
+            bool kraj = false;
+            for (int i = 0; i < 10 && !kraj; i++)
+            {
+                for (int j = 0; j < 10 && !kraj; j++)
+                {
+                    if (tabla[i, j].Item2 == naziviBrodova[broj])
+                    {
+                        x = j;
+                        y = i;
+                        kraj = true;
+                    }
+                }
+            }
+            int duzina = int.Parse(naziviBrodova[broj][0].ToString());
+            bool horizontalno;
+            if (prviNaPotezu) horizontalno = pozicijeBrodovaPrvog[broj].Item3;
+            else horizontalno = pozicijeBrodovaDrugog[broj].Item3;
+            if (horizontalno)
+            {
+                for (int k = 0; k < duzina; k++)
+                {
+                    if (tabla[y, x + k].Item1 == 3) PogodakBrod(pbxJa, e, k, 0, - 1);
+                    else if (tabla[y, x + k].Item1 == 5) PogodakCeoBrod(e, k, 0, 0);
+                }
+            }
+            else
+            {
+                for (int k = 0; k < duzina; k++)
+                {
+                    if (tabla[y + k, x].Item1 == 3) PogodakBrod(pbxJa, e, 0, k, -1);
+                    else if (tabla[y + k, x].Item1 == 5) PogodakCeoBrod(e, 0, k, 0);
                 }
             }
         }
@@ -899,11 +918,61 @@ namespace potapanjePodmornica
             if (namestanjeBrodova) RotirajBrod(pbx1d, 3);
         }
 
+        private void pbx4a_Paint(object sender, PaintEventArgs e)
+        {
+            if (!namestanjeBrodova) IscrtajNaBrodu(pbx4a, e, 9, prviNaPotezu ? tablaPrvog : tablaDrugog);
+        }
+
+        private void pbx3a_Paint(object sender, PaintEventArgs e)
+        {
+            if (!namestanjeBrodova) IscrtajNaBrodu(pbx3a, e, 7, prviNaPotezu ? tablaPrvog : tablaDrugog);
+        }
+
+        private void pbx3b_Paint(object sender, PaintEventArgs e)
+        {
+            if (!namestanjeBrodova) IscrtajNaBrodu(pbx3b, e, 8, prviNaPotezu ? tablaPrvog : tablaDrugog);
+        }
+
+        private void pbx2c_Paint(object sender, PaintEventArgs e)
+        {
+            if (!namestanjeBrodova) IscrtajNaBrodu(pbx2c, e, 6, prviNaPotezu ? tablaPrvog : tablaDrugog);
+        }
+
+        private void pbx2b_Paint(object sender, PaintEventArgs e)
+        {
+            if (!namestanjeBrodova) IscrtajNaBrodu(pbx2b, e, 5, prviNaPotezu ? tablaPrvog : tablaDrugog);
+        }
+
+        private void pbx2a_Paint(object sender, PaintEventArgs e)
+        {
+            if (!namestanjeBrodova) IscrtajNaBrodu(pbx2a, e, 4, prviNaPotezu ? tablaPrvog : tablaDrugog);
+        }
+
+        private void pbx1d_Paint(object sender, PaintEventArgs e)
+        {
+            if (!namestanjeBrodova) IscrtajNaBrodu(pbx1d, e, 3, prviNaPotezu ? tablaPrvog : tablaDrugog);
+        }
+
+        private void pbx1c_Paint(object sender, PaintEventArgs e)
+        {
+            if (!namestanjeBrodova) IscrtajNaBrodu(pbx1c, e, 2, prviNaPotezu ? tablaPrvog : tablaDrugog);
+        }
+
+        private void pbx1b_Paint(object sender, PaintEventArgs e)
+        {
+            if (!namestanjeBrodova) IscrtajNaBrodu(pbx1b, e, 1, prviNaPotezu ? tablaPrvog : tablaDrugog);
+        }
+
+        private void pbx1a_Paint(object sender, PaintEventArgs e)
+        {
+            if (!namestanjeBrodova) IscrtajNaBrodu(pbx1a, e, 0, prviNaPotezu ? tablaPrvog : tablaDrugog);
+        }
+
         private void SledeciIgrac()
         {
-            Stopwatch tajmer = new Stopwatch();
-            tajmer.Start();
-            while (tajmer.Elapsed.Seconds < 1) ;
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+            while (timer.Elapsed.Seconds < 1) ;
             prviNaPotezu = !prviNaPotezu;
             lblIgrac1.Enabled = prviNaPotezu;
             lblIgrac1.Visible = prviNaPotezu;
@@ -923,25 +992,10 @@ namespace potapanjePodmornica
                 a.Visible = false;
                 a.Enabled = false;
             }
-            while (tajmer.Elapsed.Seconds < 6) ;
-            for (int i = 0; i < 10; i++)
-            {
-                PictureBox a = (PictureBox)this.Controls.Find("pbx" + naziviBrodova[i], true)[0];
-                a.Visible = true;
-                a.Enabled = true;
-            }
-            pbxJa.Visible = true;
-            pbxJa.Enabled = true;
-            pbxProtivnik.Enabled = true;
-            pbxProtivnik.Visible = true;
-            btnHelp.Enabled = true;
-            btnHelp.Visible = true;
-            lblSledeci.Enabled = false;
-            lblSledeci.Visible = false;
-            pbxJa.Refresh();
-            pbxProtivnik.Refresh();
+            timer.Stop();
+            brSek = 0;
+            tajmer.Start();
             PostaviBrodoveNaPozicije(false);
-            tajmer.Stop();
         }
         private void pbxProtivnik_MouseClick(object sender, MouseEventArgs e)
         {
@@ -996,13 +1050,13 @@ namespace potapanjePodmornica
                 btnIgrajOpet.Visible = true;
                 sledeci = false;
             }
-            KretanjeAviona(x, y);
+            KretanjeAviona(y);
         }
 
         private void btnIgrajOpet_Click(object sender, EventArgs e)
         {
             namestanjeBrodova = true;
-            prviNaPotezu = true;
+            PostaviBrodoveNaPozicije(true);
             for (int i = 0; i < 10; i++)
             {
                 for (int j = 0; j < 10; j++)
@@ -1012,11 +1066,12 @@ namespace potapanjePodmornica
                 }
                 pozicijeBrodovaPrvog[i] = (0, 0, true);
                 pozicijeBrodovaDrugog[i] = (0, 0, true);
+                ((PictureBox)this.Controls.Find("pbx" + naziviBrodova[i], true)[0]).Refresh();
             }
             pbxJa.Refresh();
+            prviNaPotezu = true;
             pbxProtivnik.Enabled = false;
             pbxProtivnik.Visible = false;
-            PostaviBrodoveNaPozicije(true);
             btnSpreman.Enabled = true;
             btnSpreman.Visible = true;
             btnRestartPozicije.Enabled = true;
@@ -1031,6 +1086,31 @@ namespace potapanjePodmornica
             btnIgrajOpet.Visible = false;
             lblIspisPobednik.Visible = false;
             lblIspisPobednik.Enabled = false;
+        }
+
+        private void tajmer_Tick_1(object sender, EventArgs e)
+        {
+            brSek++;
+            if (brSek >= 1)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    PictureBox a = (PictureBox)this.Controls.Find("pbx" + naziviBrodova[i], true)[0];
+                    a.Visible = true;
+                    a.Enabled = true;
+                }
+                pbxJa.Visible = true;
+                pbxJa.Enabled = true;
+                pbxProtivnik.Enabled = true;
+                pbxProtivnik.Visible = true;
+                btnHelp.Enabled = true;
+                btnHelp.Visible = true;
+                lblSledeci.Enabled = false;
+                lblSledeci.Visible = false;
+                pbxJa.Refresh();
+                pbxProtivnik.Refresh();
+                tajmer.Stop();
+            }
         }
     }
 }

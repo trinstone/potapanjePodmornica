@@ -53,6 +53,7 @@
             this.btnIgrajOpet = new System.Windows.Forms.Button();
             this.tajmerAviona = new System.Windows.Forms.Timer(this.components);
             this.lblSledeci = new System.Windows.Forms.Label();
+            this.tajmer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbxAvion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbx3a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbx2c)).BeginInit();
@@ -160,6 +161,7 @@
             this.pbx3a.Size = new System.Drawing.Size(133, 62);
             this.pbx3a.TabIndex = 20;
             this.pbx3a.TabStop = false;
+            this.pbx3a.Paint += new System.Windows.Forms.PaintEventHandler(this.pbx3a_Paint);
             this.pbx3a.DoubleClick += new System.EventHandler(this.pbx3a_DoubleClick);
             this.pbx3a.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbx3a_MouseDown);
             this.pbx3a.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbx3a_MouseMove);
@@ -175,6 +177,7 @@
             this.pbx2c.Size = new System.Drawing.Size(133, 62);
             this.pbx2c.TabIndex = 19;
             this.pbx2c.TabStop = false;
+            this.pbx2c.Paint += new System.Windows.Forms.PaintEventHandler(this.pbx2c_Paint);
             this.pbx2c.DoubleClick += new System.EventHandler(this.pbx2c_DoubleClick);
             this.pbx2c.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbx2c_MouseDown);
             this.pbx2c.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbx2c_MouseMove);
@@ -190,6 +193,7 @@
             this.pbx2b.Size = new System.Drawing.Size(133, 62);
             this.pbx2b.TabIndex = 18;
             this.pbx2b.TabStop = false;
+            this.pbx2b.Paint += new System.Windows.Forms.PaintEventHandler(this.pbx2b_Paint);
             this.pbx2b.DoubleClick += new System.EventHandler(this.pbx2b_DoubleClick);
             this.pbx2b.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbx2b_MouseDown);
             this.pbx2b.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbx2b_MouseMove);
@@ -205,6 +209,7 @@
             this.pbx1b.Size = new System.Drawing.Size(59, 47);
             this.pbx1b.TabIndex = 17;
             this.pbx1b.TabStop = false;
+            this.pbx1b.Paint += new System.Windows.Forms.PaintEventHandler(this.pbx1b_Paint);
             this.pbx1b.DoubleClick += new System.EventHandler(this.pbx1b_DoubleClick);
             this.pbx1b.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbx1b_MouseDown);
             this.pbx1b.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbx1b_MouseMove);
@@ -220,6 +225,7 @@
             this.pbx1d.Size = new System.Drawing.Size(59, 47);
             this.pbx1d.TabIndex = 16;
             this.pbx1d.TabStop = false;
+            this.pbx1d.Paint += new System.Windows.Forms.PaintEventHandler(this.pbx1d_Paint);
             this.pbx1d.DoubleClick += new System.EventHandler(this.pbx1d_DoubleClick);
             this.pbx1d.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbx1d_MouseDown);
             this.pbx1d.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbx1d_MouseMove);
@@ -235,6 +241,7 @@
             this.pbx1c.Size = new System.Drawing.Size(59, 47);
             this.pbx1c.TabIndex = 15;
             this.pbx1c.TabStop = false;
+            this.pbx1c.Paint += new System.Windows.Forms.PaintEventHandler(this.pbx1c_Paint);
             this.pbx1c.DoubleClick += new System.EventHandler(this.pbx1c_DoubleClick);
             this.pbx1c.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbx1c_MouseDown);
             this.pbx1c.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbx1c_MouseMove);
@@ -250,6 +257,7 @@
             this.pbx1a.Size = new System.Drawing.Size(59, 47);
             this.pbx1a.TabIndex = 14;
             this.pbx1a.TabStop = false;
+            this.pbx1a.Paint += new System.Windows.Forms.PaintEventHandler(this.pbx1a_Paint);
             this.pbx1a.DoubleClick += new System.EventHandler(this.pbx1a_DoubleClick);
             this.pbx1a.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbx1a_MouseDown);
             this.pbx1a.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbx1a_MouseMove);
@@ -265,6 +273,7 @@
             this.pbx2a.Size = new System.Drawing.Size(133, 62);
             this.pbx2a.TabIndex = 10;
             this.pbx2a.TabStop = false;
+            this.pbx2a.Paint += new System.Windows.Forms.PaintEventHandler(this.pbx2a_Paint);
             this.pbx2a.DoubleClick += new System.EventHandler(this.pbx2a_DoubleClick);
             this.pbx2a.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbx2a_MouseDown);
             this.pbx2a.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbx2a_MouseMove);
@@ -280,6 +289,7 @@
             this.pbx3b.Size = new System.Drawing.Size(133, 62);
             this.pbx3b.TabIndex = 7;
             this.pbx3b.TabStop = false;
+            this.pbx3b.Paint += new System.Windows.Forms.PaintEventHandler(this.pbx3b_Paint);
             this.pbx3b.DoubleClick += new System.EventHandler(this.pbx3b_DoubleClick);
             this.pbx3b.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbx3b_MouseDown);
             this.pbx3b.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbx3b_MouseMove);
@@ -295,6 +305,7 @@
             this.pbx4a.Size = new System.Drawing.Size(172, 63);
             this.pbx4a.TabIndex = 5;
             this.pbx4a.TabStop = false;
+            this.pbx4a.Paint += new System.Windows.Forms.PaintEventHandler(this.pbx4a_Paint);
             this.pbx4a.DoubleClick += new System.EventHandler(this.pbx4a_DoubleClick);
             this.pbx4a.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbx4a_MouseDown);
             this.pbx4a.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbx4a_MouseMove);
@@ -373,6 +384,11 @@
             this.lblSledeci.Size = new System.Drawing.Size(204, 39);
             this.lblSledeci.TabIndex = 28;
             this.lblSledeci.Text = "Sledeci igrac";
+            // 
+            // tajmer
+            // 
+            this.tajmer.Interval = 1000;
+            this.tajmer.Tick += new System.EventHandler(this.tajmer_Tick_1);
             // 
             // frmPotop
             // 
@@ -453,6 +469,7 @@
         private System.Windows.Forms.Button btnIgrajOpet;
         private System.Windows.Forms.Timer tajmerAviona;
         private System.Windows.Forms.Label lblSledeci;
+        private System.Windows.Forms.Timer tajmer;
     }
 }
 
