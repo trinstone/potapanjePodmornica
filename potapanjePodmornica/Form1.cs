@@ -24,6 +24,7 @@ namespace potapanjePodmornica
         bool pomeranjeBroda = false;
         bool namestanjeBrodova = false;
         bool sledeci;
+        bool pocetak = true;
         int brSek;
         int pozX;
         int pozY;
@@ -211,7 +212,6 @@ namespace potapanjePodmornica
             btnStartProg.Visible = false;
             this.BackgroundImage = null;
             namestanjeBrodova = true;
-            UpisiPocetnePozicije();
         }
         private void IscrtajTablu(PictureBox tabla, PaintEventArgs e, (int, string)[,] igrac)
         {
@@ -268,12 +268,6 @@ namespace potapanjePodmornica
                     lblIgrac1.Visible = false;
                     lblIgrac2.Enabled = true;
                     lblIgrac2.Visible = true;
-                    for (int i = 0; i < 10; i++)
-                    {
-                        PictureBox a = (PictureBox)this.Controls.Find("pbx" + naziviBrodova[i], true)[0];
-                        pozicijeBrodovaPrvog[i].Item1 = a.Left;
-                        pozicijeBrodovaPrvog[i].Item2 = a.Top;
-                    }
                     PostaviBrodoveNaPozicije(true);
                     prviNaPotezu = false;
                 }
@@ -292,21 +286,15 @@ namespace potapanjePodmornica
                     pbxProtivnik.Visible = true;
                     pbxProtivnik.Enabled = true;
                     pbxProtivnik.Refresh();
-                    for (int i = 0; i < 10; i++)
-                    {
-                        PictureBox a = (PictureBox)this.Controls.Find("pbx" + naziviBrodova[i], true)[0];
-                        pozicijeBrodovaDrugog[i].Item1 = a.Left;
-                        pozicijeBrodovaDrugog[i].Item2 = a.Top;
-                    }
                     PostaviBrodoveNaPozicije(false);
                     namestanjeBrodova = false;
                 }
-        }
+            }
             else
             {
                 MessageBox.Show("Neophodno je postaviti sve brodove na tablu");
             }
-}
+        }
         private bool SviPostavljeni()
         {
             for (int i = 0; i < 10; i++)
@@ -315,14 +303,6 @@ namespace potapanjePodmornica
                 if (a.Left == pozicijeBrodovaZaPostavljanje[i].Item1) return false;
             }
             return true;
-        }
-        private void UpisiPocetnePozicije()
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                PictureBox a = (PictureBox)this.Controls.Find("pbx" + naziviBrodova[i], true)[0];
-                pozicijeBrodovaZaPostavljanje[i] = (a.Left, a.Top);
-            }
         }
         private void PostaviBrodoveNaPozicije(bool pocetak)
         {
@@ -400,11 +380,6 @@ namespace potapanjePodmornica
         {
             VelicinaLokacijaSvega();
             UnosPozicija(false);
-            for (int i = 0; i < 10; i++)
-            {
-                pozicijeBrodovaPrvog[i].Item3 = true;
-                pozicijeBrodovaDrugog[i].Item3 = true;
-            }
         }
 
         private void pbxJa_Paint(object sender, PaintEventArgs e)
@@ -422,8 +397,8 @@ namespace potapanjePodmornica
                     if (prviNaPotezu) tablaPrvog[i, j] = (0, null);
                     else tablaDrugog[i, j] = (0, null);
                 }
-                if (prviNaPotezu) pozicijeBrodovaPrvog[i].Item3 = true;
-                else pozicijeBrodovaDrugog[i].Item3 = true;
+                if (prviNaPotezu) pozicijeBrodovaPrvog[i] = (0, 0, true);
+                else pozicijeBrodovaDrugog[i] = (0, 0, true);
             }
         }
 
@@ -435,9 +410,18 @@ namespace potapanjePodmornica
 
         private void frmPotop_SizeChanged(object sender, EventArgs e)
         {
+            if (pocetak)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    pozicijeBrodovaDrugog[i].Item3 = true;
+                    pozicijeBrodovaPrvog[i].Item3 = true;
+                }
+                pocetak = false;
+            }
             VelicinaLokacijaSvega();
             this.Refresh();
-            UpisiPocetnePozicije();
+            //UpisiPocetnePozicije();
         }
 
         private void tajmer_Tick(object sender, EventArgs e)
@@ -467,6 +451,7 @@ namespace potapanjePodmornica
         }
         private void VelicinaLokacijaSvega()
         {
+            int stariX = pbxJa.Left, stariY = pbxJa.Top, staraSirina = sirinaPolja;
             //jaTabla
             pbxJa.Left = (int)(0.01 * this.Width);
             pbxJa.Top = (int)(0.1 * this.Height);
@@ -479,55 +464,130 @@ namespace potapanjePodmornica
             pbxProtivnik.Height = (int)(0.73 * this.Height);
             sirinaPolja = pbxJa.Width / 11;
             //3a
-            pbx3a.Left = (int)(0.67 * this.Width);
-            pbx3a.Top = (int)(0.14 * this.Height);
-            pbx3a.Width = (int)(3 * sirinaPolja - 4);
-            pbx3a.Height = (int)(sirinaPolja - 4);
+            pozicijeBrodovaZaPostavljanje[7] = ((int)(0.67 * this.Width), (int)(0.14 * this.Height));
+            if ((prviNaPotezu && pozicijeBrodovaPrvog[7].Item3) || (!prviNaPotezu && pozicijeBrodovaDrugog[7].Item3)) 
+            {
+                pbx3a.Width = (int)(3 * sirinaPolja - 4);
+                pbx3a.Height = (int)(sirinaPolja - 4);
+            }
+            else
+            {
+                pbx3a.Width = (int)(sirinaPolja - 4);
+                pbx3a.Height = (int)(3 * sirinaPolja - 4);
+            }
             //3b
-            pbx3b.Left = (int)(0.82 * this.Width);
-            pbx3b.Top = (int)(0.14 * this.Height);
-            pbx3b.Width = (int)(3 * sirinaPolja - 4);
-            pbx3b.Height = (int)(sirinaPolja - 4);
+            pozicijeBrodovaZaPostavljanje[8] = ((int)(0.82 * this.Width), (int)(0.14 * this.Height));
+            if ((prviNaPotezu && pozicijeBrodovaPrvog[8].Item3) || (!prviNaPotezu && pozicijeBrodovaDrugog[8].Item3))
+            {
+                pbx3b.Width = (int)(3 * sirinaPolja - 4);
+                pbx3b.Height = (int)(sirinaPolja - 4);
+            }
+            else
+            {
+                pbx3b.Width = (int)(sirinaPolja - 4);
+                pbx3b.Height = (int)(3 * sirinaPolja - 4);
+            }
             //1c
-            pbx1c.Left = (int)(0.67 * this.Width);
-            pbx1c.Top = (int)(0.31 * this.Height);
-            pbx1c.Width = (int)(sirinaPolja - 4);
-            pbx1c.Height = (int)(sirinaPolja - 4);
+            pozicijeBrodovaZaPostavljanje[2] = ((int)(0.67 * this.Width), (int)(0.31 * this.Height));
+            if ((prviNaPotezu && pozicijeBrodovaPrvog[2].Item3) || (!prviNaPotezu && pozicijeBrodovaDrugog[2].Item3))
+            {
+                pbx1c.Width = (int)(sirinaPolja - 4);
+                pbx1c.Height = (int)(sirinaPolja - 4);
+            }
+            else
+            { 
+                pbx1c.Width = (int)(sirinaPolja - 4);
+                pbx1c.Height = (int)(sirinaPolja - 4);
+            }
             //1d
-            pbx1d.Left = (int)(0.74 * this.Width);
-            pbx1d.Top = (int)(0.31 * this.Height);
-            pbx1d.Width = (int)(sirinaPolja - 4);
-            pbx1d.Height = (int)(sirinaPolja - 4);
+            pozicijeBrodovaZaPostavljanje[3] = ((int)(0.74 * this.Width), (int)(0.31 * this.Height));
+            if ((prviNaPotezu && pozicijeBrodovaPrvog[3].Item3) || (!prviNaPotezu && pozicijeBrodovaDrugog[3].Item3))
+            {
+                pbx1d.Width = (int)(sirinaPolja - 4);
+                pbx1d.Height = (int)(sirinaPolja - 4);
+            }
+            else
+            {
+                pbx1d.Width = (int)(sirinaPolja - 4);
+                pbx1d.Height = (int)(sirinaPolja - 4);
+            }
             //2a
-            pbx2a.Left = (int)(0.83 * this.Width);
-            pbx2a.Top = (int)(0.31 * this.Height);
-            pbx2a.Width = (int)(2 * sirinaPolja - 4);
-            pbx2a.Height = (int)(sirinaPolja - 4);
+            pozicijeBrodovaZaPostavljanje[4] = ((int)(0.83 * this.Width), (int)(0.31 * this.Height));
+            if ((prviNaPotezu && pozicijeBrodovaPrvog[4].Item3) || (!prviNaPotezu && pozicijeBrodovaDrugog[4].Item3))
+            {
+                pbx2a.Width = (int)(2 * sirinaPolja - 4);
+                pbx2a.Height = (int)(sirinaPolja - 4);
+            }
+            else
+            {
+                pbx2a.Width = (int)(sirinaPolja - 4);
+                pbx2a.Height = (int)(2 * sirinaPolja - 4);
+            }
             //4a
-            pbx4a.Left = (int)(0.64 * this.Width);
-            pbx4a.Top = (int)(0.47 * this.Height);
-            pbx4a.Width = (int)(4 * sirinaPolja - 4);
-            pbx4a.Height = (int)(sirinaPolja - 4);
+            pozicijeBrodovaZaPostavljanje[9] = ((int)(0.64 * this.Width), (int)(0.47 * this.Height));
+            if ((prviNaPotezu && pozicijeBrodovaPrvog[9].Item3) || (!prviNaPotezu && pozicijeBrodovaDrugog[9].Item3))
+            {
+                pbx4a.Width = (int)(4 * sirinaPolja - 4);
+                pbx4a.Height = (int)(sirinaPolja - 4);
+            }
+            else
+            {
+                pbx4a.Width = (int)(sirinaPolja - 4);
+                pbx4a.Height = (int)(4 * sirinaPolja - 4);
+            }
             //2b
-            pbx2b.Left = (int)(0.83 * this.Width);
-            pbx2b.Top = (int)(0.47 * this.Height);
-            pbx2b.Width = (int)(2 * sirinaPolja - 4);
-            pbx2b.Height = (int)(sirinaPolja - 4);
+            pozicijeBrodovaZaPostavljanje[5] = ((int)(0.83 * this.Width), (int)(0.47 * this.Height));
+            if ((prviNaPotezu && pozicijeBrodovaPrvog[5].Item3) || (!prviNaPotezu && pozicijeBrodovaDrugog[5].Item3))
+            {
+                pbx2b.Width = (int)(2 * sirinaPolja - 4);
+                pbx2b.Height = (int)(sirinaPolja - 4);
+            }
+            else
+            {
+                pbx2b.Width = (int)(sirinaPolja - 4);
+                pbx2b.Height = (int)(2 * sirinaPolja - 4);
+            }
             //1a
-            pbx1a.Left = (int)(0.64 * this.Width);
-            pbx1a.Top = (int)(0.65 * this.Height);
-            pbx1a.Width = (int)(sirinaPolja - 4);
-            pbx1a.Height = (int)(sirinaPolja - 4);
+            pozicijeBrodovaZaPostavljanje[0] = ((int)(0.64 * this.Width), (int)(0.65 * this.Height));
+            if ((prviNaPotezu && pozicijeBrodovaPrvog[0].Item3) || (!prviNaPotezu && pozicijeBrodovaDrugog[0].Item3))
+            {
+                pbx1a.Width = (int)(sirinaPolja - 4);
+                pbx1a.Height = (int)(sirinaPolja - 4);
+            }
+            else
+            {
+                pbx1a.Width = (int)(sirinaPolja - 4);
+                pbx1a.Height = (int)(sirinaPolja - 4);
+            }
             //1b
-            pbx1b.Left = (int)(0.74 * this.Width);
-            pbx1b.Top = (int)(0.65 * this.Height);
-            pbx1b.Width = (int)(sirinaPolja - 4);
-            pbx1b.Height = (int)(sirinaPolja - 4);
+            pozicijeBrodovaZaPostavljanje[1] = ((int)(0.74 * this.Width), (int)(0.65 * this.Height));
+            if ((prviNaPotezu && pozicijeBrodovaPrvog[1].Item3) || (!prviNaPotezu && pozicijeBrodovaDrugog[1].Item3))
+            {
+                pbx1b.Width = (int)(sirinaPolja - 4);
+                pbx1b.Height = (int)(sirinaPolja - 4);
+            }
+            else
+            {
+                pbx1b.Width = (int)(sirinaPolja - 4);
+                pbx1b.Height = (int)(sirinaPolja - 4);
+            }
             //2c
-            pbx2c.Left = (int)(0.83 * this.Width);
-            pbx2c.Top = (int)(0.65 * this.Height);
-            pbx2c.Width = (int)(2 * sirinaPolja - 4);
-            pbx2c.Height = (int)(sirinaPolja - 4);
+            pozicijeBrodovaZaPostavljanje[6] = ((int)(0.83 * this.Width), (int)(0.65 * this.Height));
+            if ((prviNaPotezu && pozicijeBrodovaPrvog[6].Item3) || (!prviNaPotezu && pozicijeBrodovaDrugog[6].Item3))
+            {
+                pbx2c.Width = (int)(2 * sirinaPolja - 4);
+                pbx2c.Height = (int)(sirinaPolja - 4);
+            }
+            else
+            {
+                pbx2c.Width = (int)(sirinaPolja - 4);
+                pbx2c.Height = (int)(2 * sirinaPolja - 4);
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                PictureBox a = (PictureBox)this.Controls.Find("pbx" + naziviBrodova[i], true)[0];
+                PromenaVelicineBroda(a, i, stariX, stariY, staraSirina);
+            }
             //btnPomoc
             btnHelp.Left = (int)(0.01 * this.Width);
             btnHelp.Top = (int)(0.85 * this.Height);
@@ -544,14 +604,17 @@ namespace potapanjePodmornica
             btnRestartPozicije.Width = (int)(0.12 * this.Width);
             btnRestartPozicije.Height = (int)(0.063 * this.Height);
             //lblIgrac1
-            lblIgrac1.Left = (int)(0.44 * this.Width);
+            lblIgrac1.Left = this.Width / 2 - lblIgrac1.Width / 2;
             lblIgrac1.Top = (int)(0.02 * this.Height);
             //lblIgrac2
-            lblIgrac2.Left = (int)(0.44 * this.Width);
+            lblIgrac2.Left = this.Width / 2 - lblIgrac2.Width / 2;
             lblIgrac2.Top = (int)(0.02 * this.Height);
             //lblSledeci
-            lblSledeci.Left = (int)(this.Width / 2 - lblSledeci.Width / 2);
-            lblSledeci.Top = (int)(this.Height / 2 - lblSledeci.Height / 2);
+            lblSledeci.Left = this.Width / 2 - lblSledeci.Width / 2;
+            lblSledeci.Top = this.Height / 2 - lblSledeci.Height / 2;
+            //lblPobednik
+            lblIspisPobednik.Left = this.Width / 2 - lblIspisPobednik.Width / 2;
+            lblIspisPobednik.Top = (int)(0.31 * this.Height);
             //btnStart
             btnStartProg.Left = (int)(0.41 * this.Width);
             btnStartProg.Top = (int)(0.39 * this.Height);
@@ -571,7 +634,56 @@ namespace potapanjePodmornica
             pbxAvion.Top = sirinaPolja * 5 + pbxProtivnik.Top;
             pbxAvion.Left = pbxProtivnik.Left - pbxAvion.Width;
             pbxAvion.Width = (int)(1.2 * sirinaPolja);
-            pbxAvion.Height = (int)(sirinaPolja - 4);
+            pbxAvion.Height = sirinaPolja - 4;
+        }
+        private void PromenaVelicineBroda(PictureBox brod, int broj, int x, int y, int staraSirina)
+        {
+            int x1, y1;
+            if (prviNaPotezu)
+            {
+                if (pozicijeBrodovaPrvog[broj].Item1 == 0)
+                {
+                    brod.Left = pozicijeBrodovaZaPostavljanje[broj].Item1;
+                    brod.Top = pozicijeBrodovaZaPostavljanje[broj].Item2;
+                }
+                else
+                {
+                    x1 = (pozicijeBrodovaPrvog[broj].Item1 - x) / staraSirina;
+                    y1 = (pozicijeBrodovaPrvog[broj].Item2 - y) / staraSirina;
+                    pozicijeBrodovaPrvog[broj].Item1 = pbxJa.Left + x1 * sirinaPolja + 2;
+                    pozicijeBrodovaPrvog[broj].Item2 = pbxJa.Top + y1 * sirinaPolja + 2;
+                    brod.Left = pozicijeBrodovaPrvog[broj].Item1;
+                    brod.Top = pozicijeBrodovaPrvog[broj].Item2;
+                    if (pozicijeBrodovaDrugog[broj].Item1 != 0)
+                    {
+                        x1 = (pozicijeBrodovaDrugog[broj].Item1 - x) / staraSirina;
+                        y1 = (pozicijeBrodovaDrugog[broj].Item2 - y) / staraSirina;
+                        pozicijeBrodovaDrugog[broj].Item1 = pbxJa.Left + x1 * sirinaPolja + 2;
+                        pozicijeBrodovaDrugog[broj].Item2 = pbxJa.Top + y1 * sirinaPolja + 2;
+                    }
+                }
+            }
+            else
+            {
+                if (pozicijeBrodovaDrugog[broj].Item1 == 0)
+                {
+                    brod.Left = pozicijeBrodovaZaPostavljanje[broj].Item1;
+                    brod.Top = pozicijeBrodovaZaPostavljanje[broj].Item2;
+                }
+                else
+                {
+                    x1 = (pozicijeBrodovaDrugog[broj].Item1 - x) / staraSirina;
+                    y1 = (pozicijeBrodovaDrugog[broj].Item2 - y) / staraSirina;
+                    brod.Left = pbxJa.Left + x1 * sirinaPolja + 2;
+                    brod.Top = pbxJa.Top + y1 * sirinaPolja + 2;
+                    pozicijeBrodovaDrugog[broj].Item1 = brod.Left;
+                    pozicijeBrodovaDrugog[broj].Item2 = brod.Top;
+                }
+                x1 = (pozicijeBrodovaPrvog[broj].Item1 - x) / staraSirina;
+                y1 = (pozicijeBrodovaPrvog[broj].Item2 - y) / staraSirina;
+                pozicijeBrodovaPrvog[broj].Item1 = pbxJa.Left + x1 * sirinaPolja + 2;
+                pozicijeBrodovaPrvog[broj].Item2 = pbxJa.Top + y1 * sirinaPolja + 2;
+            }
         }
         private void PostaviBrod(PictureBox brod, int broj)
         {
@@ -593,8 +705,8 @@ namespace potapanjePodmornica
                     brod.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipXY);
                     brod.Refresh();
                     (brod.Height, brod.Width) = (brod.Width, brod.Height);
-                    if (prviNaPotezu) pozicijeBrodovaPrvog[broj].Item3 = true;
-                    else pozicijeBrodovaDrugog[broj].Item3 = true;
+                    if (prviNaPotezu) pozicijeBrodovaPrvog[broj] = (0, 0, true);
+                    else pozicijeBrodovaDrugog[broj] = (0, 0, true);
                 }
                 return;
             }
@@ -627,6 +739,8 @@ namespace potapanjePodmornica
                         for (int i = 0; i < duzina; i++) tablaPrvog[y, x + i] = (2, naziviBrodova[broj]);
                     }
                     else for (int i = 0; i < duzina; i++) tablaPrvog[y + i, x] = (2, naziviBrodova[broj]);
+                    pozicijeBrodovaPrvog[broj].Item1 = brod.Left;
+                    pozicijeBrodovaPrvog[broj].Item2 = brod.Top;
                 }
                 else
                 {
@@ -635,6 +749,8 @@ namespace potapanjePodmornica
                         for (int i = 0; i < duzina; i++) tablaDrugog[y, x + i] = (2, naziviBrodova[broj]);
                     }
                     else for (int i = 0; i < duzina; i++) tablaDrugog[y + i, x] = (2, naziviBrodova[broj]);
+                    pozicijeBrodovaDrugog[broj].Item1 = brod.Left;
+                    pozicijeBrodovaDrugog[broj].Item2 = brod.Top;
                 }
             }
             else
@@ -646,8 +762,8 @@ namespace potapanjePodmornica
                     brod.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipXY);
                     brod.Refresh();
                     (brod.Height, brod.Width) = (brod.Width, brod.Height);
-                    if (prviNaPotezu) pozicijeBrodovaPrvog[broj].Item3 = true;
-                    else pozicijeBrodovaDrugog[broj].Item3 = true;
+                    if (prviNaPotezu) pozicijeBrodovaPrvog[broj] = (0, 0, true); 
+                    else pozicijeBrodovaDrugog[broj] = (0, 0, true);
                 }
             }
         }
@@ -1091,7 +1207,7 @@ namespace potapanjePodmornica
         private void tajmer_Tick_1(object sender, EventArgs e)
         {
             brSek++;
-            if (brSek >= 1)
+            if (brSek >= 2)
             {
                 for (int i = 0; i < 10; i++)
                 {
