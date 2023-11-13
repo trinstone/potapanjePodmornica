@@ -647,8 +647,9 @@ namespace potapanjePodmornica
             lblIgrac2.Top = (int)(0.02 * this.Height);
             lblIgrac2.Font = new Font("Georgia", (int)(btnHelp.Width * 0.14));
             //lblSledeci
+            lblSledeci.Font = new Font("Georgia", (int)(this.Width * 0.03));
             lblSledeci.Left = this.Width / 2 - lblSledeci.Width / 2;
-            lblSledeci.Top = this.Height / 2 - lblSledeci.Height / 2;
+            lblSledeci.Top = this.Height / 2 - lblSledeci.Height / 2; 
             //lblPobednik
             lblIspisPobednik.Left = this.Width / 2 - lblIspisPobednik.Width / 2;
             lblIspisPobednik.Top = (int)(0.31 * this.Height);
