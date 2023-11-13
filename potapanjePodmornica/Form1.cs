@@ -1152,6 +1152,7 @@ namespace potapanjePodmornica
             sledeci = true;
             int x = e.X / sirinaPolja - 1;
             int y = e.Y / sirinaPolja - 1;
+            if (x < 0 || y < 0) return;
             if (!prviNaPotezu)
             {
                 if (tablaPrvog[y, x].Item1 % 2 == 0)
@@ -1253,5 +1254,6 @@ namespace potapanjePodmornica
                 tajmer.Stop();
             }
         }
+
     }
 }
