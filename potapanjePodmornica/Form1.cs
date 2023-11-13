@@ -255,10 +255,11 @@ namespace potapanjePodmornica
         private void IscrtajTablu(PictureBox tabla, PaintEventArgs e, (int, string)[,] igrac)
         {
             sirinaPolja = tabla.Width / 11;
+            Font fontKoordinata = new Font("Georgia", (int)(sirinaPolja*0.4));
             for (int i = 1; i < 11; i++)
             {
-                e.Graphics.DrawString(Convert.ToString(i), new Font("Georgia", 12), Brushes.Blue, new Point(sirinaPolja * i + 5, 5));
-                e.Graphics.DrawString(Convert.ToString((char)(64 + i)), new Font("Georgia", 12), Brushes.Blue, new Point(5, sirinaPolja * i + 5));
+                e.Graphics.DrawString(Convert.ToString(i), fontKoordinata, Brushes.Blue, new Point(sirinaPolja * i + (int)(sirinaPolja * 0.2), 5));
+                e.Graphics.DrawString(Convert.ToString((char)(64 + i)), fontKoordinata, Brushes.Blue, new Point(5, sirinaPolja * i+(int)(sirinaPolja*0.25)));
             }
             Pen olovka = new Pen(Color.Blue, (float)(tabla.Width * 0.01 + 1));
             for (int i = 0; i < 11; i++)
