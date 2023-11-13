@@ -1225,23 +1225,7 @@ namespace potapanjePodmornica
                 ((PictureBox)this.Controls.Find("pbx" + naziviBrodova[i], true)[0]).Refresh();
             }
             pbxJa.Refresh();
-            prviNaPotezu = true;
-            pbxProtivnik.Enabled = false;
-            pbxProtivnik.Visible = false;
-            btnSpreman.Enabled = true;
-            btnSpreman.Visible = true;
-            btnRestartPozicije.Enabled = true;
-            btnRestartPozicije.Visible = true;
-            lblIgrac1.Enabled = true;
-            lblIgrac1.Visible = true;
-            lblIgrac2.Enabled = false;
-            lblIgrac2.Visible = false;
-            btnIzlaz.Enabled = false;
-            btnIzlaz.Visible = false;
-            btnIgrajOpet.Enabled = false;
-            btnIgrajOpet.Visible = false;
-            lblIspisPobednik.Visible = false;
-            lblIspisPobednik.Enabled = false;
+            UnosPozicija(true);
         }
 
         private void tajmer_Tick_1(object sender, EventArgs e)
