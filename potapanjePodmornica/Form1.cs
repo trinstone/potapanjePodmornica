@@ -1160,37 +1160,45 @@ namespace potapanjePodmornica
             int y = e.Y / sirinaPolja - 1;
             if (!prviNaPotezu)
             {
-                if (tablaPrvog[y, x].Item1 % 2 == 0) tablaPrvog[y, x].Item1++;
-                if (tablaPrvog[y, x].Item1 == 3)
+                if (tablaPrvog[y, x].Item1 % 2 == 0)
                 {
-                    int broj = tablaPrvog[y, x].Item2[1] - 96;
-                    switch (int.Parse(tablaPrvog[y, x].Item2[0].ToString()))
+                    tablaPrvog[y, x].Item1++;
+                    if (tablaPrvog[y, x].Item1 == 3)
                     {
-                        case 2: broj += 3; break;
-                        case 3: broj += 6; break;
-                        case 4: broj += 8; break;
-                        default: break;
+                        int broj = tablaPrvog[y, x].Item2[1] - 96;
+                        switch (int.Parse(tablaPrvog[y, x].Item2[0].ToString()))
+                        {
+                            case 2: broj += 3; break;
+                            case 3: broj += 6; break;
+                            case 4: broj += 8; break;
+                            default: break;
+                        }
+                        PogodjenCeoBrod(tablaPrvog, tablaPrvog[y, x].Item2, pozicijeBrodovaPrvog[broj].Item3);
+                        sledeci = false;
                     }
-                    PogodjenCeoBrod(tablaPrvog, tablaPrvog[y, x].Item2, pozicijeBrodovaPrvog[broj].Item3);
-                    sledeci = false;
                 }
+                else return;
             }
             else
             {
-                if (tablaDrugog[y, x].Item1 % 2 == 0) tablaDrugog[y, x].Item1++;
-                if (tablaDrugog[y, x].Item1 == 3)
+                if (tablaDrugog[y, x].Item1 % 2 == 0)
                 {
-                    int broj = tablaDrugog[y, x].Item2[1] - 96;
-                    switch(int.Parse(tablaDrugog[y, x].Item2[0].ToString()))
+                    tablaDrugog[y, x].Item1++;
+                    if (tablaDrugog[y, x].Item1 == 3)
                     {
-                        case 2: broj += 3; break;
-                        case 3: broj += 6; break;
-                        case 4: broj += 8; break;
-                        default: break;
+                        int broj = tablaDrugog[y, x].Item2[1] - 96;
+                        switch (int.Parse(tablaDrugog[y, x].Item2[0].ToString()))
+                        {
+                            case 2: broj += 3; break;
+                            case 3: broj += 6; break;
+                            case 4: broj += 8; break;
+                            default: break;
+                        }
+                        PogodjenCeoBrod(tablaDrugog, tablaDrugog[y, x].Item2, pozicijeBrodovaDrugog[broj].Item3);
+                        sledeci = false;
                     }
-                    PogodjenCeoBrod(tablaDrugog, tablaDrugog[y, x].Item2, pozicijeBrodovaDrugog[broj].Item3);
-                    sledeci = false;
                 }
+                else return;
             }
             if (KrajIgre(prviNaPotezu ? tablaDrugog : tablaPrvog))
             {
@@ -1222,7 +1230,6 @@ namespace potapanjePodmornica
                 }
                 pozicijeBrodovaPrvog[i] = (0, 0, true);
                 pozicijeBrodovaDrugog[i] = (0, 0, true);
-                ((PictureBox)this.Controls.Find("pbx" + naziviBrodova[i], true)[0]).Refresh();
             }
             pbxJa.Refresh();
             UnosPozicija(true);
