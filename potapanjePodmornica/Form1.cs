@@ -312,18 +312,11 @@ namespace potapanjePodmornica
 
                 else
                 {
-                    prviNaPotezu = true;
-                    lblIgrac1.Enabled = true;
-                    lblIgrac1.Visible = true;
-                    lblIgrac2.Enabled = false;
-                    lblIgrac2.Visible = false;
                     btnSpreman.Visible = false;
                     btnSpreman.Enabled = false;
                     btnRestartPozicije.Visible = false;
                     btnRestartPozicije.Enabled = false;
-                    pbxProtivnik.Visible = true;
-                    pbxProtivnik.Enabled = true;
-                    pbxProtivnik.Refresh();
+                    SledeciIgrac(true);
                     PostaviBrodoveNaPozicije(false);
                     namestanjeBrodova = false;
                 }
@@ -474,7 +467,7 @@ namespace potapanjePodmornica
                 pbxAvion.Enabled = false;
                 tajmerAviona.Stop();
                 pbxProtivnik.Refresh();
-                if (sledeci) SledeciIgrac();
+                if (sledeci) SledeciIgrac(false);
             }
         }
 
@@ -1122,11 +1115,11 @@ namespace potapanjePodmornica
             if (!namestanjeBrodova) IscrtajNaBrodu(e, 0, prviNaPotezu ? tablaPrvog : tablaDrugog);
         }
 
-        private void SledeciIgrac()
+        private void SledeciIgrac(bool pocinjeIgra)
         {
             Stopwatch timer = new Stopwatch();
             timer.Start();
-            while (timer.Elapsed.Seconds < 1) ;
+            if(!pocinjeIgra) while (timer.Elapsed.Seconds < 1) ;
             prviNaPotezu = !prviNaPotezu;
             lblIgrac1.Enabled = prviNaPotezu;
             lblIgrac1.Visible = prviNaPotezu;
@@ -1138,6 +1131,8 @@ namespace potapanjePodmornica
             pbxProtivnik.Visible = false;
             btnHelp.Enabled = false;
             btnHelp.Visible = false;
+            if (pocinjeIgra) lblSledeci.Text = "Pocinje igra!";
+            else lblSledeci.Text = "Sledeci igrac";
             lblSledeci.Enabled = true;
             lblSledeci.Visible = true;
             for (int i = 0; i < 10; i++)
