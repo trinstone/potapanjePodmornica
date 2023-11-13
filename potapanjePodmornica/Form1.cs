@@ -21,19 +21,16 @@ namespace potapanjePodmornica
         (int, int)[] pozicijeBrodovaZaPostavljanje = new (int, int)[10];
         (int, int, bool)[] pozicijeBrodovaPrvog = new (int, int, bool)[10];
         (int, int, bool)[] pozicijeBrodovaDrugog = new (int, int, bool)[10];
-        bool pomeranjeBroda = false;
-        bool namestanjeBrodova = false;
-        bool sledeci;
-        bool pocetak = true;
-        int brSek;
+        bool pomeranjeBroda = false;//pomeranje brodova misem
+        bool namestanjeBrodova = false;//unos brodova oba igraca
+        bool sledeci;//ako je brod pogodjen, trenutni igrac ostaje na potezu
+        bool pocetak = true;//flag za resize koji se desava prilikom loadovanja forme
+        int brSek;//prelaz sa jednog na drugog igraca
         int pozX;
         int pozY;
         public frmPotop()
         {
-            InitializeComponent();/*
-            Rectangle intersection = Rectangle.Intersect(pbxProtivnik.Bounds, pbxAvion.Bounds);
-            Region region = new Region(intersection);
-            pbxAvion.Region = region;*/
+            InitializeComponent();
         }
         //0 - prazno, 1 - pogodjeno prazno, 2 - brod, 3 - pogodjen brod, 5 - pogodjen ceo brod?
         //imena brodova: 1a,1b,1c,1d,2a,2b,2c,3a,3b,4a
@@ -61,6 +58,7 @@ namespace potapanjePodmornica
                         if (tabela[y + 1, i].Item2 != ime && tabela[y + 1, i].Item1 != 0) return false;
                     }
                 }
+                //provera da li su prazna mesta do krajeva broda i dijagonalno od krajeva broda
                 if (x != 0 && tabela[y, x - 1].Item2 != ime && tabela[y, x - 1].Item1 != 0) return false;
                 if (krajX != 9 && tabela[y, krajX + 1].Item2 != ime && tabela[y, krajX + 1].Item1 != 0) return false;
                 if (x != 0 && y != 0 && tabela[y - 1, x - 1].Item2 != ime && tabela[y - 1, x - 1].Item1 != 0) return false;
@@ -92,6 +90,7 @@ namespace potapanjePodmornica
                         if (tabela[i, x + 1].Item2 != ime && tabela[i, x + 1].Item1 != 0) return false;
                     }
                 }
+                //provera da li su prazna mesta do krajeva broda i dijagonalno od krajeva broda
                 if (y != 0 && tabela[y - 1, x].Item2 != ime && tabela[y - 1, x].Item1 != 0) return false;
                 if (krajY != 9 && tabela[krajY + 1, x].Item2 != ime && tabela[krajY + 1, x].Item1 != 0) return false;
                 if (y != 0 && x != 0 && tabela[y - 1, x - 1].Item2 != ime && tabela[y - 1, x - 1].Item1 != 0) return false;
@@ -104,7 +103,7 @@ namespace potapanjePodmornica
         private void PogodjenCeoBrod((int, string)[,] tabla, string ime, bool horizontalno)
         {
             int x = 0, y = 0;
-            bool nadjeno = false;
+            bool nadjeno = false;//da li na polju ima pogodjen brod ili ne
             for (int i = 0; i < 10 && !nadjeno; i++)
             {
                 for (int j = 0; j < 10 && !nadjeno; j++)
@@ -256,7 +255,6 @@ namespace potapanjePodmornica
         private void IscrtajTablu(PictureBox tabla, PaintEventArgs e, (int, string)[,] igrac)
         {
             sirinaPolja = tabla.Width / 11;
-            //e.Graphics.DrawString(tekst, new Font("Arial", 12),Brushes.Green, new Point(x, y));
             for (int i = 1; i < 11; i++)
             {
                 e.Graphics.DrawString(Convert.ToString(i), new Font("Georgia", 12), Brushes.Blue, new Point(sirinaPolja * i + 5, 5));
