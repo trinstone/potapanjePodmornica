@@ -73,10 +73,9 @@
             // 
             this.btnStartProg.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnStartProg.Font = new System.Drawing.Font("Georgia", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStartProg.Location = new System.Drawing.Point(447, 234);
-            this.btnStartProg.Margin = new System.Windows.Forms.Padding(4);
+            this.btnStartProg.Location = new System.Drawing.Point(335, 190);
             this.btnStartProg.Name = "btnStartProg";
-            this.btnStartProg.Size = new System.Drawing.Size(145, 60);
+            this.btnStartProg.Size = new System.Drawing.Size(109, 49);
             this.btnStartProg.TabIndex = 0;
             this.btnStartProg.Text = "START";
             this.btnStartProg.UseVisualStyleBackColor = false;
@@ -85,10 +84,9 @@
             // btnRestartPozicije
             // 
             this.btnRestartPozicije.Font = new System.Drawing.Font("Georgia", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRestartPozicije.Location = new System.Drawing.Point(555, 512);
-            this.btnRestartPozicije.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRestartPozicije.Location = new System.Drawing.Point(416, 416);
             this.btnRestartPozicije.Name = "btnRestartPozicije";
-            this.btnRestartPozicije.Size = new System.Drawing.Size(129, 38);
+            this.btnRestartPozicije.Size = new System.Drawing.Size(130, 31);
             this.btnRestartPozicije.TabIndex = 3;
             this.btnRestartPozicije.Text = "NAMESTI PONOVO";
             this.btnRestartPozicije.UseVisualStyleBackColor = true;
@@ -97,10 +95,9 @@
             // btnSpreman
             // 
             this.btnSpreman.Font = new System.Drawing.Font("Georgia", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSpreman.Location = new System.Drawing.Point(315, 512);
-            this.btnSpreman.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSpreman.Location = new System.Drawing.Point(236, 416);
             this.btnSpreman.Name = "btnSpreman";
-            this.btnSpreman.Size = new System.Drawing.Size(129, 38);
+            this.btnSpreman.Size = new System.Drawing.Size(97, 31);
             this.btnSpreman.TabIndex = 4;
             this.btnSpreman.Text = "SPREMAN";
             this.btnSpreman.UseVisualStyleBackColor = true;
@@ -109,10 +106,9 @@
             // btnHelp
             // 
             this.btnHelp.Font = new System.Drawing.Font("Georgia", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHelp.Location = new System.Drawing.Point(16, 512);
-            this.btnHelp.Margin = new System.Windows.Forms.Padding(4);
+            this.btnHelp.Location = new System.Drawing.Point(12, 416);
             this.btnHelp.Name = "btnHelp";
-            this.btnHelp.Size = new System.Drawing.Size(129, 38);
+            this.btnHelp.Size = new System.Drawing.Size(97, 31);
             this.btnHelp.TabIndex = 21;
             this.btnHelp.Text = "POMOĆ";
             this.btnHelp.UseVisualStyleBackColor = true;
@@ -122,10 +118,9 @@
             // 
             this.lblIgrac1.AutoSize = true;
             this.lblIgrac1.Font = new System.Drawing.Font("Georgia", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIgrac1.Location = new System.Drawing.Point(483, 11);
-            this.lblIgrac1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblIgrac1.Location = new System.Drawing.Point(362, 9);
             this.lblIgrac1.Name = "lblIgrac1";
-            this.lblIgrac1.Size = new System.Drawing.Size(95, 31);
+            this.lblIgrac1.Size = new System.Drawing.Size(75, 25);
             this.lblIgrac1.TabIndex = 22;
             this.lblIgrac1.Text = "Igrač 1";
             // 
@@ -133,10 +128,9 @@
             // 
             this.lblIgrac2.AutoSize = true;
             this.lblIgrac2.Font = new System.Drawing.Font("Georgia", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIgrac2.Location = new System.Drawing.Point(483, 11);
-            this.lblIgrac2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblIgrac2.Location = new System.Drawing.Point(362, 9);
             this.lblIgrac2.Name = "lblIgrac2";
-            this.lblIgrac2.Size = new System.Drawing.Size(98, 31);
+            this.lblIgrac2.Size = new System.Drawing.Size(78, 25);
             this.lblIgrac2.TabIndex = 23;
             this.lblIgrac2.Text = "Igrač 2";
             // 
@@ -144,10 +138,9 @@
             // 
             this.pbxAvion.BackgroundImage = global::potapanjePodmornica.Properties.Resources.avion1;
             this.pbxAvion.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbxAvion.Location = new System.Drawing.Point(475, 443);
-            this.pbxAvion.Margin = new System.Windows.Forms.Padding(4);
+            this.pbxAvion.Location = new System.Drawing.Point(356, 360);
             this.pbxAvion.Name = "pbxAvion";
-            this.pbxAvion.Size = new System.Drawing.Size(89, 62);
+            this.pbxAvion.Size = new System.Drawing.Size(67, 50);
             this.pbxAvion.TabIndex = 24;
             this.pbxAvion.TabStop = false;
             // 
@@ -155,10 +148,9 @@
             // 
             this.pbx3a.BackgroundImage = global::potapanjePodmornica.Properties.Resources.velicina3;
             this.pbx3a.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbx3a.Location = new System.Drawing.Point(733, 89);
-            this.pbx3a.Margin = new System.Windows.Forms.Padding(4);
+            this.pbx3a.Location = new System.Drawing.Point(550, 72);
             this.pbx3a.Name = "pbx3a";
-            this.pbx3a.Size = new System.Drawing.Size(133, 62);
+            this.pbx3a.Size = new System.Drawing.Size(100, 50);
             this.pbx3a.TabIndex = 20;
             this.pbx3a.TabStop = false;
             this.pbx3a.Paint += new System.Windows.Forms.PaintEventHandler(this.pbx3a_Paint);
@@ -171,10 +163,9 @@
             // 
             this.pbx2c.BackgroundImage = global::potapanjePodmornica.Properties.Resources.velicina2;
             this.pbx2c.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbx2c.Location = new System.Drawing.Point(901, 393);
-            this.pbx2c.Margin = new System.Windows.Forms.Padding(4);
+            this.pbx2c.Location = new System.Drawing.Point(676, 319);
             this.pbx2c.Name = "pbx2c";
-            this.pbx2c.Size = new System.Drawing.Size(133, 62);
+            this.pbx2c.Size = new System.Drawing.Size(100, 50);
             this.pbx2c.TabIndex = 19;
             this.pbx2c.TabStop = false;
             this.pbx2c.Paint += new System.Windows.Forms.PaintEventHandler(this.pbx2c_Paint);
@@ -187,10 +178,9 @@
             // 
             this.pbx2b.BackgroundImage = global::potapanjePodmornica.Properties.Resources.velicina2;
             this.pbx2b.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbx2b.Location = new System.Drawing.Point(901, 286);
-            this.pbx2b.Margin = new System.Windows.Forms.Padding(4);
+            this.pbx2b.Location = new System.Drawing.Point(676, 232);
             this.pbx2b.Name = "pbx2b";
-            this.pbx2b.Size = new System.Drawing.Size(133, 62);
+            this.pbx2b.Size = new System.Drawing.Size(100, 50);
             this.pbx2b.TabIndex = 18;
             this.pbx2b.TabStop = false;
             this.pbx2b.Paint += new System.Windows.Forms.PaintEventHandler(this.pbx2b_Paint);
@@ -203,10 +193,9 @@
             // 
             this.pbx1b.BackgroundImage = global::potapanjePodmornica.Properties.Resources.velicina1;
             this.pbx1b.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbx1b.Location = new System.Drawing.Point(808, 393);
-            this.pbx1b.Margin = new System.Windows.Forms.Padding(4);
+            this.pbx1b.Location = new System.Drawing.Point(606, 319);
             this.pbx1b.Name = "pbx1b";
-            this.pbx1b.Size = new System.Drawing.Size(59, 47);
+            this.pbx1b.Size = new System.Drawing.Size(44, 38);
             this.pbx1b.TabIndex = 17;
             this.pbx1b.TabStop = false;
             this.pbx1b.Paint += new System.Windows.Forms.PaintEventHandler(this.pbx1b_Paint);
@@ -219,10 +208,9 @@
             // 
             this.pbx1d.BackgroundImage = global::potapanjePodmornica.Properties.Resources.velicina1;
             this.pbx1d.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbx1d.Location = new System.Drawing.Point(808, 188);
-            this.pbx1d.Margin = new System.Windows.Forms.Padding(4);
+            this.pbx1d.Location = new System.Drawing.Point(606, 153);
             this.pbx1d.Name = "pbx1d";
-            this.pbx1d.Size = new System.Drawing.Size(59, 47);
+            this.pbx1d.Size = new System.Drawing.Size(44, 38);
             this.pbx1d.TabIndex = 16;
             this.pbx1d.TabStop = false;
             this.pbx1d.Paint += new System.Windows.Forms.PaintEventHandler(this.pbx1d_Paint);
@@ -235,10 +223,9 @@
             // 
             this.pbx1c.BackgroundImage = global::potapanjePodmornica.Properties.Resources.velicina1;
             this.pbx1c.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbx1c.Location = new System.Drawing.Point(733, 188);
-            this.pbx1c.Margin = new System.Windows.Forms.Padding(4);
+            this.pbx1c.Location = new System.Drawing.Point(550, 153);
             this.pbx1c.Name = "pbx1c";
-            this.pbx1c.Size = new System.Drawing.Size(59, 47);
+            this.pbx1c.Size = new System.Drawing.Size(44, 38);
             this.pbx1c.TabIndex = 15;
             this.pbx1c.TabStop = false;
             this.pbx1c.Paint += new System.Windows.Forms.PaintEventHandler(this.pbx1c_Paint);
@@ -251,10 +238,9 @@
             // 
             this.pbx1a.BackgroundImage = global::potapanjePodmornica.Properties.Resources.velicina1;
             this.pbx1a.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbx1a.Location = new System.Drawing.Point(695, 393);
-            this.pbx1a.Margin = new System.Windows.Forms.Padding(4);
+            this.pbx1a.Location = new System.Drawing.Point(521, 319);
             this.pbx1a.Name = "pbx1a";
-            this.pbx1a.Size = new System.Drawing.Size(59, 47);
+            this.pbx1a.Size = new System.Drawing.Size(44, 38);
             this.pbx1a.TabIndex = 14;
             this.pbx1a.TabStop = false;
             this.pbx1a.Paint += new System.Windows.Forms.PaintEventHandler(this.pbx1a_Paint);
@@ -267,10 +253,9 @@
             // 
             this.pbx2a.BackgroundImage = global::potapanjePodmornica.Properties.Resources.velicina2;
             this.pbx2a.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbx2a.Location = new System.Drawing.Point(901, 188);
-            this.pbx2a.Margin = new System.Windows.Forms.Padding(4);
+            this.pbx2a.Location = new System.Drawing.Point(676, 153);
             this.pbx2a.Name = "pbx2a";
-            this.pbx2a.Size = new System.Drawing.Size(133, 62);
+            this.pbx2a.Size = new System.Drawing.Size(100, 50);
             this.pbx2a.TabIndex = 10;
             this.pbx2a.TabStop = false;
             this.pbx2a.Paint += new System.Windows.Forms.PaintEventHandler(this.pbx2a_Paint);
@@ -283,10 +268,9 @@
             // 
             this.pbx3b.BackgroundImage = global::potapanjePodmornica.Properties.Resources.velicina3;
             this.pbx3b.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbx3b.Location = new System.Drawing.Point(901, 89);
-            this.pbx3b.Margin = new System.Windows.Forms.Padding(4);
+            this.pbx3b.Location = new System.Drawing.Point(676, 72);
             this.pbx3b.Name = "pbx3b";
-            this.pbx3b.Size = new System.Drawing.Size(133, 62);
+            this.pbx3b.Size = new System.Drawing.Size(100, 50);
             this.pbx3b.TabIndex = 7;
             this.pbx3b.TabStop = false;
             this.pbx3b.Paint += new System.Windows.Forms.PaintEventHandler(this.pbx3b_Paint);
@@ -299,10 +283,9 @@
             // 
             this.pbx4a.BackgroundImage = global::potapanjePodmornica.Properties.Resources.velicina4;
             this.pbx4a.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbx4a.Location = new System.Drawing.Point(695, 284);
-            this.pbx4a.Margin = new System.Windows.Forms.Padding(4);
+            this.pbx4a.Location = new System.Drawing.Point(521, 231);
             this.pbx4a.Name = "pbx4a";
-            this.pbx4a.Size = new System.Drawing.Size(172, 63);
+            this.pbx4a.Size = new System.Drawing.Size(129, 51);
             this.pbx4a.TabIndex = 5;
             this.pbx4a.TabStop = false;
             this.pbx4a.Paint += new System.Windows.Forms.PaintEventHandler(this.pbx4a_Paint);
@@ -314,10 +297,9 @@
             // pbxProtivnik
             // 
             this.pbxProtivnik.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.pbxProtivnik.Location = new System.Drawing.Point(555, 62);
-            this.pbxProtivnik.Margin = new System.Windows.Forms.Padding(4);
+            this.pbxProtivnik.Location = new System.Drawing.Point(416, 50);
             this.pbxProtivnik.Name = "pbxProtivnik";
-            this.pbxProtivnik.Size = new System.Drawing.Size(480, 443);
+            this.pbxProtivnik.Size = new System.Drawing.Size(360, 360);
             this.pbxProtivnik.TabIndex = 2;
             this.pbxProtivnik.TabStop = false;
             this.pbxProtivnik.Paint += new System.Windows.Forms.PaintEventHandler(this.pbxProtivnik_Paint);
@@ -326,10 +308,9 @@
             // pbxJa
             // 
             this.pbxJa.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.pbxJa.Location = new System.Drawing.Point(16, 62);
-            this.pbxJa.Margin = new System.Windows.Forms.Padding(4);
+            this.pbxJa.Location = new System.Drawing.Point(12, 50);
             this.pbxJa.Name = "pbxJa";
-            this.pbxJa.Size = new System.Drawing.Size(480, 443);
+            this.pbxJa.Size = new System.Drawing.Size(360, 360);
             this.pbxJa.TabIndex = 1;
             this.pbxJa.TabStop = false;
             this.pbxJa.Paint += new System.Windows.Forms.PaintEventHandler(this.pbxJa_Paint);
@@ -339,18 +320,16 @@
             this.lblIspisPobednik.AutoSize = true;
             this.lblIspisPobednik.Font = new System.Drawing.Font("Georgia", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIspisPobednik.ForeColor = System.Drawing.Color.Black;
-            this.lblIspisPobednik.Location = new System.Drawing.Point(500, 188);
-            this.lblIspisPobednik.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblIspisPobednik.Location = new System.Drawing.Point(375, 153);
             this.lblIspisPobednik.Name = "lblIspisPobednik";
-            this.lblIspisPobednik.Size = new System.Drawing.Size(0, 39);
+            this.lblIspisPobednik.Size = new System.Drawing.Size(0, 31);
             this.lblIspisPobednik.TabIndex = 25;
             // 
             // btnIzlaz
             // 
-            this.btnIzlaz.Location = new System.Drawing.Point(555, 234);
-            this.btnIzlaz.Margin = new System.Windows.Forms.Padding(4);
+            this.btnIzlaz.Location = new System.Drawing.Point(416, 190);
             this.btnIzlaz.Name = "btnIzlaz";
-            this.btnIzlaz.Size = new System.Drawing.Size(100, 28);
+            this.btnIzlaz.Size = new System.Drawing.Size(75, 23);
             this.btnIzlaz.TabIndex = 26;
             this.btnIzlaz.Text = "IZLAZ";
             this.btnIzlaz.UseVisualStyleBackColor = true;
@@ -359,10 +338,9 @@
             // btnIgrajOpet
             // 
             this.btnIgrajOpet.Font = new System.Drawing.Font("Georgia", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIgrajOpet.Location = new System.Drawing.Point(397, 234);
-            this.btnIgrajOpet.Margin = new System.Windows.Forms.Padding(4);
+            this.btnIgrajOpet.Location = new System.Drawing.Point(298, 190);
             this.btnIgrajOpet.Name = "btnIgrajOpet";
-            this.btnIgrajOpet.Size = new System.Drawing.Size(123, 28);
+            this.btnIgrajOpet.Size = new System.Drawing.Size(92, 23);
             this.btnIgrajOpet.TabIndex = 27;
             this.btnIgrajOpet.Text = "IGRAJ OPET";
             this.btnIgrajOpet.UseVisualStyleBackColor = true;
@@ -378,10 +356,9 @@
             this.lblSledeci.AutoSize = true;
             this.lblSledeci.Font = new System.Drawing.Font("Georgia", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSledeci.ForeColor = System.Drawing.Color.Black;
-            this.lblSledeci.Location = new System.Drawing.Point(440, 241);
-            this.lblSledeci.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSledeci.Location = new System.Drawing.Point(330, 196);
             this.lblSledeci.Name = "lblSledeci";
-            this.lblSledeci.Size = new System.Drawing.Size(204, 39);
+            this.lblSledeci.Size = new System.Drawing.Size(165, 31);
             this.lblSledeci.TabIndex = 28;
             this.lblSledeci.Text = "Sledeci igrac";
             // 
@@ -392,11 +369,11 @@
             // 
             // frmPotop
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::potapanjePodmornica.Properties.Resources.pozadina;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.lblSledeci);
             this.Controls.Add(this.lblIspisPobednik);
             this.Controls.Add(this.btnIgrajOpet);
@@ -420,7 +397,6 @@
             this.Controls.Add(this.pbxProtivnik);
             this.Controls.Add(this.pbxJa);
             this.Controls.Add(this.btnStartProg);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmPotop";
             this.Text = "Potapanje podmornica";
             this.Load += new System.EventHandler(this.frmPotop_Load);

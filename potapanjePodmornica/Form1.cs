@@ -625,22 +625,27 @@ namespace potapanjePodmornica
             btnHelp.Top = (int)(0.85 * this.Height);
             btnHelp.Width = (int)(0.12 * this.Width);
             btnHelp.Height = (int)(0.063 * this.Height);
+            btnHelp.Font = new Font("Georgia", (int)(btnHelp.Width * 0.09));
             //btnSpreman
             btnSpreman.Left = (int)(0.29 * this.Width);
             btnSpreman.Top = (int)(0.85 * this.Height);
             btnSpreman.Width = (int)(0.12 * this.Width);
             btnSpreman.Height = (int)(0.063 * this.Height);
+            btnSpreman.Font = new Font("Georgia", (int)(btnSpreman.Width * 0.09));
             //btnObrisi
             btnRestartPozicije.Left = (int)(0.51 * this.Width);
             btnRestartPozicije.Top = (int)(0.85 * this.Height);
-            btnRestartPozicije.Width = (int)(0.12 * this.Width);
+            btnRestartPozicije.Width = (int)(0.18 * this.Width);
             btnRestartPozicije.Height = (int)(0.063 * this.Height);
+            btnRestartPozicije.Font = new Font("Georgia", (int)(btnRestartPozicije.Width * 0.075));
             //lblIgrac1
             lblIgrac1.Left = this.Width / 2 - lblIgrac1.Width / 2;
             lblIgrac1.Top = (int)(0.02 * this.Height);
+            lblIgrac1.Font = new Font("Georgia", (int)(btnHelp.Width * 0.14));
             //lblIgrac2
             lblIgrac2.Left = this.Width / 2 - lblIgrac2.Width / 2;
             lblIgrac2.Top = (int)(0.02 * this.Height);
+            lblIgrac2.Font = new Font("Georgia", (int)(btnHelp.Width * 0.14));
             //lblSledeci
             lblSledeci.Left = this.Width / 2 - lblSledeci.Width / 2;
             lblSledeci.Top = this.Height / 2 - lblSledeci.Height / 2;
@@ -652,16 +657,19 @@ namespace potapanjePodmornica
             btnStartProg.Top = (int)(0.39 * this.Height);
             btnStartProg.Width = (int)(0.13 * this.Width);
             btnStartProg.Height = (int)(0.1 * this.Height);
+            btnStartProg.Font = new Font("Georgia", (int)(btnStartProg.Width * 0.15));
             //btnOpet
             btnIgrajOpet.Left = (int)(0.37 * this.Width);
             btnIgrajOpet.Top = (int)(0.39 * this.Height);
             btnIgrajOpet.Width = (int)(0.11 * this.Width);
             btnIgrajOpet.Height = (int)(0.05 * this.Height);
+            btnIgrajOpet.Font = new Font("Georgia", (int)(btnIgrajOpet.Width * 0.09));
             //btnIzlaz
             btnIzlaz.Left = (int)(0.51 * this.Width);
             btnIzlaz.Top = (int)(0.39 * this.Height);
             btnIzlaz.Width = (int)(0.11 * this.Width);
             btnIzlaz.Height = (int)(0.05 * this.Height);
+            btnIzlaz.Font = new Font("Georgia", (int)(btnIzlaz.Width * 0.09));
             //avion
             pbxAvion.Top = sirinaPolja * 5 + pbxProtivnik.Top;
             pbxAvion.Left = pbxProtivnik.Left - pbxAvion.Width;
