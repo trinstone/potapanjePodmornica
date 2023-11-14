@@ -27,7 +27,6 @@ namespace potapanjePodmornica
         int brSek;//prelaz sa jednog na drugog igraca
         int pozX;//koriste se za pomeranje brodova misem
         int pozY;
-        int x, y;//pozicija polja koje se trenutno gadja
         public frmPotop()
         {
             InitializeComponent();
@@ -753,6 +752,7 @@ namespace potapanjePodmornica
         private void PostaviBrod(PictureBox brod, int broj)
         {
             pomeranjeBroda = false;
+            //brisanje broda sa prethodnih pozicija
             for (int i = 0; i < 10; i++)
             {
                 for (int j = 0; j < 10; j++)
@@ -761,6 +761,7 @@ namespace potapanjePodmornica
                     else if (!prviNaPotezu && tablaDrugog[i, j].Item2 == naziviBrodova[broj]) tablaDrugog[i, j] = (0, null);
                 }
             }
+            //provera da li je brod unesen u tablu i ako nije vraca se na pocetnu poziciju
             if (brod.Right <= pbxJa.Left + sirinaPolja || brod.Left >= pbxJa.Right || brod.Top >= pbxJa.Bottom || brod.Bottom <= pbxJa.Top + sirinaPolja)
             {
                 brod.Left = pozicijeBrodovaZaPostavljanje[broj].Item1;
@@ -775,6 +776,7 @@ namespace potapanjePodmornica
                 }
                 return;
             }
+            //odredjivanja lokacije na koju treba da se postavi
             int x = 9, y = 9;
             for (int i = 1; i <= 9; i++)
             {
@@ -793,6 +795,7 @@ namespace potapanjePodmornica
                 }
             }
             int duzina = int.Parse(naziviBrodova[broj][0].ToString());
+            //ako moze da se postavi tu postavlja se, a ako ne moze vraca se na pocetnu poziciju
             if (MozeDaSePostaviBrod(x, y, duzina, prviNaPotezu ? pozicijeBrodovaPrvog[broj].Item3 : pozicijeBrodovaDrugog[broj].Item3, prviNaPotezu ? tablaPrvog : tablaDrugog, naziviBrodova[broj])) 
             {
                 brod.Left = pbxJa.Left + (x + 1) * sirinaPolja + 2;
@@ -848,6 +851,7 @@ namespace potapanjePodmornica
         }
         private void RotirajBrod(PictureBox brod, int broj)
         {
+            //ako se ne nalazi na pocenoj poziciji i moze da se postavi rotiran, brod se rotira
             if (brod.Left != pozicijeBrodovaZaPostavljanje[broj].Item1)
             {
                 int x = (brod.Left - pbxJa.Left) / sirinaPolja - 1;
@@ -865,6 +869,7 @@ namespace potapanjePodmornica
         }
         private void IscrtajNaBrodu(PaintEventArgs e, int broj, (int, string)[,] tabla)
         {
+            //pronalazak gde se nalazi brod
             int x = 0, y = 0;
             bool kraj = false;
             for (int i = 0; i < 10 && !kraj; i++)
@@ -883,6 +888,7 @@ namespace potapanjePodmornica
             bool horizontalno;
             if (prviNaPotezu) horizontalno = pozicijeBrodovaPrvog[broj].Item3;
             else horizontalno = pozicijeBrodovaDrugog[broj].Item3;
+            //iscrtavanje oznaka na njemu ako je pogodjen
             if (horizontalno)
             {
                 for (int k = 0; k < duzina; k++)
@@ -1153,7 +1159,9 @@ namespace potapanjePodmornica
         {
             Stopwatch timer = new Stopwatch();
             timer.Start();
+            //saceka 1 sekundu da bi igrac stigao da vidi rezultat svog gadjanja
             if(!pocinjeIgra) while (timer.Elapsed.Seconds < 1) ;
+            //menja se igrac koji je na potezu i sve nestaje i ostaje da se vidi samo ko sledeci igra i natpis sledeci igrac
             prviNaPotezu = !prviNaPotezu;
             lblIgrac1.Enabled = prviNaPotezu;
             lblIgrac1.Visible = prviNaPotezu;
@@ -1183,14 +1191,17 @@ namespace potapanjePodmornica
         private void pbxProtivnik_MouseClick(object sender, MouseEventArgs e)
         {
             sledeci = true;
-            x = e.X / sirinaPolja - 1;
-            y = e.Y / sirinaPolja - 1;
+            //nalaze se koordinate polja koje je igrac kliknuo
+            int x = e.X / sirinaPolja - 1;
+            int y = e.Y / sirinaPolja - 1;
             if (x < 0 || y < 0 || x > 9 || y > 9) return;
             if (!prviNaPotezu)
             {
+                //ako je kliknuo na polje koje je vec gadjao nista se ne desava
                 if (tablaPrvog[y, x].Item1 % 2 == 0)
                 {
                     tablaPrvog[y, x].Item1++;
+                    //ako je pogodjen brod nalazi koji je u pitanju i proverava da li je time potopljen ceo
                     if (tablaPrvog[y, x].Item1 == 3)
                     {
                         int broj = tablaPrvog[y, x].Item2[1] - 96;
@@ -1209,9 +1220,11 @@ namespace potapanjePodmornica
             }
             else
             {
+                //ako je kliknuo na polje koje je vec gadjao nista se ne desava
                 if (tablaDrugog[y, x].Item1 % 2 == 0)
                 {
                     tablaDrugog[y, x].Item1++;
+                    //ako je pogodjen brod nalazi koji je u pitanju i proverava da li je time potopljen ceo
                     if (tablaDrugog[y, x].Item1 == 3)
                     {
                         int broj = tablaDrugog[y, x].Item2[1] - 96;
@@ -1228,6 +1241,7 @@ namespace potapanjePodmornica
                 }
                 else return;
             }
+            //ako je kraj igre ispisuje se pobednik i opcije za igraj ponovo i izlaz
             if (KrajIgre(prviNaPotezu ? tablaDrugog : tablaPrvog))
             {
                 lblIspisPobednik.Visible = true;
@@ -1247,6 +1261,7 @@ namespace potapanjePodmornica
 
         private void btnIgrajOpet_Click(object sender, EventArgs e)
         {
+            //sve se vraca na pocetak
             namestanjeBrodova = true;
             for (int i = 0; i < 10; i++)
             {
@@ -1272,6 +1287,7 @@ namespace potapanjePodmornica
         private void tajmer_Tick_1(object sender, EventArgs e)
         {
             brSek++;
+            //saceka 3 sekunde da bi igraci mogli da se zamene i nastavlja igru
             if (brSek >= 3)
             {
                 for (int i = 0; i < 10; i++)
