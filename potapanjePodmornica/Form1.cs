@@ -25,24 +25,26 @@ namespace potapanjePodmornica
         bool namestanjeBrodova = false;//unos brodova oba igraca
         bool sledeci;//ako je brod pogodjen, trenutni igrac ostaje na potezu
         int brSek;//prelaz sa jednog na drugog igraca
-        int pozX;
+        int pozX;//koriste se za pomeranje brodova misem
         int pozY;
         public frmPotop()
         {
             InitializeComponent();
         }
-        //0 - prazno, 1 - pogodjeno prazno, 2 - brod, 3 - pogodjen brod, 5 - pogodjen ceo brod?
-        //imena brodova: 1a,1b,1c,1d,2a,2b,2c,3a,3b,4a
+        //0 - prazno, 1 - pogodjeno prazno, 2 - brod, 3 - pogodjen brod, 5 - pogodjen ceo brod
+        //svi brodovi su za 4 manji od velicine polja koja zauzimaju i nalaze se u sredini odnosno ima po 2 sa svih strana
         private bool MozeDaSePostaviBrod(int x, int y, int duzina, bool horizontalno, (int, string)[,] tabela, string ime)
         {
             if (horizontalno)
             {
                 int krajX = x + duzina - 1;
                 if (krajX > 9) return false;
+                //provera da li su ta polja prazna
                 for (int i = x; i <= krajX; i++)
                 {
                     if (tabela[y, i].Item2 != ime && tabela[y, i].Item1 != 0) return false;
                 }
+                //provera za red iznad
                 if (y != 0)
                 {
                     for (int i = x; i <= krajX; i++)
@@ -50,6 +52,7 @@ namespace potapanjePodmornica
                         if (tabela[y - 1, i].Item2 != ime && tabela[y - 1, i].Item1 != 0) return false;
                     }
                 }
+                //provera za red ispod
                 if (y != 9)
                 {
                     for (int i = x; i <= krajX; i++)
@@ -57,7 +60,7 @@ namespace potapanjePodmornica
                         if (tabela[y + 1, i].Item2 != ime && tabela[y + 1, i].Item1 != 0) return false;
                     }
                 }
-                //provera da li su prazna mesta do krajeva broda i dijagonalno od krajeva broda
+                //provere za mesta levo, desno i dijagonalno
                 if (x != 0 && tabela[y, x - 1].Item2 != ime && tabela[y, x - 1].Item1 != 0) return false;
                 if (krajX != 9 && tabela[y, krajX + 1].Item2 != ime && tabela[y, krajX + 1].Item1 != 0) return false;
                 if (x != 0 && y != 0 && tabela[y - 1, x - 1].Item2 != ime && tabela[y - 1, x - 1].Item1 != 0) return false;
@@ -71,10 +74,12 @@ namespace potapanjePodmornica
             {
                 int krajY = y + duzina - 1;
                 if (krajY > 9) return false;
+                //provera da li su ta polja prazna
                 for (int i = y; i <= krajY; i++)
                 {
                     if (tabela[i, x].Item2 != ime && tabela[i, x].Item1 != 0) return false;
                 }
+                //provera za red levo
                 if (x != 0)
                 {
                     for (int i = y; i <= krajY; i++)
@@ -82,6 +87,7 @@ namespace potapanjePodmornica
                         if (tabela[i, x - 1].Item2 != ime && tabela[i, x - 1].Item1 != 0) return false;
                     }
                 }
+                //provera za red desno
                 if (x != 9)
                 {
                     for (int i = y; i <= krajY; i++)
@@ -89,7 +95,7 @@ namespace potapanjePodmornica
                         if (tabela[i, x + 1].Item2 != ime && tabela[i, x + 1].Item1 != 0) return false;
                     }
                 }
-                //provera da li su prazna mesta do krajeva broda i dijagonalno od krajeva broda
+                //provere za mesta iznad, ispod i dijagonalno
                 if (y != 0 && tabela[y - 1, x].Item2 != ime && tabela[y - 1, x].Item1 != 0) return false;
                 if (krajY != 9 && tabela[krajY + 1, x].Item2 != ime && tabela[krajY + 1, x].Item1 != 0) return false;
                 if (y != 0 && x != 0 && tabela[y - 1, x - 1].Item2 != ime && tabela[y - 1, x - 1].Item1 != 0) return false;
@@ -124,10 +130,12 @@ namespace potapanjePodmornica
                 }
                 if (nadjeno)
                 {
+                    //ceo brod postaje oznacen kao potopljen
                     for (int k = 0; k < duzina; k++)
                     {
                         tabla[y, x + k].Item1 = 5;
                     }
+                    //sva polja oko njega postaju srafirana jer na njima sigurno ne moze da se nalazi brod
                     if (y != 0)
                     {
                         for (int k = 0; k < duzina; k++)
@@ -158,10 +166,12 @@ namespace potapanjePodmornica
                 }
                 if (nadjeno)
                 {
+                    //ceo brod postaje oznacen kao potopljen
                     for (int k = 0; k < duzina; k++)
                     {
                         tabla[y + k, x].Item1 = 5;
                     }
+                    //sva polja oko njega postaju srafirana jer na njima sigurno ne moze da se nalazi brod
                     if (x != 0)
                     {
                         for (int k = 0; k < duzina; k++)
@@ -185,6 +195,7 @@ namespace potapanjePodmornica
                 }
             }
         }
+        //provera da li je doslo do zavrsetka igre tj da li je svaki brod potopljen
         private bool KrajIgre((int, string)[,] tabla)
         {
             for (int i = 0; i < 10; i++)
@@ -343,6 +354,7 @@ namespace potapanjePodmornica
                     PictureBox a = (PictureBox)this.Controls.Find("pbx" + naziviBrodova[i], true)[0];
                     a.Left = pozicijeBrodovaZaPostavljanje[i].Item1;
                     a.Top = pozicijeBrodovaZaPostavljanje[i].Item2;
+                    //ako je brod vertikalan treba da se rotira i postane horzontalan
                     if ((prviNaPotezu && !pozicijeBrodovaPrvog[i].Item3) || (!prviNaPotezu && !pozicijeBrodovaDrugog[i].Item3)) 
                     {
                         a.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipXY);
@@ -360,13 +372,15 @@ namespace potapanjePodmornica
                         PictureBox a = (PictureBox)this.Controls.Find("pbx" + naziviBrodova[i], true)[0];
                         a.Left = pozicijeBrodovaPrvog[i].Item1;
                         a.Top = pozicijeBrodovaPrvog[i].Item2;
+                        //ako je brod horizontalan i treba da se rotira da postane vertikalan
                         if (pozicijeBrodovaDrugog[i].Item3 && !pozicijeBrodovaPrvog[i].Item3)
                         {
                             a.BackgroundImage.RotateFlip(RotateFlipType.Rotate90FlipXY);
                             a.Refresh();
                             (a.Height, a.Width) = (a.Width, a.Height);
                         }
-                        else if(!pozicijeBrodovaDrugog[i].Item3 && pozicijeBrodovaPrvog[i].Item3)
+                        //ako je brod vertikalan i treba da se rotira da postane horzontalan
+                        else if (!pozicijeBrodovaDrugog[i].Item3 && pozicijeBrodovaPrvog[i].Item3)
                         {
                             a.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipXY);
                             a.Refresh();
@@ -381,12 +395,14 @@ namespace potapanjePodmornica
                         PictureBox a = (PictureBox)this.Controls.Find("pbx" + naziviBrodova[i], true)[0];
                         a.Left = pozicijeBrodovaDrugog[i].Item1;
                         a.Top = pozicijeBrodovaDrugog[i].Item2;
+                        //ako je brod vertikalan i treba da se rotira da postane horzontalan
                         if (pozicijeBrodovaDrugog[i].Item3 && !pozicijeBrodovaPrvog[i].Item3)
                         {
                             a.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipXY);
                             a.Refresh();
                             (a.Height, a.Width) = (a.Width, a.Height);
                         }
+                        //ako je brod horizontalan i treba da se rotira da postane vertikalan
                         else if (!pozicijeBrodovaDrugog[i].Item3 && pozicijeBrodovaPrvog[i].Item3)
                         {
                             a.BackgroundImage.RotateFlip(RotateFlipType.Rotate90FlipXY);
@@ -398,7 +414,8 @@ namespace potapanjePodmornica
             }
         }
         private void KretanjeAviona(int y)
-        {
+        {  
+            //postavljanje aviona levo od table na visinu pogodjenog polja
             pbxAvion.Top = sirinaPolja * (1 + y) + pbxProtivnik.Top + 2;
             pbxAvion.Left = pbxProtivnik.Left - pbxAvion.Width;
             pbxAvion.Visible = true;
@@ -439,7 +456,6 @@ namespace potapanjePodmornica
 
         private void btnIzlaz_Click(object sender, EventArgs e)
         {
-            //System.Windows.Forms.Application.Exit();
             this.Close();
         }
 
@@ -447,7 +463,6 @@ namespace potapanjePodmornica
         {
             VelicinaLokacijaSvega();
             this.Refresh();
-            //UpisiPocetnePozicije();
         }
 
         private void tajmer_Tick(object sender, EventArgs e)
@@ -477,6 +492,7 @@ namespace potapanjePodmornica
         }
         private void VelicinaLokacijaSvega()
         {
+            //lokacija tabele i sirina pozicija pre promene velicine koje se koriste za odredjivanje pozicija brodova
             int stariX = pbxJa.Left, stariY = pbxJa.Top, staraSirina = sirinaPolja;
             //jaTabla
             pbxJa.Left = (int)(0.01 * this.Width);
@@ -676,19 +692,22 @@ namespace potapanjePodmornica
             int x1, y1;
             if (prviNaPotezu)
             {
-                if (pozicijeBrodovaPrvog[broj].Item1 == 0)
+                if (pozicijeBrodovaPrvog[broj].Item1 == 0)//ako se nalazio na pocetnoj poziciji
                 {
                     brod.Left = pozicijeBrodovaZaPostavljanje[broj].Item1;
                     brod.Top = pozicijeBrodovaZaPostavljanje[broj].Item2;
                 }
                 else
                 {
+                    //pozicija na kojoj se brod nalazio pre promene velicine
                     x1 = (pozicijeBrodovaPrvog[broj].Item1 - x) / staraSirina;
                     y1 = (pozicijeBrodovaPrvog[broj].Item2 - y) / staraSirina;
+                    //nova pozicija
                     pozicijeBrodovaPrvog[broj].Item1 = pbxJa.Left + x1 * sirinaPolja + 2;
                     pozicijeBrodovaPrvog[broj].Item2 = pbxJa.Top + y1 * sirinaPolja + 2;
                     brod.Left = pozicijeBrodovaPrvog[broj].Item1;
                     brod.Top = pozicijeBrodovaPrvog[broj].Item2;
+                    //ako se brod drugog igraca nije nalazio na pocetnoj poziciji pamcenje nove pozicije na kojoj ce se nalaziti
                     if (pozicijeBrodovaDrugog[broj].Item1 != 0)
                     {
                         x1 = (pozicijeBrodovaDrugog[broj].Item1 - x) / staraSirina;
@@ -700,20 +719,23 @@ namespace potapanjePodmornica
             }
             else
             {
-                if (pozicijeBrodovaDrugog[broj].Item1 == 0)
+                if (pozicijeBrodovaDrugog[broj].Item1 == 0)//ako se nalazio na pocetnoj poziciji
                 {
                     brod.Left = pozicijeBrodovaZaPostavljanje[broj].Item1;
                     brod.Top = pozicijeBrodovaZaPostavljanje[broj].Item2;
                 }
                 else
                 {
+                    //pozicija na kojoj se brod nalazio pre promene velicine
                     x1 = (pozicijeBrodovaDrugog[broj].Item1 - x) / staraSirina;
                     y1 = (pozicijeBrodovaDrugog[broj].Item2 - y) / staraSirina;
+                    //nova pozicija
                     brod.Left = pbxJa.Left + x1 * sirinaPolja + 2;
                     brod.Top = pbxJa.Top + y1 * sirinaPolja + 2;
                     pozicijeBrodovaDrugog[broj].Item1 = brod.Left;
                     pozicijeBrodovaDrugog[broj].Item2 = brod.Top;
                 }
+                //pamcenje nove pozicije na kojoj ce se nalaziti brod prvog igraca
                 x1 = (pozicijeBrodovaPrvog[broj].Item1 - x) / staraSirina;
                 y1 = (pozicijeBrodovaPrvog[broj].Item2 - y) / staraSirina;
                 pozicijeBrodovaPrvog[broj].Item1 = pbxJa.Left + x1 * sirinaPolja + 2;
