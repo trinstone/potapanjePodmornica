@@ -253,6 +253,8 @@ namespace potapanjePodmornica
             btnIzlaz.Visible = false;
             lblSledeci.Enabled = false;
             lblSledeci.Visible = false;
+            pbxHelp.Enabled = false;
+            pbxHelp.Visible = false;
         }
         private void btnStartProg_Click(object sender, EventArgs e)
         {
@@ -488,7 +490,8 @@ namespace potapanjePodmornica
 
         private void btnHelp_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Igra se na tabli veličine 10x10. Kolone su označene slovima abecede A-J, dok su vrste označene brojevima 1-10. Pre nego što počne igra, svaki igrač postavi brodove na svojoj tabli. Postoje četiri broda duzine 1, tri broda duzine 2, dva broda duzine 3 i jedan brod duzine 4. Brodovi se postavljaju tako sto se mišem prevuku na tablu i tako da se nijedna dva ne dodiruju ni dijagonalno. Svaki od njih može biti postavljen horizontalno ili vertikalno. Brodovi se rotiraju tako što se postave na tablu i onda dvokliknu i tada se rotiraju tako da im gornji/levi kraj ostane na istom mestu. Igra kreće kada oba igrača završe sa postavljanjem svojih brodova. Svaki igrač, kada je njegov red, gađa jedno od protivničkih polja tako što klikne na jedno od polja na desnoj tabli. Ako ne pogodi ništa to polje će biti šrafirano plavo, a u suprotnom na njemu će se ispisati crveno X i gađaće opet. U slučaju da je igrač pogodio ceo brod polja na kojima se taj brod nalazio će cela biti obojena u crveno. Igrač na levoj table može da vidi svoje brodove i sva polja koja je protivnik gađao, označena istim simbolima. Igra se završava kada jedan igrač pogodi sve protivnikove brodove i on tada postaje pobednik.", "Pravila");
+            pbxHelp.Enabled = true;
+            pbxHelp.Visible = true;
         }
         private void VelicinaLokacijaSvega()
         {
@@ -686,6 +689,11 @@ namespace potapanjePodmornica
             pbxAvion.Left = pbxProtivnik.Left - pbxAvion.Width;
             pbxAvion.Width = (int)(1.2 * sirinaPolja);
             pbxAvion.Height = sirinaPolja - 4;
+            //pbxHelp
+            pbxHelp.Top = 0;
+            pbxHelp.Left = 0;
+            pbxHelp.Width = (int)(0.71 * this.Width);
+            pbxHelp.Height = (int)(0.84*this.Height);
         }
         private void PromenaVelicineBroda(PictureBox brod, int broj, int x, int y, int staraSirina)
         {
@@ -1286,5 +1294,10 @@ namespace potapanjePodmornica
             }
         }
 
+        private void pbxHelp_Click(object sender, EventArgs e)
+        {
+            pbxHelp.Visible = false;
+            pbxHelp.Enabled = false;
+        }
     }
 }

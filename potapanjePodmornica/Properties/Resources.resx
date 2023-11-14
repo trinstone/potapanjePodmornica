@@ -127,6 +127,9 @@
   <data name="velicina4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\velicina4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pozadina" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pozadina.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="avion1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\avion1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -136,7 +139,7 @@
   <data name="velicina2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\velicina2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pozadina" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pozadina.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="pravila" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pravila.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

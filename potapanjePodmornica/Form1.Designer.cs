@@ -54,6 +54,7 @@
             this.tajmerAviona = new System.Windows.Forms.Timer(this.components);
             this.lblSledeci = new System.Windows.Forms.Label();
             this.tajmer = new System.Windows.Forms.Timer(this.components);
+            this.pbxHelp = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbxAvion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbx3a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbx2c)).BeginInit();
@@ -67,6 +68,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbx4a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxProtivnik)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxJa)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxHelp)).BeginInit();
             this.SuspendLayout();
             // 
             // btnStartProg
@@ -367,6 +369,17 @@
             this.tajmer.Interval = 1000;
             this.tajmer.Tick += new System.EventHandler(this.tajmer_Tick_1);
             // 
+            // pbxHelp
+            // 
+            this.pbxHelp.BackgroundImage = global::potapanjePodmornica.Properties.Resources.pravila;
+            this.pbxHelp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbxHelp.Location = new System.Drawing.Point(12, 9);
+            this.pbxHelp.Name = "pbxHelp";
+            this.pbxHelp.Size = new System.Drawing.Size(582, 411);
+            this.pbxHelp.TabIndex = 29;
+            this.pbxHelp.TabStop = false;
+            this.pbxHelp.Click += new System.EventHandler(this.pbxHelp_Click);
+            // 
             // frmPotop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -374,6 +387,7 @@
             this.BackgroundImage = global::potapanjePodmornica.Properties.Resources.pozadina;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.pbxHelp);
             this.Controls.Add(this.lblSledeci);
             this.Controls.Add(this.lblIspisPobednik);
             this.Controls.Add(this.btnIgrajOpet);
@@ -414,6 +428,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbx4a)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxProtivnik)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxJa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxHelp)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -446,6 +461,7 @@
         private System.Windows.Forms.Timer tajmerAviona;
         private System.Windows.Forms.Label lblSledeci;
         private System.Windows.Forms.Timer tajmer;
+        private System.Windows.Forms.PictureBox pbxHelp;
     }
 }
 
