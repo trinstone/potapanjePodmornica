@@ -27,6 +27,7 @@ namespace potapanjePodmornica
         int brSek;//prelaz sa jednog na drugog igraca
         int pozX;//koriste se za pomeranje brodova misem
         int pozY;
+        int x, y;//pozicija polja koje se trenutno gadja
         public frmPotop()
         {
             InitializeComponent();
@@ -466,7 +467,6 @@ namespace potapanjePodmornica
             VelicinaLokacijaSvega();
             this.Refresh();
         }
-
         private void tajmer_Tick(object sender, EventArgs e)
         {
             if (pbxAvion.Left < pbxProtivnik.Right)
@@ -1183,8 +1183,8 @@ namespace potapanjePodmornica
         private void pbxProtivnik_MouseClick(object sender, MouseEventArgs e)
         {
             sledeci = true;
-            int x = e.X / sirinaPolja - 1;
-            int y = e.Y / sirinaPolja - 1;
+            x = e.X / sirinaPolja - 1;
+            y = e.Y / sirinaPolja - 1;
             if (x < 0 || y < 0 || x > 9 || y > 9) return;
             if (!prviNaPotezu)
             {
