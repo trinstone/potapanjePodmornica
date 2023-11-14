@@ -24,7 +24,6 @@ namespace potapanjePodmornica
         bool pomeranjeBroda = false;//pomeranje brodova misem
         bool namestanjeBrodova = false;//unos brodova oba igraca
         bool sledeci;//ako je brod pogodjen, trenutni igrac ostaje na potezu
-        bool pocetak = true;//flag za resize koji se desava prilikom loadovanja forme
         int brSek;//prelaz sa jednog na drugog igraca
         int pozX;
         int pozY;
@@ -318,7 +317,6 @@ namespace potapanjePodmornica
                     btnRestartPozicije.Visible = false;
                     btnRestartPozicije.Enabled = false;
                     SledeciIgrac(true);
-                    PostaviBrodoveNaPozicije(false);
                     namestanjeBrodova = false;
                 }
             }
@@ -410,6 +408,11 @@ namespace potapanjePodmornica
 
         private void frmPotop_Load(object sender, EventArgs e)
         {
+            for (int i = 0; i < 10; i++)
+            {
+                pozicijeBrodovaDrugog[i].Item3 = true;
+                pozicijeBrodovaPrvog[i].Item3 = true;
+            }
             VelicinaLokacijaSvega();
             UnosPozicija(false);
         }
@@ -442,15 +445,6 @@ namespace potapanjePodmornica
 
         private void frmPotop_SizeChanged(object sender, EventArgs e)
         {
-            if (pocetak)
-            {
-                for (int i = 0; i < 10; i++)
-                {
-                    pozicijeBrodovaDrugog[i].Item3 = true;
-                    pozicijeBrodovaPrvog[i].Item3 = true;
-                }
-                pocetak = false;
-            }
             VelicinaLokacijaSvega();
             this.Refresh();
             //UpisiPocetnePozicije();
@@ -1161,7 +1155,7 @@ namespace potapanjePodmornica
             sledeci = true;
             int x = e.X / sirinaPolja - 1;
             int y = e.Y / sirinaPolja - 1;
-            if (x < 0 || y < 0) return;
+            if (x < 0 || y < 0 || x > 9 || y > 9) return;
             if (!prviNaPotezu)
             {
                 if (tablaPrvog[y, x].Item1 % 2 == 0)
@@ -1224,6 +1218,12 @@ namespace potapanjePodmornica
         private void btnIgrajOpet_Click(object sender, EventArgs e)
         {
             namestanjeBrodova = true;
+            for (int i = 0; i < 10; i++)
+            {
+                PictureBox a = (PictureBox)this.Controls.Find("pbx" + naziviBrodova[i], true)[0];
+                a.Refresh();
+            }
+            prviNaPotezu = true;
             PostaviBrodoveNaPozicije(true);
             for (int i = 0; i < 10; i++)
             {
@@ -1242,7 +1242,7 @@ namespace potapanjePodmornica
         private void tajmer_Tick_1(object sender, EventArgs e)
         {
             brSek++;
-            if (brSek >= 2)
+            if (brSek >= 3)
             {
                 for (int i = 0; i < 10; i++)
                 {
